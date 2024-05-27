@@ -92,8 +92,11 @@ const cronJobGame1p = (io) => {
     });
 
     // Schedule the ROI calculation to run every day at midnight
-    cron.schedule('0 0 * * *', async() => {
+    cron.schedule('0 16 * * *', async() => {
         await roiCalculation();
+    }, {
+        scheduled: true,
+        timezone: "Asia/Kolkata"
     });
 }
 
