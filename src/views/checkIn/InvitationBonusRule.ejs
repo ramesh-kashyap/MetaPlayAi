@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html translate="no" data-dpr="1" style="font-size: 48.24px;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex,nofollow">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <title>Meta AI</title>
+    <link href="/css/checkIn/chunk-vendors.css" rel="stylesheet" />
+    <link href="/css/checkIn/app.css" rel="stylesheet" />
+    <link href="/css/checkIn/chunk.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/images/bitbug_favicon.png" type="image/x-icon">
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #9195a3;
+            padding: 0;
+            margin: 0;
+        }
+
+        .block-click {
+            pointer-events: none;
+        }
+
+        .activity-panel-header.lg3[data-v-30ca6441] {
+            padding: 0 0.58667rem;
+        }
+
+        .activity-panel-header[data-v-30ca6441] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: self-start;
+            -webkit-align-items: self-start;
+            align-items: self-start;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+        }
+
+        .activity-panel-header .header-item[data-v-30ca6441] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            color: #666;
+            width: 1.33333rem;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .van-badge__wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a2[data-v-30ca6441] {
+            background-image: -webkit-linear-gradient(top, #5CA6FF 0%, #A9E5FF 100%);
+            background-image: linear-gradient(180deg, #5CA6FF 0%, #A9E5FF 100%);
+        }
+
+        .activity-panel-header .header-item .bgcontainer[data-v-30ca6441] {
+            width: 1.06667rem;
+            height: 1.06667rem;
+            border-radius: 0.26667rem;
+            padding: 0.13333rem;
+            box-shadow: 0 -0.05333rem 0.16rem #fff inset, 0 0.10667rem 0.21333rem #d0d0ed5c;
+            margin-bottom: 0.29333rem;
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a2[data-v-30ca6441]:after {
+            background-image: url(/images/activityIcon2-65587a73.png);
+        }
+
+        .activity-panel-header .header-item .bgcontainer[data-v-30ca6441]:after {
+            content: "";
+            display: block;
+            width: 0.8rem;
+            height: 0.8rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 0.8rem;
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a3[data-v-30ca6441] {
+            background-image: -webkit-linear-gradient(top, #F87700 0%, #FFCE22 100%);
+            background-image: linear-gradient(180deg, #F87700 0%, #FFCE22 100%);
+        }
+
+        .bgcontainer.a3[data-v-30ca6441]:after {
+            background-image: url(/images/activityIcon3-2aeac4f4.png);
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a4[data-v-30ca6441] {
+            background-image: -webkit-linear-gradient(top, #15CEA2 0%, #B6FFE0 100%);
+            background-image: linear-gradient(180deg, #15CEA2 0%, #B6FFE0 100%);
+        }
+
+        .bgcontainer.a4[data-v-30ca6441]:after {
+            background-image: url(/images/activityIcon4-4b3e3dac.png);
+        }
+
+        .activity-panel-content[data-v-30ca6441] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-top: 0.26667rem;
+        }
+
+        .activity-panel-content .content-title[data-v-30ca6441] {
+            width: calc((100% - 0.74rem)/2);
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+            background: #fff;
+            border-radius: 0.13333rem;
+            padding-bottom: 0.26667rem;
+            box-shadow: drop-shadow(0 .05333rem .05333rem rgba(208, 208, 237, .36));
+            padding-right: 13px;
+            margin-left: 14px;
+        }
+
+        .activity-panel-content .content-title .content-para[data-v-30ca6441] {
+            color: #151515;
+            font-weight: 700;
+            padding: 0.13333rem 0.26667rem;
+            font-size: .37333rem;
+        }
+
+        .activity-panel-content .content-title p[data-v-30ca6441] {
+            padding: 0.06667rem 0.26667rem;
+            color: #666;
+        }
+
+        .activity-banner .banner-title[data-v-30ca6441] {
+            font-size: .48rem;
+            margin-bottom: 0.26667rem;
+        }
+
+        .bonus-header {
+            color: #3d3a3a;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .bonus-container[data-v-0cc018b2] {
+            padding: 0.32rem;
+        }
+
+        .bonus-items[data-v-0cc018b2] {
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 0.05333rem 0.21333rem #d0d0ed5c;
+            border-radius: 0.26667rem;
+            margin-top: 0.26667rem;
+            padding-bottom: 0.46667rem;
+        }
+
+        .container[data-v-a3e56a9c] {
+            padding: 0.32rem;
+        }
+
+        .dailySignInRules__container-hero[data-v-a3e56a9c] {
+            width: calc(100% - 0.64rem);
+        }
+
+        .dailySignInRules__container-hero {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            margin: 0 auto 0.53333rem;
+            color: #fff;
+            border-radius: 0.26667rem;
+            background: -webkit-linear-gradient(top, #ff9490 0%, #ffb29b 100%);
+            background: linear-gradient(180deg, #ffaa30db 0%, #d91111a6 100%);
+            box-shadow: 0 0.10667rem 0.21333rem #d0d0ed5c;
+            overflow: hidden;
+        }
+
+        .dailySignInRules__container-hero__wrapper {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .dailySignInRules__container-hero__wrapper-titlebox {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            width: 100%;
+        }
+
+        .dailySignInRules__container-hero__wrapper-title {
+            width: 100%;
+            height: 1.06667rem;
+            padding-block: 0.34667rem;
+            font-size: .42667rem;
+            line-height: .32rem;
+            text-align: center;
+            background: -webkit-linear-gradient(bottom, #EF3B36 0%, #FF4D4E 100%);
+            background: linear-gradient(0deg, #d88206 0%, #de9223 100%);
+        }
+
+        .dailySignInRules__container-hero__wrapper ul {
+            width: 100%;
+        }
+
+        .dailySignInRules__container-hero__wrapper ul li {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .dailySignInRules__container-hero__wrapper ul li div {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            font-size: .37333rem;
+            padding: 0.34667rem 0;
+            border-bottom: 0.01333rem solid #ff8180;
+        }
+        .rule[data-v-1a6b6fab] {
+    width: calc(100% - 0.64rem);
+    border: 0.05333rem solid #FF7172;
+    border-top: none;
+    margin: auto;
+    padding: 0.32rem;
+    background-color: #fff;
+    box-shadow: 0 0.10667rem 0.21333rem #d0d0ed5c;
+    border-radius: 0.26667rem;
+}
+.rule .head[data-v-1a6b6fab] {
+    width: calc(100% + 0.74667rem);
+    position: relative;
+    left: -0.37333rem;
+    top: -0.32rem;
+    height: 0.88rem;
+    line-height: .88rem;
+    background-image: url(/images/rulehead-fe94f379.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: #fff;
+    font-family: Inter;
+    font-size: .42667rem;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+}
+    </style>
+</head>
+
+<body style="font-size: 12px;">
+    <div id="app">
+        <div data-v-11ffe290="" class="mian">
+            <div data-v-106b99c8="" data-v-11ffe290="" class="navbar action">
+                <div data-v-106b99c8="" class="navbar-left" onclick="location.href='/InvitationBonus'">
+                    <div data-v-a9660e98="" data-v-106b99c8="" class="c-row c-row-middle-center">
+                        <img data-v-a9660e98="" data-v-106b99c8="" src="/images/back.c3244ab0.png"
+                            class="navbar-back" />
+                    </div>
+                </div>
+
+                <div data-v-106b99c8="" class="navbar-left"></div>
+                <div data-v-106b99c8="" class="navbar-title"> Invitation Rule </div>
+                <div data-v-106b99c8="" class="navbar-right" onclick="location.href='/keFuMenu'">
+                    <div data-v-11ffe290="" data-v-106b99c8="" class="c-row">
+                        <img data-v-11ffe290="" data-v-106b99c8="" src="/images/audio.webp" class="audio">
+                    </div>
+                </div>
+            </div>
+            <div data-v-11ffe290="" class="check-box">
+                <br>
+                <div data-v-a3e56a9c="" class="container" style="--0a6320dc: 'Roboto', 'Inter', sans-serif;">
+                    <div data-v-a3e56a9c="" class="tip">Invite friends and recharge to get additional platform rewards!
+                    </div>
+                    <div data-v-a3e56a9c="" class="tip">After being claimed, the rewards will be directly distributed to
+                        the wallet balance within 10 minutes.</div>
+                </div>
+
+
+                <div data-v-a3e56a9c="" class="dailySignInRules__container-hero"
+                    style="--0a6320dc: 'Roboto', 'Inter', sans-serif;">
+                    <div data-v-a3e56a9c="" class="dailySignInRules__container-hero__wrapper">
+                        <div data-v-a3e56a9c="" class="dailySignInRules__container-hero__wrapper-titlebox">
+                            <div data-v-a3e56a9c="" class="dailySignInRules__container-hero__wrapper-title">Invite
+                                account</div>
+                            <div data-v-a3e56a9c="" class="dailySignInRules__container-hero__wrapper-title">Deposit
+                                amount</div>
+                            <div data-v-a3e56a9c="" class="dailySignInRules__container-hero__wrapper-title">Bonus</div>
+                        </div>
+                        <ul data-v-a3e56a9c="">
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">1People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$55.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">3People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$155.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">10People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$555.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">30People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$1,555.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">70People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$3,355.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">200People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$10,955.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">500People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$25,555.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">1000People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$48,555.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">5000People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$355,555.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">10000People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$755,555.00</div>
+                            </li>
+                            <li data-v-a3e56a9c="">
+                                <div data-v-a3e56a9c="">20000People</div>
+                                <div data-v-a3e56a9c="">$500.00</div>
+                                <div data-v-a3e56a9c="">$1,555,555.00</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div data-v-1a6b6fab="" data-v-a3e56a9c="" class="rule"
+                    style="--0a6320dc: 'Roboto', 'Inter', sans-serif;">
+                    <div data-v-1a6b6fab="" class="head">Rules</div>
+                    <div data-v-1a6b6fab="">Only when the number of invited accounts is reached and each account can
+                        meet the recharge amount can you receive the bonus.</div>
+                    <div data-v-1a6b6fab="">The invitation account meets the requirements, but the recharge amount of
+                        the account does not meet the requirements, and the bonus cannot be claimed.</div>
+                    <div data-v-1a6b6fab="">Please claim the event bonus within the event period. All bonuses will be
+                        cleared after the event expires.</div>
+                    <div data-v-1a6b6fab="">Please complete the task within the event period. After the event expires,
+                        the invitation record will be cleared.</div>
+                </div>
+
+
+
+
+            </div>
+            <div data-v-7692a079="" data-v-432e6ed0="" class="Loading c-row c-row-middle-center">
+                <div data-v-7692a079="" class="van-loading van-loading--circular">
+                    <span data-v-7692a079="" class="van-loading__spinner van-loading__spinner--circular"
+                        style="color: rgb(242, 65, 59);">
+                        <svg data-v-7692a079="" viewBox="25 25 50 50" class="van-loading__circular">
+                            <circle data-v-7692a079="" cx="50" cy="50" r="20" fill="none"></circle>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <%- include('../nav') -%>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/client.js"></script>
+    <script>
+        function alertMess(text, sic) {
+            $('body').append(
+                `
+                <div data-v-1dcba851="" class="msg">
+                    <div data-v-1dcba851="" class="msg-content v-enter-active v-enter-to" style=""> ${text} </div>
+                </div>
+                `
+            );
+            setTimeout(() => {
+                $('.msg .msg-content').removeClass('v-enter-active v-enter-to');
+                $('.msg .msg-content').addClass('v-leave-active v-leave-to');
+                setTimeout(() => {
+                    $('.msg').remove();
+                }, 100);
+                sic.removeClass('block-click');
+            }, 1000);
+        }
+        $('.list .item').click(function (e) {
+            e.preventDefault();
+            $(this).addClass('block-click');
+            let data = $(this).attr('data-dpr');
+            let wd = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/api/webapi/checkIn",
+                data: {
+                    data: data,
+                },
+                dataType: "json",
+                success: function (response) {
+                    alertMess(response.message, wd);
+                    if (response.status === false) return;
+                    wd.removeClass('action');
+                    wd.find('.txt').text('Đã nhận');
+                }
+            });
+        });
+        $.ajax({
+            type: "POST",
+            url: "/api/webapi/checkIn",
+            data: {
+
+            },
+            dataType: "json",
+            success: function (response) {
+                let data = response.datas[0];
+                if (data.total1 == 0) {
+                    $('.list .item:eq(0)').removeClass('action');
+                    $('.list .item:eq(0)').addClass('block-click');
+                    $('.list .item:eq(0) .txt').text('Received');
+                }
+                if (data.total2 == 0) {
+                    $('.list .item:eq(1)').removeClass('action');
+                    $('.list .item:eq(1)').addClass('block-click');
+                    $('.list .item:eq(1) .txt').text('Received');
+                }
+                if (data.total3 == 0) {
+                    $('.list .item:eq(2)').removeClass('action');
+                    $('.list .item:eq(2)').addClass('block-click');
+                    $('.list .item:eq(2) .txt').text('Received');
+                }
+                if (data.total4 == 0) {
+                    $('.list .item:eq(3)').removeClass('action');
+                    $('.list .item:eq(3)').addClass('block-click');
+                    $('.list .item:eq(3) .txt').text('Received');
+                }
+                if (data.total5 == 0) {
+                    $('.list .item:eq(4)').removeClass('action');
+                    $('.list .item:eq(4)').addClass('block-click');
+                    $('.list .item:eq(4) .txt').text('Received');
+                }
+                if (data.total6 == 0) {
+                    $('.list .item:eq(5)').removeClass('action');
+                    $('.list .item:eq(5)').addClass('block-click');
+                    $('.list .item:eq(5) .txt').text('Received');
+                }
+                if (data.total7 == 0) {
+                    $('.list .item:eq(6)').removeClass('action');
+                    $('.list .item:eq(6)').addClass('block-click');
+                    $('.list .item:eq(6) .txt').text('Received');
+                }
+
+            }
+        });
+    </script>
+    <script>
+        $(window).on('load', function () {
+            $('.Loading').fadeOut(0);
+        });
+    </script>
+</body>
+
+</html>

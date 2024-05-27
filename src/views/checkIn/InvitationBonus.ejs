@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html translate="no" data-dpr="1" style="font-size: 48.24px;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex,nofollow">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <title>Meta AI</title>
+    <link href="/css/checkIn/chunk-vendors.css" rel="stylesheet" />
+    <link href="/css/checkIn/app.css" rel="stylesheet" />
+    <link href="/css/checkIn/chunk.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="/images/bitbug_favicon.png" type="image/x-icon">
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #9195a3;
+            padding: 0;
+            margin: 0;
+        }
+
+        .block-click {
+            pointer-events: none;
+        }
+
+        .activity-panel-header.lg3[data-v-30ca6441] {
+            padding: 0 0.58667rem;
+        }
+
+        .activity-panel-header[data-v-30ca6441] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: self-start;
+            -webkit-align-items: self-start;
+            align-items: self-start;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+        }
+
+        .activity-panel-header .header-item[data-v-30ca6441] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            color: #666;
+            width: 1.33333rem;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .van-badge__wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a2[data-v-30ca6441] {
+            background-image: -webkit-linear-gradient(top, #5CA6FF 0%, #A9E5FF 100%);
+            background-image: linear-gradient(180deg, #5CA6FF 0%, #A9E5FF 100%);
+        }
+
+        .activity-panel-header .header-item .bgcontainer[data-v-30ca6441] {
+            width: 1.06667rem;
+            height: 1.06667rem;
+            border-radius: 0.26667rem;
+            padding: 0.13333rem;
+            box-shadow: 0 -0.05333rem 0.16rem #fff inset, 0 0.10667rem 0.21333rem #d0d0ed5c;
+            margin-bottom: 0.29333rem;
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a2[data-v-30ca6441]:after {
+            background-image: url(/images/inviterule-c8d78199.svg);
+        }
+
+        .activity-panel-header .header-item .bgcontainer[data-v-30ca6441]:after {
+            content: "";
+            display: block;
+            width: 0.8rem;
+            height: 0.8rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 0.8rem;
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a3[data-v-30ca6441] {
+            background-image: -webkit-linear-gradient(top, #F87700 0%, #FFCE22 100%);
+            background-image: linear-gradient(180deg, #F87700 0%, #FFCE22 100%);
+        }
+
+        .bgcontainer.a3[data-v-30ca6441]:after {
+            background-image: url(/images/activityIcon3-2aeac4f4.png);
+        }
+
+        .activity-panel-header .header-item .bgcontainer.a4[data-v-30ca6441] {
+            background-image: -webkit-linear-gradient(top, #15CEA2 0%, #B6FFE0 100%);
+            background-image: linear-gradient(180deg, #15CEA2 0%, #B6FFE0 100%);
+        }
+
+        .bgcontainer.a4[data-v-30ca6441]:after {
+            background-image: url(/images/inviterecord-610ce16f.svg);
+        }
+
+        .activity-panel-content[data-v-30ca6441] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-top: 0.26667rem;
+        }
+
+        .activity-panel-content .content-title[data-v-30ca6441] {
+            width: calc((100% - 0.74rem)/2);
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: start;
+            -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+            background: #fff;
+            border-radius: 0.13333rem;
+            padding-bottom: 0.26667rem;
+            box-shadow: drop-shadow(0 .05333rem .05333rem rgba(208, 208, 237, .36));
+            padding-right: 13px;
+            margin-left: 14px;
+        }
+
+        .activity-panel-content .content-title .content-para[data-v-30ca6441] {
+            color: #151515;
+            font-weight: 700;
+            padding: 0.13333rem 0.26667rem;
+            font-size: .37333rem;
+        }
+
+        .activity-panel-content .content-title p[data-v-30ca6441] {
+            padding: 0.06667rem 0.26667rem;
+            color: #666;
+        }
+
+        .activity-banner .banner-title[data-v-30ca6441] {
+            font-size: .48rem;
+            margin-bottom: 0.26667rem;
+        }
+
+        .bonus-header {
+            color: #3d3a3a;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .bonus-container[data-v-0cc018b2] {
+            padding: 0.32rem;
+        }
+        .bonus-items[data-v-0cc018b2] {
+    width: 100%;
+    background: #3b3b3b;
+    box-shadow: 0 0.05333rem 0.21333rem #d0d0ed5c;
+    border-radius: 0.26667rem;
+    margin-top: 0.26667rem;
+    padding-bottom: 0.46667rem;
+        }
+        .bonus-items .head[data-v-0cc018b2] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            min-height: 1.06667rem;
+            margin-bottom: 0.26667rem;
+        }
+
+        .bonus-items .head .left[data-v-0cc018b2] {
+    background-color: #fda104;
+    min-width: 3.73333rem;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    flex: none;
+    padding: 0 0.93333rem 0 0.26667rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    border-radius: 0.26667rem 0 0;
+    position: relative;
+    color: #fff;
+    background-image: url(/images/unfinish-43bc1495.svg);
+    background-repeat: no-repeat;
+    background-size: 0.64rem;
+    background-position: right 0.4rem center;
+}
+.bonus-items .head .right[data-v-0cc018b2] {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    font-size: .34667rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: right;
+    -webkit-justify-content: right;
+    justify-content: right;
+    line-height: .34667rem;
+    padding-right: 0.26667rem;
+    color: #ff7d06;
+    font-weight: 700;
+    border-bottom: 0.01333rem solid #EAEAEA;
+}
+.bonus-items .detail[data-v-0cc018b2] {
+    background-color: #f6f6f6;
+    border-radius: 0.05333rem;
+    min-height: 0.66667rem;
+    line-height: .66667rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    width: calc(100% - 0.64rem);
+    margin: auto;
+}
+.bonus-items .detail .text[data-v-0cc018b2] {
+    padding: 0 0.26667rem;
+    font-size: .32rem;
+    background: #2a2a2a;
+    color: #fff;
+    border-bottom:solid 2px white ;
+
+}
+
+.bonus-items .detail>div[data-v-0cc018b2] {
+    width: 50%;
+}
+.bonus-items .detail .people[data-v-0cc018b2], .bonus-items .detail .num[data-v-0cc018b2] {
+    text-align: center;
+    font-size: .37333rem;
+}
+.bonus-items .detail .num[data-v-0cc018b2] {
+    color: #f64646;
+}
+
+.bonus-items .detail .people[data-v-0cc018b2], .bonus-items .detail .num[data-v-0cc018b2] {
+    text-align: center;
+    font-size: .37333rem;
+    color: #fff;    
+    background: #2a2a2a;
+    border-bottom:solid 2px white ;
+}
+.bonus-items .line[data-v-0cc018b2] {
+    border: 0.01333rem solid #DADDF0;
+    margin: 0.48rem auto;
+    position: relative;
+    width: calc(100% - 1.14667rem);
+    padding: 0 0.13333rem;
+}
+.bonus-items .task[data-v-0cc018b2] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    min-height: 1.06667rem;
+}
+.bonus-items .task>div[data-v-0cc018b2] {
+    width: 50%;
+    text-align: center;
+}
+.bonus-items .task>div .peopleval[data-v-0cc018b2] {
+    color: #fda104;
+}
+
+.bonus-items .task>div .peopleval[data-v-0cc018b2], .bonus-items .task>div .rechargeval[data-v-0cc018b2] {
+    font-size: .42667rem;
+    font-weight: 500;
+    margin-bottom: 0.13333rem;
+}
+.bonus-items .task>div .text[data-v-0cc018b2] {
+    color: #666;
+}
+.bonus-items .task>div .rechargeval[data-v-0cc018b2] {
+    color: #ff3536;
+}
+
+.bonus-items .btn[data-v-0cc018b2] {
+    background: -webkit-linear-gradient(top,#CFD1DE 0%,#C7C9D9 100%);
+    background: linear-gradient(180deg,#CFD1DE 0%,#C7C9D9 100%);
+    font-size: .4rem;
+    font-weight: 700;
+    color: #fff;
+    min-height: 0.93333rem;
+    line-height: .93333rem;
+    text-align: center;
+    width: calc(100% - 0.53333rem);
+    margin: 0.42667rem auto 0;
+    border-radius: 0.93333rem;
+}
+.bonus-items .btn.active[data-v-0cc018b2] {
+    background: #F13F39;
+}
+  </style>
+</head>
+
+<body style="font-size: 12px;">
+    <div id="app">
+        <div data-v-11ffe290="" class="mian">
+            <div data-v-106b99c8="" data-v-11ffe290="" class="navbar action">
+                <div data-v-106b99c8="" class="navbar-left" onclick="location.href='/activity'">
+                    <div data-v-a9660e98="" data-v-106b99c8="" class="c-row c-row-middle-center">
+                      <img data-v-a9660e98="" data-v-106b99c8="" src="/images/back.c3244ab0.png" class="navbar-back" />
+                    </div>
+                  </div>
+                  
+                <div data-v-106b99c8="" class="navbar-left"></div>
+                <div data-v-106b99c8="" class="navbar-title"> Invitation Bonus </div>
+                <div data-v-106b99c8="" class="navbar-right" onclick="location.href='/keFuMenu'">
+                    <div data-v-11ffe290="" data-v-106b99c8="" class="c-row">
+                        <img data-v-11ffe290="" data-v-106b99c8="" src="/images/audio.webp" class="audio">
+                    </div>
+                </div>
+            </div>
+            <div data-v-11ffe290="" class="check-box">
+                <div data-v-11ffe290="" class="check-header c-tc">
+                    <!-- <h4 data-v-11ffe290="" class="tit m-b-5">InvitationBonus</h4> -->
+                    <br>
+                    <!-- <div data-v-11ffe290="" class="tit c-tc c-row c-row-middle-center">
+                        <div data-v-11ffe290="" class="frequency c-row c-row-middle"> Receive: <p data-v-11ffe290=""
+                                class="c-row">Day<span data-v-11ffe290="" class="num">0</span></p>
+                        </div>
+                    </div> -->
+                    <div data-v-11ffe290="" class="c-row c-row-middle-center p-l-20 p-r-20">
+                        <div data-v-0cc018b2="" class="bonus-header" style="--0a6320dc: 'Roboto', 'Inter', sans-serif;">
+                            <div data-v-0cc018b2="" class="title left">Invite friends and deposit</div>
+                            <div data-v-0cc018b2="" class="tip left">Both parties can receive rewards</div>
+                            <div data-v-0cc018b2="" class="tip left">Invite friends to register and recharge to receive
+                                rewards</div>
+                            <div data-v-0cc018b2="" class="tip left">activity date</div>
+                            <div data-v-0cc018b2="" class="time left">2000-01-01 - 2099-01-01</div>
+                            <div data-v-0cc018b2="" class="nav">
+                                <div data-v-0cc018b2="" class="rule">Invitation reward rules</div>
+                                <div data-v-0cc018b2="" class="record">Invitation record</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-v-11ffe290="" class="list c-row c-flex-warp">
+
+                    <div data-v-30ca6441="" class="activity-panel-header lg3"><!---->
+                        <div data-v-30ca6441="" class="header-item" style="    margin-left: 62px;" onclick="location.href='/InvitationBonus/Rule'">
+                            <div data-v-30ca6441="" class="van-badge__wrapper">
+                                <div data-v-30ca6441="" class="a2 bgcontainer"></div><!---->
+                            </div><span data-v-30ca6441="">Invitation Rules</span>
+                        </div>
+
+                        <div data-v-30ca6441="" class="header-item" onclick="location.href='/InvitationBonus/Record'" style="    margin-left: 76px;">
+                            <div data-v-30ca6441="" class="van-badge__wrapper">
+                                <div data-v-30ca6441="" class="a4 bgcontainer"></div><!---->
+                            </div><span data-v-30ca6441="">Invitation Record</span>
+                        </div>
+                    </div>
+
+                    <br>
+
+
+
+
+
+                </div>
+
+
+                <div data-v-0cc018b2="" class="bonus-container" style="--0a6320dc: 'Roboto', 'Inter', sans-serif;">
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">1</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$55.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">1</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span> / 1</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span> / 1</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-1">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">2</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$155.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">3</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 3</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 3</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-2">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">3</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">10</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 10</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 10</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-3">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">4</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$1,555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">30</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 30</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 30</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-4">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">5</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$3,355.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">70</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 70</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 70</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-5">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">6</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$10,955.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">200</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 200</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 200</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-6">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">7</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$25,555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">500</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 500</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 500</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-7">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">8</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$48,555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">1000</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 1000</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 1000</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-8">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">9</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$355,555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">5000</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 5000</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 5000</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-9">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">10</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$755,555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">10000</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 10000</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 10000</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-10">Unfinished</div>
+                    </div>
+                    <div data-v-0cc018b2="" class="bonus-items">
+                        <div data-v-0cc018b2="" class="head">
+                            <div data-v-0cc018b2="" class="left">Bonus <div data-v-0cc018b2="">11</div>
+                            </div>
+                            <div data-v-0cc018b2="" class="right">$1,555,555.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            <div data-v-0cc018b2="" class="people">20000</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="detail">
+                            <div data-v-0cc018b2="" class="text">Recharge per people</div>
+                            <div data-v-0cc018b2="" class="num">$500.00</div>
+                        </div>
+                        <div data-v-0cc018b2="" class="line"></div>
+                        <div data-v-0cc018b2="" class="task">
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="peopleval"><span class="total-mem"></span>  / 20000</div>
+                                <div data-v-0cc018b2="" class="text">Number of invitees</div>
+                            </div>
+                            <div data-v-0cc018b2="">
+                                <div data-v-0cc018b2="" class="rechargeval"><span class="total-recharge"></span>  / 20000</div>
+                                <div data-v-0cc018b2="" class="text">Deposit number</div>
+                            </div>
+                        </div>
+                        <div data-v-0cc018b2="" class="btn btn-11">Unfinished</div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div data-v-7692a079="" data-v-432e6ed0="" class="Loading c-row c-row-middle-center">
+                <div data-v-7692a079="" class="van-loading van-loading--circular">
+                    <span data-v-7692a079="" class="van-loading__spinner van-loading__spinner--circular"
+                        style="color: rgb(242, 65, 59);">
+                        <svg data-v-7692a079="" viewBox="25 25 50 50" class="van-loading__circular">
+                            <circle data-v-7692a079="" cx="50" cy="50" r="20" fill="none"></circle>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <%- include('../nav') -%>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/client.js"></script>
+    <script>
+        function alertMess(text, sic) {
+            $('body').append(
+                `
+                <div data-v-1dcba851="" class="msg">
+                    <div data-v-1dcba851="" class="msg-content v-enter-active v-enter-to" style=""> ${text} </div>
+                </div>
+                `
+            );
+            setTimeout(() => {
+                $('.msg .msg-content').removeClass('v-enter-active v-enter-to');
+                $('.msg .msg-content').addClass('v-leave-active v-leave-to');
+                setTimeout(() => {
+                    $('.msg').remove();
+                }, 100);
+                sic.removeClass('block-click');
+            }, 1000);
+        }
+        $('.list .item').click(function (e) {
+            e.preventDefault();
+            $(this).addClass('block-click');
+            let data = $(this).attr('data-dpr');
+            let wd = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/api/webapi/checkIn",
+                data: {
+                    data: data,
+                },
+                dataType: "json",
+                success: function (response) {
+                    alertMess(response.message, wd);
+                    if (response.status === false) return;
+                    wd.removeClass('action');
+                    wd.find('.txt').text('Đã nhận');
+                }
+            });
+        });
+        $.ajax({
+            type: "POST",
+            url: "/api/webapi/checkIn",
+            data: {
+
+            },
+            dataType: "json",
+            success: function (response) {
+                let data = response.datas[0];
+                if (data.total1 == 0) {
+                    $('.list .item:eq(0)').removeClass('action');
+                    $('.list .item:eq(0)').addClass('block-click');
+                    $('.list .item:eq(0) .txt').text('Received');
+                }
+                if (data.total2 == 0) {
+                    $('.list .item:eq(1)').removeClass('action');
+                    $('.list .item:eq(1)').addClass('block-click');
+                    $('.list .item:eq(1) .txt').text('Received');
+                }
+                if (data.total3 == 0) {
+                    $('.list .item:eq(2)').removeClass('action');
+                    $('.list .item:eq(2)').addClass('block-click');
+                    $('.list .item:eq(2) .txt').text('Received');
+                }
+                if (data.total4 == 0) {
+                    $('.list .item:eq(3)').removeClass('action');
+                    $('.list .item:eq(3)').addClass('block-click');
+                    $('.list .item:eq(3) .txt').text('Received');
+                }
+                if (data.total5 == 0) {
+                    $('.list .item:eq(4)').removeClass('action');
+                    $('.list .item:eq(4)').addClass('block-click');
+                    $('.list .item:eq(4) .txt').text('Received');
+                }
+                if (data.total6 == 0) {
+                    $('.list .item:eq(5)').removeClass('action');
+                    $('.list .item:eq(5)').addClass('block-click');
+                    $('.list .item:eq(5) .txt').text('Received');
+                }
+                if (data.total7 == 0) {
+                    $('.list .item:eq(6)').removeClass('action');
+                    $('.list .item:eq(6)').addClass('block-click');
+                    $('.list .item:eq(6) .txt').text('Received');
+                }
+
+            }
+        });
+    </script>
+    <script>
+        $(window).on('load', function () {
+            $('.Loading').fadeOut(0);
+            $.ajax({
+            type: "GET",
+            url: "/api/webapi/myinvationteam",
+            dataType: "json",
+            success: function (response) {
+                $('.total-mem').text(response.direct);
+                $('.total-recharge').text(response.recharge);
+                if (response.recharge>=1 && response.direct>=1) 
+                {
+                  $('.btn-1').addClass('active');   
+                  $('.btn-1').text('Finished');   
+                }
+                if (response.recharge>=3 && response.direct>=3) 
+                {
+                  $('.btn-2').addClass('active');   
+                  $('.btn-2').text('Finished');   
+                }
+                if (response.recharge>=10 && response.direct>=10) 
+                {
+                  $('.btn-3').addClass('active');   
+                  $('.btn-3').text('Finished');   
+                }
+                if (response.recharge>=30 && response.direct>=30) 
+                {
+                  $('.btn-4').addClass('active');   
+                  $('.btn-4').text('Finished');   
+                }
+                if (response.recharge>=70 && response.direct>=70) 
+                {
+                  $('.btn-5').addClass('active');   
+                  $('.btn-5').text('Finished');   
+                }
+                if (response.recharge>=200 && response.direct>=200) 
+                {
+                  $('.btn-6').addClass('active');   
+                  $('.btn-6').text('Finished');   
+                }
+                if (response.recharge>=500 && response.direct>=500) 
+                {
+                  $('.btn-7').addClass('active');   
+                  $('.btn-7').text('Finished');   
+                }
+                if (response.recharge>=1000 && response.direct>=1000) 
+                {
+                  $('.btn-8').addClass('active');   
+                  $('.btn-8').text('Finished');   
+                }
+                if (response.recharge>=5000 && response.direct>=5000) 
+                {
+                  $('.btn-9').addClass('active');   
+                  $('.btn-9').text('Finished');   
+                }
+                if (response.recharge>=10000 && response.direct>=10000) 
+                {
+                  $('.btn-10').addClass('active');   
+                  $('.btn-10').text('Finished');   
+                }
+                if (response.recharge>=20000 && response.direct>=20000) 
+                {
+                  $('.btn-11').addClass('active');   
+                  $('.btn-11').text('Finished');   
+                }
+            
+            }
+        });
+
+
+        });
+    </script>
+</body>
+
+</html>
