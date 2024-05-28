@@ -27,6 +27,10 @@ const InvitationBonusRule = async(req, res) => {
     return res.render("checkIn/InvitationBonusRule.ejs"); 
 }
 
+const checkattendance = async(req, res) => {
+    return res.render("checkIn/attendance.ejs"); 
+}
+
 const InvitationRecord = async(req, res) => {
     return res.render("checkIn/InvitationRecord.ejs"); 
 }
@@ -212,5 +216,6 @@ module.exports = {
     rebateBonus,
     AiTransferPage,
     AiDashboardPage,
-    GameTransferPage
+    GameTransferPage,
+    checkattendance,
 }
