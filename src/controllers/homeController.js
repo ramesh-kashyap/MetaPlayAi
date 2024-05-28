@@ -105,6 +105,10 @@ const AiTransferPage = async(req, res) => {
     return res.render("ai/transferform.ejs"); 
 }
 
+const GameTransferPage = async(req, res) => {
+    return res.render("wallet/wintransfer.ejs"); 
+}
+
 const AiDashboardPage = async(req, res) => {
     return res.render("ai/dashboard.ejs"); 
 }
@@ -207,5 +211,6 @@ module.exports = {
     InvitationRecord,
     rebateBonus,
     AiTransferPage,
-    AiDashboardPage
+    AiDashboardPage,
+    GameTransferPage
 }
