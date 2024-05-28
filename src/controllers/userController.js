@@ -690,9 +690,10 @@ const listFundTransferReport = async (req, res) => {
     let userId = user[0].id;
 
     const [fundTransfers] = await connection.query(
-        'SELECT `created_at`, `amount`, `status` FROM fund_transfer WHERE `user_id` = ? ORDER BY `created_at` DESC', 
+        'SELECT `created_at`, `amount`, `status` FROM fund_transfer WHERE `user_id` = ? AND `remarks` = 0 ORDER BY `created_at` DESC', 
         [userId]
     );
+    
 
     return res.status(200).json({
         message: 'Receive success',
@@ -1288,7 +1289,7 @@ const infoUserBank = async(req, res) => {
             timeStamp: timeNow,
         })
     }
-    const [user] = await connection.query('SELECT `phone`, `code`,`invite`, `win_wallet` FROM users WHERE `token` = ? ', [auth]);
+    const [user] = await connection.query('SELECT `phone`, `code`,`invite`, `win_wallet`,`money` FROM users WHERE `token` = ? ', [auth]);
     let userInfo = user[0];
     if(!user) {
         return res.status(200).json({
@@ -1500,9 +1501,10 @@ const fundTransfer = async (req, res) => {
         user_id = ?, 
         amount = ?, 
         status = ?, 
-        created_at = ?, 
-        updated_at = ?`;
-    await connection.execute(sql, [ userInfo.id, amount, 'active', timeNow, timeNow]);
+        created_at = ?,    
+        updated_at = ?,
+        remarks = ?`;
+    await connection.execute(sql, [ userInfo.id, amount, 'active', timeNow, timeNow,0]);
 
     // Update the user's balance
     await connection.query('UPDATE users SET money = money - ?, ai_balance = ai_balance + ? WHERE id = ?', [amount, amount, userInfo.id]);
