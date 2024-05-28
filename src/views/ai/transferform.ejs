@@ -7745,6 +7745,7 @@ th {
                 url: "/api/webapi/check/Info", 
                 dataType: "json",
                 success: function (response) {
+                    console.log(response);
                     let user = response.userInfo[0];
                     $('.money').text(user.money + ".00 $");
                     console.log(user);
