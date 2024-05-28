@@ -767,7 +767,8 @@ img[data-v-7b9b9922] {
 .van-tabbar .van-tabbar-item {
     font-size: .34667rem;
     color: #ffffff;
-    text-align: center
+    text-align: center;
+    background-color: #3a3a3a;
 }
 
 .van-tabbar .name {
