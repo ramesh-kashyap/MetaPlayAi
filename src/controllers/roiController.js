@@ -38,7 +38,7 @@ const roiCalculation = async () => {
             );
 
             // Update the user's balance in the users table
-            await connection.query('UPDATE users SET money = money + ? WHERE id = ?', [roiAmount, userId]);
+            await connection.query('UPDATE users SET win_wallet = win_wallet + ? WHERE id = ?', [roiAmount, userId]);
         }
         console.log("ROI calculation completed successfully.");
     } catch (error) {

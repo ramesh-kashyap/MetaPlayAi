@@ -932,6 +932,12 @@ const rechargeCoin = async(req, res) => {
                 client_transaction: client_transaction_id,
                 amount: money,
             }
+
+             // Check if this is the first recharge for this phone
+    const [rowCount] = await connection.query('SELECT COUNT(*) as count FROM recharge WHERE phone = ?', [userInfo.phone]);
+    if (rowCount[0].count === 0) {
+        await directBonus(money, userInfo.phone);
+    }
            
             const sql = `INSERT INTO recharge SET 
             id_order = ?,
@@ -958,6 +964,36 @@ const rechargeCoin = async(req, res) => {
 
 
 }
+
+const directBonus = async (money, phone) => {
+    // Select the user where phone column matches with phone parameter
+    const [userResult] = await connection.query('SELECT `id`, `invite` FROM users WHERE phone = ?', [phone]);
+    let user = userResult[0];
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    // Get the invite code from the user
+    let invite = user.invite;
+
+    // Select the sponsor where code matches the invite code
+    const [sponsorResult] = await connection.query('SELECT `id` FROM users WHERE code = ?', [invite]);
+    let sponsor = sponsorResult[0];
+
+    if (!sponsor) {
+        throw new Error('Sponsor not found');
+    }
+
+    // Calculate the bonus
+    let bonus = 0.05 * money;
+
+    // Insert data into incomes table
+    const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES (?, ?, ?, ?, ?)`;
+    await connection.execute(sql, [sponsor.id, money, bonus, 'Direct Bonus', phone]);
+};
+
+
 const recharge = async(req, res) => {
     let auth = req.cookies.auth;
     let money = req.body.money;
@@ -1079,6 +1115,8 @@ const recharge = async(req, res) => {
                         timeStamp: timeNow,
                     })
                 }              
+
+
                 const sql = `INSERT INTO recharge SET 
                 id_order = ?,
                 transaction_id = ?,
@@ -1783,6 +1821,7 @@ const recharge2 = async(req, res) => {
     const [recharge] = await connection.query('SELECT * FROM recharge WHERE phone = ? AND status = ? AND type ', [userInfo.phone, 0,'bank']);
     const [bank_recharge] = await connection.query('SELECT * FROM bank_recharge ');
     if (recharge.length != 0) {
+        console.log("hi");
         return res.status(200).json({
             message: 'Get success',
             datas: recharge[0],
