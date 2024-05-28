@@ -7664,7 +7664,7 @@
             dataType: "json",
             success: function (response) {
                 let user = response.userInfo[0];
-                $('.money').text(user.money + ".00 $");
+                $('.money').text(user.win_wallet + " $");
                 console.log(user);
                 $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 $`);
                 if (!response.datas[0]) return;

@@ -1288,7 +1288,7 @@ const infoUserBank = async(req, res) => {
             timeStamp: timeNow,
         })
     }
-    const [user] = await connection.query('SELECT `phone`, `code`,`invite`, `money` FROM users WHERE `token` = ? ', [auth]);
+    const [user] = await connection.query('SELECT `phone`, `code`,`invite`, `win_wallet` FROM users WHERE `token` = ? ', [auth]);
     let userInfo = user[0];
     if(!user) {
         return res.status(200).json({
@@ -2014,7 +2014,7 @@ const getAIBalance = async (req, res) => {
             timeStamp: new Date().toISOString(),
         });
     }
-};
+}; 
 
 
 
