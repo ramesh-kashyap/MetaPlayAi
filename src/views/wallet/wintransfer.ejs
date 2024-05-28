@@ -7664,7 +7664,7 @@ th {
                 </div>
                 
                 <div data-v-25d9c352="" class="number-box c-row">
-                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">$</div>
+                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">₹</div>
                     <div data-v-25d9c352="" class="input c-row c-row-middle van-cell van-field">
                         <div class="van-cell__value van-cell__value--alone van-field__value">
                             <div class="van-field__body">
@@ -7683,7 +7683,7 @@ th {
                 <div data-v-25d9c352="" class="c-row c-row-center m-t-30 p-b-30 withdrawal-btn">
                     <button data-v-25d9c352=""
                         class="btn van-button van-button--default van-button--normal van-button--block van-button--round"
-                        style="color: rgb(255, 255, 255); background: rgb(222 148 38); border-color: rgb(215 130 7);">
+                        style="color: rgb(255, 255, 255); background: rgb(222 148 38); border-color: rgb(215 130 7); border: .02667rem solid #fff;">
                         <div data-v-25d9c352="" class="van-button__content">
                             <span data-v-25d9c352="" class="van-button__text">Transfer Money</span>
                         </div>
@@ -7692,10 +7692,10 @@ th {
             </div>
             
             <!-- History Table Section --> 
-            <div data-v-25d9c352="" class="selectBox p-b-20">
+            <div data-v-25d9c352="" class="selectBox p-b-20" style="height:100vh;">
                 <div data-v-2605efec="" class="laundry-page_container">
                     <div data-v-2605efec="" class="laundry-page_list">
-                        <div data-v-2605efec="" class="title" style="margin: 2px; font-size: large;font-weight: bolder;">History</div>
+                        <div data-v-2605efec="" class="title" style="margin: 2px; font-size: large;font-weight: bolder;text-align: center;">History</div>
                         <div data-v-14912091="" class="box">
                             <div data-v-14912091="" class="table" style="border-collapse: collapse;
                             width: 100%;">
@@ -7750,9 +7750,9 @@ th {
                 success: function (response) {
                     console.log(response);
                     let user = response.userInfo[0];
-                    $('.money').text(user.win_wallet + ".00 $");
+                    $('.money').text(user.win_wallet + " ₹");
                     console.log(user);
-                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 $`);
+                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}₹`);
                     if(!response.datas[0]) return;
                     let data = response.datas[0];
                     $('.conBox .list').append(
@@ -7786,7 +7786,7 @@ th {
                         success: function (response) {
                             $(this).addClass('block-click');
                             if (response.status == true) {
-                                $('.amount').text(response.money + '.00 $');
+                                $('.amount').text(response.money + '₹');
                             }
                             alertMess(response.message, $(this));
                         }
@@ -7835,7 +7835,7 @@ th {
                     html += `
                         <div data-v-14912091="" class="bd van-row">
                             <div data-v-14912091="" class="c-tc van-col van-col--8 " style=" text-align: center; padding: 8px;">${timerJoin(data.created_at)}</div>
-                            <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${data.amount}</div>
+                            <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">₹ ${data.amount}</div>
                             <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${data.status}</div>
                         </div>`;
                 });

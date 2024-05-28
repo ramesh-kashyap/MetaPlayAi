@@ -38,6 +38,7 @@ const initWebRouter = (app) => {
     router.get('/InvitationBonus/rebateBonus', middlewareController, homeController.rebateBonus);
     router.get('/checkDes', middlewareController, homeController.checkDes);
     router.get('/checkRecord', middlewareController, homeController.checkRecord);
+    router.get('/checkattendance', middlewareController, homeController.checkattendance);
 
     router.get('/promotion', middlewareController, homeController.promotionPage);
     router.get('/promotion/myTeam', middlewareController, homeController.promotionmyTeamPage);
