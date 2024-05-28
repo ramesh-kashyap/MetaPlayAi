@@ -191,7 +191,7 @@
         }
 
         .mian .selectBox .tab .box ul li.item.action[data-v-25d9c352] {
-            background-image: linear-gradient(90deg, #d78207, #d78207);
+            background-image: linear-gradient(90deg, #FFCE1F, #FFCE1F);
             color: #fff
         }
 
@@ -266,9 +266,9 @@
         }
 
         .mian .selectBox .conBox .box[data-v-25d9c352] {
-            background: #fff;
-            border: .05333rem solid #d8820a;
-            box-shadow: 0 .21333rem .37333rem 0 rgba(238, 124, 120, .36);
+            background: #3a3a3a;
+            border: .05333rem solid #fff;
+            box-shadow: 0 .21333rem .37333rem 0 #3a3a3a;
             border-radius: .13333rem
         }
 
@@ -7504,9 +7504,9 @@
     -webkit-line-clamp: 1;
     height: .93333rem;
     padding: 0 .26667rem;
-    background: #fdf0ef;
+    background: #FFCE1F;
     border-radius: .26667rem;
-    color: #d78207;
+    color: #fff;
     font-weight: 600;
 }
 .c-row-middle-center {
@@ -7607,7 +7607,7 @@
                     <!---->
                 </div>
                 <div data-v-25d9c352="" class="number-box c-row" style="    margin-top: 16px; ">
-                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">₹</div>
+                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">$</div>
                     <div data-v-25d9c352="" class="input c-row c-row-middle van-cell van-field">
                         <div class="van-cell__value van-cell__value--alone van-field__value">
                             <div class="van-field__body">
@@ -7630,7 +7630,7 @@
                                 <div data-v-25d9c352="" class="add c-row c-row-middle-center m-t-10 m-b-10" onclick="location.href='/wallet/addBank'"><span
                                         data-v-25d9c352="" class="plus c-row c-row-middle-center"><i data-v-25d9c352=""
                                             class="van-icon van-icon-plus"
-                                            style="color: rgb(245, 98, 93); font-size: 14px;">
+                                            style="color: #fff; font-size: 14px;">
                                             <!---->
                                         </i></span> Add BankCard </div>
                             </div>
@@ -7641,7 +7641,7 @@
                         <div class="van-cell__value van-cell__value--alone van-field__value">
                             <div class="van-field__body">
             
-                            <select name="paymentMode" id="paymentMode"  class="van-field__control" style=" color:#fff">
+                            <select name="paymentMode" id="paymentMode"  class="van-field__control" style=" color:#fff; background-color: #3a3a3a;">
                                 <option value="USDT.BEP20"> USDT(BEP20)</option>
                                 <option value="USDT.TRC20"> USDT(TRC20)</option>
                             </select>
@@ -7659,8 +7659,8 @@
                 <div data-v-25d9c352="" class="c-row c-row-center m-t-30 p-b-30 withdrawal-btn"><button
                         data-v-25d9c352=""
                         class="btn van-button van-button--default van-button--normal van-button--block van-button--round"
-                        style="color: rgb(255, 255, 255); background: rgb(222 148 38);
-                        border-color: rgb(215 130 7); border: .02667rem solid #fff">
+                        style="color: rgb(255, 255, 255); background: #FFCE1F;
+                        border-color: #fff; border: .02667rem solid #fff">
                         <div data-v-25d9c352="" class="van-button__content"><span data-v-25d9c352=""
                                 class="van-button__text"> Withdraw Money </span></div>
                     </button></div>
@@ -7726,9 +7726,9 @@
             dataType: "json",
             success: function (response) {
                 let user = response.userInfo[0];
-                $('.money').text(user.win_wallet + ".00 $");
+                $('.money').text(user.win_wallet + " ₹");
                 console.log(user);
-                $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 $`);
+                $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 ₹`);
                 if(!response.datas[0]) return;
                 let data = response.datas[0];
                 $('.conBox .list').append(
