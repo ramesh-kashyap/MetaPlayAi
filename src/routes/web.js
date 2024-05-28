@@ -63,6 +63,9 @@ const initWebRouter = (app) => {
     router.get('/api/webapi/aiBonus', middlewareController, userController.getAIBonus); // register
     router.get('/api/webapi/getAIBalance', middlewareController, userController.getAIBalance); // get info account
 
+// Game wallet Transfer
+    router.post('/api/webapi/fundTransferGame', middlewareController, userController.fundTransferGame); // register
+    router.get('/api/webapi/listGameTransferReport', middlewareController, userController.listGameTransferReport); // register
 
 
     router.get('/keFuMenu', middlewareController, homeController.keFuMenu);

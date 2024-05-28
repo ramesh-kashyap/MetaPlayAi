@@ -703,7 +703,40 @@ const listFundTransferReport = async (req, res) => {
     });
 };
 
+const listGameTransferReport = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+    
+    const [user] = await connection.query('SELECT `id`, `phone` FROM users WHERE `token` = ?', [auth]);
+    if (!user.length) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
 
+    let userId = user[0].id;
+
+    const [fundTransfers] = await connection.query(
+        'SELECT `created_at`, `amount`, `status` FROM fund_transfer WHERE `user_id` = ? AND `remarks` = 1 ORDER BY `created_at` DESC', 
+        [userId]
+    );
+    
+
+    return res.status(200).json({
+        message: 'Receive success',
+        fundTransfers: fundTransfers,
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
 
 const claimInterest = async(req, res) => {
     let auth = req.cookies.auth;
@@ -1518,6 +1551,75 @@ const fundTransfer = async (req, res) => {
     });
 }
 
+const fundTransferGame = async (req, res) => {
+    const auth = req.cookies.auth;
+    const amount = parseFloat(req.body.amount); // Ensure amount is a number
+    const password = req.body.password;
+    const timeNow = new Date().toISOString();
+
+    if (!auth || !amount || !password || amount <= 0) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    try {
+        // Check user authentication and password
+        const [user] = await connection.query(
+            'SELECT `id`,`phone`, `money`, `win_wallet` FROM users WHERE `token` = ? AND `password` = ?',
+            [auth, md5(password)]
+        );
+
+        if (user.length === 0) {
+            return res.status(200).json({
+                message: 'Incorrect password',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        let userInfo = user[0];
+
+        // Check if user has sufficient balance
+        if (userInfo.win_wallet < amount) {
+            return res.status(200).json({
+                message: 'Insufficient balance to fulfill the request',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        // Insert the transfer details into fund_transfer table
+        const sql = `INSERT INTO fund_transfer SET 
+            user_id = ?, 
+            amount = ?, 
+            status = ?, 
+            created_at = ?,    
+            updated_at = ?,
+            remarks = ?`;
+        await connection.execute(sql, [userInfo.id, amount, 'active', timeNow, timeNow, 1]);
+
+        // Update the user's balance
+        await connection.query('UPDATE users SET win_wallet = win_wallet - ?, money = money + ? WHERE id = ?', [amount, amount, userInfo.id]);
+
+        return res.status(200).json({
+            message: 'Fund transfer successful',
+            status: true,
+            balance: userInfo.win_wallet - amount,
+            money: userInfo.money + amount,
+            timeStamp: timeNow,
+        });
+    } catch (error) {
+        console.error('Error during fund transfer:', error);
+        return res.status(500).json({
+            message: 'Internal server error',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+};
 
 
 const withdrawal4 = async(req, res) => {
@@ -2048,7 +2150,9 @@ module.exports = {
     claimInterest,
     manualRecharge,
     fundTransfer,
+    fundTransferGame,
     listFundTransferReport,
+    listGameTransferReport,
     getAIBonus,
     getAIBalance
 }
