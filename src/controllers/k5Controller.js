@@ -565,7 +565,7 @@ const handling5D = async(typeid) => {
 
     await funHanding(game);
 
-    const [order] = await connection.execute(`SELECT id, phone, bet, price, money, fee, amount FROM result_5d WHERE status = 0 AND game = ${game} `);
+    const [order] = await connection.execute(`SELECT id, phone, bet, price, win_wallet, fee, amount FROM result_5d WHERE status = 0 AND game = ${game} `);
     for (let i = 0; i < order.length; i++) {
         let orders = order[i];
         let id = orders.id;
@@ -574,7 +574,7 @@ const handling5D = async(typeid) => {
         let check = isNumber(orders.bet); 
         if (check) {
             let arr = orders.bet.split('');
-            let total = (orders.money / arr.length / orders.amount);
+            let total = (orders.win_wallet / arr.length / orders.amount);
             let fee = total * 0.02;
             let price = total - fee;
             nhan_duoc += price * 9;
@@ -583,7 +583,7 @@ const handling5D = async(typeid) => {
         }
 
         await connection.execute('UPDATE `result_5d` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
-        const sql = 'UPDATE `users` SET `money` = `money` + ? WHERE `phone` = ? ';
+        const sql = 'UPDATE `users` SET `win_wallet` = `win_wallet` + ? WHERE `phone` = ? ';
         await connection.execute(sql, [nhan_duoc, phone]);
     }
 }

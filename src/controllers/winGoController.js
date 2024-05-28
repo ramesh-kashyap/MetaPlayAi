@@ -592,11 +592,14 @@ const handlingWinGo1P = async (typeid) => {
                 }
             }
         }
-        const [users] = await connection.execute('SELECT `money` FROM `users` WHERE `phone` = ?', [phone]);
-        let totals = users[0].money + nhan_duoc;
-        await connection.execute('UPDATE `minutes_1` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
-        const sql = 'UPDATE `users` SET `money` = ? WHERE `phone` = ? ';
-        await connection.execute(sql, [totals, phone]);
+        const [users] = await connection.execute('SELECT `win_wallet` FROM `users` WHERE `phone` = ?', [phone]);
+  let win_wallet = parseInt(users[0].win_wallet, 10);
+ let totals = win_wallet + nhan_duoc;
+  console.log(totals);
+  await connection.execute('UPDATE `minutes_1` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
+  const sql = 'UPDATE `users` SET `win_wallet` = ? WHERE `phone` = ? ';
+ await connection.execute(sql, [totals, phone]);
+
     }
 }
 

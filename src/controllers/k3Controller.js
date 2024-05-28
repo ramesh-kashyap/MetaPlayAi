@@ -738,7 +738,7 @@ const priceGet = {
 }
 
 async function plusMoney(game) {
-    const [order] = await connection.execute(`SELECT id, phone, bet, price, money, fee, amount, result, typeGame FROM result_k3 WHERE status = 0 AND game = ${game} `);
+    const [order] = await connection.execute(`SELECT id, phone, bet, price, win_wallet, fee, amount, result, typeGame FROM result_k3 WHERE status = 0 AND game = ${game} `);
     for (let i = 0; i < order.length; i++) {
         let orders = order[i];
         let phone = orders.phone;
@@ -752,7 +752,7 @@ async function plusMoney(game) {
             for (let i = 0; i < 3; i++) {
                 totalResult2 += Number(totalResult[i]);
             }
-            let total = (orders.money / arr.length / orders.amount);
+            let total = (orders.win_wallet / arr.length / orders.amount);
             let fee = total * 0.02;
             let price = total - fee;
             
@@ -833,7 +833,7 @@ async function plusMoney(game) {
             }
             nhan_duoc += price * get;
             await connection.execute('UPDATE `result_k3` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
-            const sql = 'UPDATE `users` SET `money` = `money` + ? WHERE `phone` = ? ';
+            const sql = 'UPDATE `users` SET `win_wallet` = `win_wallet` + ? WHERE `phone` = ? ';
             await connection.execute(sql, [nhan_duoc, phone]);
         }
         nhan_duoc = 0;
@@ -861,7 +861,7 @@ async function plusMoney(game) {
                             lengthArr = arr.length;
                             count = count;
                         }
-                        let total = orders.money / orders.amount / (lengthArr + arr1.length);
+                        let total = orders.win_wallet / orders.amount / (lengthArr + arr1.length);
                         nhan_duoc += total * 12.83;
                     }
                 }
@@ -890,7 +890,7 @@ async function plusMoney(game) {
                                 bale = arr1.length;
                             }
                         }
-                        let total = orders.money / orders.amount / (lengthArr + bale);
+                        let total = orders.win_wallet / orders.amount / (lengthArr + bale);
                         nhan_duoc += total * 69.12;
                     }
                 }
@@ -898,7 +898,7 @@ async function plusMoney(game) {
             nhan_duoc -= orders.fee;
 
             await connection.execute('UPDATE `result_k3` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
-            const sql = 'UPDATE `users` SET `money` = `money` + ? WHERE `phone` = ? ';
+            const sql = 'UPDATE `users` SET `win_wallet` = `win_wallet` + ? WHERE `phone` = ? ';
             await connection.execute(sql, [nhan_duoc, phone]);
         }
 
@@ -917,7 +917,7 @@ async function plusMoney(game) {
                         bala = 1;
                     }
                     if (check1) {
-                        let total = (orders.money / (arr1.length + bala) / orders.amount);
+                        let total = (orders.win_wallet / (arr1.length + bala) / orders.amount);
                         nhan_duoc += total * 207.36 - orders.fee;
                     }
                 }
@@ -929,11 +929,11 @@ async function plusMoney(game) {
                         bala = arr1.length;
                     }
                 }
-                let total = (orders.money / (1 + bala) / orders.amount);
+                let total = (orders.win_wallet / (1 + bala) / orders.amount);
                 nhan_duoc += total * 34.56 - orders.fee;
             }
             await connection.execute('UPDATE `result_k3` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
-            const sql = 'UPDATE `users` SET `money` = `money` + ? WHERE `phone` = ? ';
+            const sql = 'UPDATE `users` SET `win_wallet` = `win_wallet` + ? WHERE `phone` = ? ';
             await connection.execute(sql, [nhan_duoc, phone]);
         }
 
@@ -959,10 +959,10 @@ async function plusMoney(game) {
                         bala2 = 1;
                     }
                     if (!check1) {
-                        let total = (orders.money / (arr1.length + bala + bala2) / orders.amount);
+                        let total = (orders.win_wallet / (arr1.length + bala + bala2) / orders.amount);
                         nhan_duoc += total * 34.56 - orders.fee;
                         if (arr2 == "u") {
-                            let total = (orders.money / (1 + bala + bala2) / orders.amount);
+                            let total = (orders.win_wallet / (1 + bala + bala2) / orders.amount);
                             nhan_duoc += (total - orders.fee) * 8.64;
                         }
                     }
@@ -981,7 +981,7 @@ async function plusMoney(game) {
                         bala2 = arr3.length;
                     }
                 }
-                let total = (orders.money / (1 + bala + bala2) / orders.amount);
+                let total = (orders.win_wallet / (1 + bala + bala2) / orders.amount);
                 nhan_duoc += (total - orders.fee) * 8.64;
             }
             for (let i = 0; i < arr3.length; i++) {
@@ -994,13 +994,13 @@ async function plusMoney(game) {
                         }
                     }
                     if (!check1) {
-                        let total = (orders.money / (arr3.length + bala) / orders.amount);
+                        let total = (orders.win_wallet / (arr3.length + bala) / orders.amount);
                         nhan_duoc += total * 6.91 - orders.fee;
                     }
                 }
             }
             await connection.execute('UPDATE `result_k3` SET `get` = ?, `status` = 1 WHERE `id` = ? ', [nhan_duoc, id]);
-            const sql = 'UPDATE `users` SET `money` = `money` + ? WHERE `phone` = ? ';
+            const sql = 'UPDATE `users` SET `win_wallet` = `win_wallet` + ? WHERE `phone` = ? ';
             await connection.execute(sql, [nhan_duoc, phone]);
         }
     }

@@ -116,7 +116,7 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/checkIn', middlewareController, userController.checkInHandling); // register
     router.post('/api/webapi/claimInterest', middlewareController, userController.claimInterest); // register
     
-    router.post('/api/webapi/check/Info', middlewareController, userController.infoUserBank); // register
+    router.post('/api/webapi/check/Info', middlewareController, userController.infoUserBank); // register 
     router.post('/api/webapi/addBank', middlewareController, userController.addBank); // register
     router.post('/api/webapi/otp', middlewareController, userController.verifyCode); // register
     router.post('/api/webapi/use/redenvelope', middlewareController, userController.useRedenvelope); // register
