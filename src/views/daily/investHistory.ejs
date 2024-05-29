@@ -81,53 +81,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/client.js"></script>
     <script>
-
         function formateT(params) {
             let result = (params < 10) ? "0" + params : params;
             return result;
         }
-
+    
         function timerJoin(params = '') {
             let date = '';
             if (params) {
-                date = new Date(Number(params));
+                date = new Date(params);
             } else {
                 date = new Date();
             }
             let years = formateT(date.getFullYear());
             let months = formateT(date.getMonth() + 1);
             let days = formateT(date.getDate());
-
-            let hours = formateT(date.getHours());
-            let minutes = formateT(date.getMinutes());
-            let seconds = formateT(date.getSeconds());
+    
             return years + '-' + months + '-' + days;
         }
+    
         $('.nav .van-tabbar-item:eq(0) img').attr('src', '/images/home1.png');
         $('.nav .van-tabbar-item:eq(0) .name').removeClass('action');
         $('.nav .van-tabbar-item:eq(2) .name').addClass('action');
+    
         function MemRender(datas) {
             let html = '';
             datas.map((data) => {
                 html += `
                         <div data-v-14912091="" class="bd van-row">
-                            <div data-v-14912091="" class="c-tc van-col van-col--8">${timerJoin(data.time)}</div>
-                            <div data-v-14912091="" class="c-tc van-col van-col--8">${data.f1}</div>
-                            <div data-v-14912091="" class="c-tc van-col van-col--8">Detail</div>
+                            <div data-v-14912091="" class="c-tc van-col van-col--8">${timerJoin(data.updated_at)}</div>
+                            <div data-v-14912091="" class="c-tc van-col van-col--8">${data.comm}</div>
+                            <div data-v-14912091="" class="c-tc van-col van-col--8">${data.remarks}</div>
                         </div>
                         `;
             });
             $('#van-list').html(html);
         }
+    
         $.ajax({
             type: "GET",
-            url: "/api/webapi/myTeam",
+            url: "/api/webapi/listIncomeReport",
             dataType: "json",
             success: function (response) {
-                MemRender(response.total_roses);
+                MemRender(response.incomeReports);
             }
         });
     </script>
+    
 </body>
 
 </html>

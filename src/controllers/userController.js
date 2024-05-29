@@ -2479,7 +2479,7 @@ const listIncomeReport = async (req, res) => {
          FROM incomes 
          WHERE user_id = ? 
          AND remarks != 'Ai bonus' 
-         AND (remarks != 'Daily Salary Bonus' OR (remarks = 'Daily Salary Bonus' AND rname != '1'))
+         AND (remarks != 'Daily Salary Bonus' OR (remarks = 'Daily Salary Bonus' AND rname != '0'))
          ORDER BY updated_at DESC`, 
         [userId]
     );
