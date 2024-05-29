@@ -2196,6 +2196,101 @@ const getAIBalance = async (req, res) => {
     }
 }; 
 
+const checkAttendanceBonusRules = async (phone, attendance, sumOfRecharge) => {
+    let bonus = 0;
+
+    // Define the bonus based on attendance and sum of recharge
+    if (attendance == 1 && sumOfRecharge >= 300) {
+        bonus = 7;
+    } else if (attendance == 2 && sumOfRecharge >= 1000) {
+        bonus = 20;
+    } else if (attendance == 3 && sumOfRecharge >= 3000) {
+        bonus = 100;
+    } else if (attendance == 4 && sumOfRecharge >= 8000) {
+        bonus = 200;
+    } else if (attendance == 5 && sumOfRecharge >= 20000) {
+        bonus = 450;
+    } else if (attendance == 6 && sumOfRecharge >= 80000) {
+        bonus = 2400;
+    } else if (attendance == 7 && sumOfRecharge >= 200000) {
+        bonus = 6400;
+    }
+
+    // Insert data into incomes table
+    const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES ((SELECT id FROM users WHERE phone = ?), ?, ?, ?, ?)`;
+    await connection.execute(sql, [phone, sumOfRecharge, bonus, 'Attendance Bonus', phone]);
+
+    // Update the user's balance and attendance in users table
+    const updateUserSql = `UPDATE users SET money = money + ?, attendance = ? WHERE phone = ?`;
+    await connection.execute(updateUserSql, [bonus, attendance, phone]);
+};
+
+// Modified attendanceBonus function
+const attendanceBonus = async (req, res) => {
+    let auth = req.cookies.auth;
+    const [user] = await connection.query('SELECT `phone`, `code`, `invite` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().split('T')[0];
+
+    const [attendanceResult] = await connection.query('SELECT attendance FROM users WHERE phone = ?', [userInfo.phone]);
+    let attendance = attendanceResult[0].attendance;
+
+    if (attendance >= 7) {
+        return res.status(200).json({
+            message: 'Failed as you have already claimed all attendance bonus',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    if (attendance === 0) {
+        const [sumResult] = await connection.query('SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND today = ?', [userInfo.phone, currentDateString]);
+        let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
+
+        await checkAttendanceBonusRules(userInfo.phone, attendance + 1, sumOfRecharge);
+    } else {
+        const [lastBonusResult] = await connection.query('SELECT DATE(created_at) as lastBonusDate FROM incomes WHERE remarks = "Attendance Bonus" AND phone = ? ORDER BY created_at DESC LIMIT 1', [userInfo.phone]);
+        if (lastBonusResult.length > 0) {
+            let lastBonusDate = new Date(lastBonusResult[0].lastBonusDate);
+            let dateDifference = Math.floor((currentDate - lastBonusDate) / (1000 * 60 * 60 * 24));
+
+            if (dateDifference === 1) {
+                const [sumResult] = await connection.query('SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND today = ?', [userInfo.phone, currentDateString]);
+                let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
+
+                await checkAttendanceBonusRules(userInfo.phone, attendance + 1, sumOfRecharge);
+            } else {
+                return res.status(200).json({
+                    message: 'Failed as not claimed daily',
+                    status: false,
+                    timeStamp: new Date().toISOString(),
+                });
+            }
+        } else {
+            return res.status(200).json({
+                message: 'No previous attendance bonus record found',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+    }
+
+    return res.status(200).json({
+        message: 'Attendance bonus processed successfully',
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
+
 
 
 module.exports = {
@@ -2230,5 +2325,6 @@ module.exports = {
     listFundTransferReport,
     listGameTransferReport,
     getAIBonus,
-    getAIBalance
+    getAIBalance,
+    attendanceBonus
 }
