@@ -2453,6 +2453,44 @@ const calculateDailyEarnings = async () => {
     }
 };
 
+const listIncomeReport = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `id`, `phone` FROM users WHERE `token` = ?', [auth]);
+    if (!user.length) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    let userId = user[0].id;
+
+    const [incomeReports] = await connection.query(
+        `SELECT updated_at, comm, remarks 
+         FROM incomes 
+         WHERE user_id = ? 
+         AND remarks != 'Ai bonus' 
+         AND (remarks != 'Daily Salary Bonus' OR (remarks = 'Daily Salary Bonus' AND rname != '1'))
+         ORDER BY updated_at DESC`, 
+        [userId]
+    );
+
+    return res.status(200).json({
+        message: 'Receive success',
+        incomeReports: incomeReports,
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
 
 
 
@@ -2492,5 +2530,6 @@ module.exports = {
     attendanceBonus,
     getAttendanceInfo,
     calculateTeamRecharge,
-    calculateDailyEarnings
+    calculateDailyEarnings,
+    listIncomeReport
 }
