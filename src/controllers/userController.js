@@ -2323,6 +2323,175 @@ const getAttendanceInfo = async (req, res) => {
 };
 
 
+const calculateTeamRecharge = async () => {
+    const currentDate = new Date();
+    const yesterday = new Date(currentDate);
+    yesterday.setDate(currentDate.getDate() - 1);
+    const yesterdayString = yesterday.toISOString().split('T')[0];
+
+    // Get all users
+    const [users] = await connection.query('SELECT `id`, `phone`, `code` FROM users');
+
+    for (let user of users) {
+        const userCode = user.code;
+
+        // Get all team members for the user
+        const [teamMembers] = await connection.query('SELECT `phone` FROM users WHERE `invite` = ?', [userCode]);
+
+        let count = 0;
+        let totalRecharge = 0;
+
+        for (let member of teamMembers) {
+            const memberPhone = member.phone;
+
+            // Check if the member did a recharge yesterday
+            const [rechargeResult] = await connection.query('SELECT COUNT(*) as rechargeCount, SUM(money) as totalRecharge FROM recharge WHERE `phone` = ? AND `today` = ?', [memberPhone, yesterdayString]);
+            const rechargeCount = rechargeResult[0].rechargeCount;
+            const memberRecharge = rechargeResult[0].totalRecharge || 0;
+
+            if (rechargeCount > 0) {
+                count++;
+                totalRecharge += memberRecharge;
+            }
+        }
+
+        // Call salaryBonus function with the total recharge and count
+        await salaryBonus(totalRecharge, count, user.phone);
+    }
+};
+
+// Function to handle salary bonus calculation and update
+const salaryBonus = async (sumOfRecharge, count, phone) => {
+    let bonus = 0;
+
+    // Define the bonus based on count and sum of recharge
+    if (count >= 5 && count < 10 && sumOfRecharge >= 10000 && sumOfRecharge < 20000) {
+        bonus = 500;
+    } else if (count >= 10 && count < 20 && sumOfRecharge >= 20000 && sumOfRecharge < 30000) {
+        bonus = 1000;
+    } else if (count >= 20 && count < 30 && sumOfRecharge >= 30000 && sumOfRecharge < 40000) {
+        bonus = 1500;
+    } else if (count >= 30 && count < 50 && sumOfRecharge >= 40000 && sumOfRecharge < 50000) {
+        bonus = 2000;
+    } else if (count >= 50 && count < 100 && sumOfRecharge >= 50000 && sumOfRecharge < 100000) {
+        bonus = 2500;
+    } else if (count >= 100 && count < 300 && sumOfRecharge >= 100000 && sumOfRecharge < 200000) {
+        bonus = 5000;
+    } else if (count >= 300 && count < 500 && sumOfRecharge >= 200000 && sumOfRecharge < 500000) {
+        bonus = 10000;
+    } else if (count >= 500 && count < 1000 && sumOfRecharge >= 500000 && sumOfRecharge < 1000000) {
+        bonus = 25000;
+    } else if (count >= 1000 && count < 3000 && sumOfRecharge >= 1000000 && sumOfRecharge < 3000000) {
+        bonus = 50000;
+    } else if (count >= 3000 && sumOfRecharge >= 3000000) {
+        bonus = 100000;
+    }
+
+    // Insert bonus into incomes table if applicable
+    if (bonus > 0) {
+        const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES ((SELECT id FROM users WHERE phone = ?), ?, ?, ?, ?)`;
+        await connection.execute(sql, [phone, sumOfRecharge, bonus, 'Daily Salary Bonus', 0]);
+
+        // // Update the user's balance
+        // const updateUserSql = `UPDATE users SET money = money + ? WHERE phone = ?`;
+        // await connection.execute(updateUserSql, [bonus, phone]);
+    }
+};
+
+const calculateDailyEarnings = async () => {
+    try {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const startOfYesterday = new Date(yesterday.setHours(0, 0, 0, 0)).getTime();
+        const endOfYesterday = new Date(yesterday.setHours(23, 59, 59, 999)).getTime();
+
+        const [users] = await connection.query('SELECT `id`, `phone` FROM users');
+
+        for (let user of users) {
+            const { id, phone } = user;
+
+            // Sum money from minutes_1 table
+            const [minutes1Result] = await connection.query(
+                'SELECT SUM(money) as sumMoney FROM minutes_1 WHERE phone = ? AND time BETWEEN ? AND ?',
+                [phone, startOfYesterday, endOfYesterday]
+            );
+            const sumMinutes1 = minutes1Result[0].sumMoney || 0;
+
+            // Sum money from result_k3 table
+            const [resultK3] = await connection.query(
+                'SELECT SUM(money) as sumMoney FROM result_k3 WHERE phone = ? AND time BETWEEN ? AND ?',
+                [phone, startOfYesterday, endOfYesterday]
+            );
+            const sumResultK3 = resultK3[0].sumMoney || 0;
+
+            // Sum money from result_5d table
+            const [result5d] = await connection.query(
+                'SELECT SUM(money) as sumMoney FROM result_5d WHERE phone = ? AND time BETWEEN ? AND ?',
+                [phone, startOfYesterday, endOfYesterday]
+            );
+            const sumResult5d = result5d[0].sumMoney || 0;
+
+            const totalSum = sumMinutes1 + sumResultK3 + sumResult5d;
+
+            if (totalSum > 0) {
+                // Calculate the bonus
+                const bonus = totalSum * 0.003;
+
+                // Insert data into incomes table
+                const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES (?, ?, ?, ?, ?)`;
+                await connection.execute(sql, [id, totalSum, bonus, 'Trading Bonus', phone]);
+
+                // Update the user's balance in users table
+                const updateUserSql = `UPDATE users SET money = money + ? WHERE phone = ?`;
+                await connection.execute(updateUserSql, [bonus, phone]);
+
+                console.log(`User phone: ${phone}, Total sum: ${totalSum}, Bonus: ${bonus}`);
+            }
+        }
+    } catch (error) {
+        console.error('Error calculating daily earnings:', error);
+    }
+};
+
+const listIncomeReport = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `id`, `phone` FROM users WHERE `token` = ?', [auth]);
+    if (!user.length) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    let userId = user[0].id;
+
+    const [incomeReports] = await connection.query(
+        `SELECT updated_at, comm, remarks 
+         FROM incomes 
+         WHERE user_id = ? 
+         AND remarks != 'Ai bonus' 
+         AND (remarks != 'Daily Salary Bonus' OR (remarks = 'Daily Salary Bonus' AND rname != '0'))
+         ORDER BY updated_at DESC`, 
+        [userId]
+    );
+
+    return res.status(200).json({
+        message: 'Receive success',
+        incomeReports: incomeReports,
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
+
 
 
 module.exports = {
@@ -2359,5 +2528,8 @@ module.exports = {
     getAIBonus,
     getAIBalance,
     attendanceBonus,
-    getAttendanceInfo
+    getAttendanceInfo,
+    calculateTeamRecharge,
+    calculateDailyEarnings,
+    listIncomeReport
 }

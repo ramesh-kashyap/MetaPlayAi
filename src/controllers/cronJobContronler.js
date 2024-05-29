@@ -2,6 +2,7 @@ import connection from "../config/connectDB";
 import winGoController from "./winGoController";
 import k5Controller from "./k5Controller";
 import k3Controller from "./k3Controller";
+import userController from "./userController.js";
 import cron from 'node-cron';
 import roiCalculation from './roiController.js'; // Import your ROI calculation function
 
@@ -94,6 +95,20 @@ const cronJobGame1p = (io) => {
     // Schedule the ROI calculation to run every day at midnight
     cron.schedule('0 16 * * *', async() => {
         await roiCalculation();
+    }, {
+        scheduled: true,
+        timezone: "Asia/Kolkata"
+    });
+
+    cron.schedule('0 8 * * *', async() => {
+        await userController.calculateTeamRecharge();
+    }, {
+        scheduled: true,
+        timezone: "Asia/Kolkata"
+    });
+
+    cron.schedule('0 8 * * *', async () => {
+        await userController.calculateDailyEarnings();
     }, {
         scheduled: true,
         timezone: "Asia/Kolkata"

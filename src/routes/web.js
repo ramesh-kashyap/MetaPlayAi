@@ -71,6 +71,7 @@ const initWebRouter = (app) => {
     router.get('/api/webapi/listGameTransferReport', middlewareController, userController.listGameTransferReport); // register
     router.post('/api/webapi/attendanceBonus', middlewareController, userController.attendanceBonus); // attendance
     router.get('/api/webapi/getAttendanceInfo', middlewareController, userController.getAttendanceInfo);
+    router.get('/api/webapi/listIncomeReport', middlewareController, userController.listIncomeReport); // register
 
   
 
