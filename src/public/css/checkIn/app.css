@@ -642,7 +642,7 @@
     font-family: Avenir,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    color: #ffffff;
     position: relative;
     font-size: .37333rem
 }
@@ -786,7 +786,7 @@ img[data-v-7b9b9922] {
 }
 
 .van-tabbar .muan {
-    background-color: #fff;
+    /* background-color: #fff; */
     padding: .13333rem;
     height: 1.33333rem;
     width: 1.33333rem;

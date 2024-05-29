@@ -39,6 +39,7 @@ const initWebRouter = (app) => {
     router.get('/checkDes', middlewareController, homeController.checkDes);
     router.get('/checkRecord', middlewareController, homeController.checkRecord);
     router.get('/checkattendance', middlewareController, homeController.checkattendance);
+    router.get('/investHistory', middlewareController, homeController.investHistory);
 
     router.get('/promotion', middlewareController, homeController.promotionPage);
     router.get('/promotion/myTeam', middlewareController, homeController.promotionmyTeamPage);
