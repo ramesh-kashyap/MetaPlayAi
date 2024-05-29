@@ -69,7 +69,9 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/fundTransferGame', middlewareController, userController.fundTransferGame); // register
     router.get('/api/webapi/listGameTransferReport', middlewareController, userController.listGameTransferReport); // register
     router.post('/api/webapi/attendanceBonus', middlewareController, userController.attendanceBonus); // attendance
+    router.get('/api/webapi/getAttendanceInfo', middlewareController, userController.getAttendanceInfo);
 
+  
 
     router.get('/keFuMenu', middlewareController, homeController.keFuMenu);
 
