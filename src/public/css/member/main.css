@@ -773,7 +773,8 @@ img[data-v-7b9b9922] {
 
 .van-tabbar .name {
     display: block;
-    width: 100%
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .van-tabbar .name.action {
@@ -787,7 +788,7 @@ img[data-v-7b9b9922] {
 }
 
 .van-tabbar .muan {
-    /* background-color: #fff; */
+    background-color: #fff;
     padding: .13333rem;
     height: 1.33333rem;
     width: 1.33333rem;
