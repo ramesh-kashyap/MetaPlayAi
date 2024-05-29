@@ -780,7 +780,8 @@ img[data-v-7b9b9922] {
 .van-tabbar .name.action {
     display: block;
     width: 100%;
-    color: #f2413b
+    color: #f2413b;
+    margin-bottom: 10px;
 }
 
 .van-tabbar .van-tabbar-item.van-tabbar-item--active {
