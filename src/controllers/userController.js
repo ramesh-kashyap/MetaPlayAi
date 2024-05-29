@@ -860,7 +860,7 @@ const createPayment = async (req, res) => {
   };
   
 
-const rechargeCoin = async(req, res) => {
+  const rechargeCoin = async(req, res) => {
     let auth = req.cookies.auth;
     let money = req.body.money;
     let type = req.body.type;
@@ -869,101 +869,134 @@ const rechargeCoin = async(req, res) => {
     let url = req.body.url;
     let currency = req.body.currency;
 
-//    return type;
-    //  console.log(money);
     if (type != 'cancel') {
-        if(!auth || !money || money < 9) {
+        if (!auth || !money || money < 9) {
             return res.status(200).json({
                 message: 'Failed',
                 status: false,
-                timeStamp: timeNow,
-            })
+                timeStamp: new Date().toISOString(),
+            });
         }
     }
 
+    const [user] = await connection.query('SELECT `phone`, `code`, `invite` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
 
-        const [user] = await connection.query('SELECT `phone`, `code`,`invite` FROM users WHERE `token` = ? ', [auth]);
-        let userInfo = user[0];
-        if(!user) {
-            return res.status(200).json({
-                message: 'Failed',
-                status: false,
-                timeStamp: timeNow,
-            });
-        };
-        if (type == 'cancel') {
-            await connection.query('UPDATE recharge SET status = 2 WHERE phone = ? AND id_order = ? AND status = ? ', [userInfo.phone, typeid, 0]);
-            return res.status(200).json({
-                message: 'Order canceled successfully',
-                status: true,
-                timeStamp: timeNow,
-            });
+    if (type == 'cancel') {
+        await connection.query('UPDATE recharge SET status = 2 WHERE phone = ? AND id_order = ? AND status = ?', [userInfo.phone, typeid, 0]);
+        return res.status(200).json({
+            message: 'Order canceled successfully',
+            status: true,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    let time = new Date().getTime();
+    const date = new Date();
+    function formateT(params) {
+        let result = (params < 10) ? "0" + params : params;
+        return result;
+    }
+
+    function timerJoin(params = '') {
+        let date = '';
+        if (params) {
+            date = new Date(Number(params));
+        } else {
+            date = new Date();
         }
-    
-            let time = new Date().getTime();
-            const date = new Date();
-            function formateT(params) {
-                let result = (params < 10) ? "0" + params : params;
-                return result;
-            }
-            
-            function timerJoin(params = '') {
-                let date = '';
-                if (params) {
-                    date = new Date(Number(params));
-                } else {
-                    date = new Date();
-                }
-                let years = formateT(date.getFullYear());
-                let months = formateT(date.getMonth() + 1);
-                let days = formateT(date.getDate());
-                return years +'-'+ months +'-'+ days;
-            }
-            let checkTime = timerJoin(time);
-            let id_time = date.getUTCFullYear() + '' + date.getUTCMonth() + 1 + '' + date.getUTCDate();
-            let id_order = Math.floor(Math.random() * (99999999999999 - 10000000000000 + 1) ) + 10000000000000;
-            // let vat = Math.floor(Math.random() * (2000 - 0 + 1) ) + 0;
-            let amount_in_usdt = Number(money);
-            money = Number(money*90);
-            let client_transaction_id = id_time + id_order;
-            const formData = {
-                username: process.env.accountBank,
-                secret_key: process.env.secret_key,
-                client_transaction: client_transaction_id,
-                amount: money,
-            }
+        let years = formateT(date.getFullYear());
+        let months = formateT(date.getMonth() + 1);
+        let days = formateT(date.getDate());
+        return years + '-' + months + '-' + days;
+    }
 
-             // Check if this is the first recharge for this phone
+    let checkTime = timerJoin(time);
+    let id_time = date.getUTCFullYear() + '' + date.getUTCMonth() + 1 + '' + date.getUTCDate();
+    let id_order = Math.floor(Math.random() * (99999999999999 - 10000000000000 + 1)) + 10000000000000;
+    let amount_in_usdt = Number(money);
+    money = Number(money * 90);
+    let client_transaction_id = id_time + id_order;
+
+    // Check if this is the first recharge for this phone
     const [rowCount] = await connection.query('SELECT COUNT(*) as count FROM recharge WHERE phone = ?', [userInfo.phone]);
     if (rowCount[0].count === 0) {
         await directBonus(money, userInfo.phone);
     }
-           
-            const sql = `INSERT INTO recharge SET 
-            id_order = ?,
-            transaction_id = ?,
-            phone = ?,
-            money = ?,
-            amount_in_usdt = ?,
-            type = ?,
-            status = ?,
-            today = ?,
-            url = ?,
-            time = ?`; 
-            await connection.execute(sql, [client_transaction_id,transaction_id, userInfo.phone, money,amount_in_usdt, currency, 0, checkTime,url, time]);
-            const [recharge] = await connection.query('SELECT * FROM recharge WHERE phone = ? AND status = ? ', [userInfo.phone, 0]);
-            return res.status(200).json({
-                message: 'Order Submitted successfully',
-                datas: recharge[0],
-                status: true,
-                timeStamp: timeNow,
-            });
-      
 
+    const sql = `INSERT INTO recharge SET 
+        id_order = ?,
+        transaction_id = ?,
+        phone = ?,
+        money = ?,
+        amount_in_usdt = ?,
+        type = ?,
+        status = ?,
+        today = ?,
+        url = ?,
+        time = ?`;
+    await connection.execute(sql, [client_transaction_id, transaction_id, userInfo.phone, money, amount_in_usdt, currency, 0, checkTime, url, time]);
 
+    // Calculate the sum of recharges for the current day where status is 1
+    const [sumResult] = await connection.query(
+        'SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND status = 1 AND today = ?',
+        [userInfo.phone, checkTime]
+    );
 
+    let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
 
+    if (sumOfRecharge >= 500) {
+        await rechargeBonus(userInfo.phone, sumOfRecharge);
+    }
+
+    const [recharge] = await connection.query('SELECT * FROM recharge WHERE phone = ? AND status = ?', [userInfo.phone, 0]);
+    return res.status(200).json({
+        message: 'Order Submitted successfully',
+        datas: recharge[0],
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
 }
+
+
+const rechargeBonus = async (phone, sumOfRecharge) => {
+    let bonus = 0;
+
+    if (sumOfRecharge >= 500 && sumOfRecharge < 5000) {
+        bonus = 5;
+    } else if (sumOfRecharge >= 5000 && sumOfRecharge < 50000) {
+        bonus = 50;
+    } else if (sumOfRecharge >= 50000 && sumOfRecharge < 100000) {
+        bonus = 500;
+    } else if (sumOfRecharge >= 100000 && sumOfRecharge < 200000) {
+        bonus = 1000;
+    } else if (sumOfRecharge >= 200000) {
+        bonus = 2000;
+    }
+
+    if (bonus > 0) {
+        const [userResult] = await connection.query('SELECT `id` FROM users WHERE phone = ?', [phone]);
+        let user = userResult[0];
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES (?, ?, ?, ?, ?)`;
+        await connection.execute(sql, [user.id, sumOfRecharge, bonus, 'Recharge Bonus', phone]);
+
+        // Update the user's money with the bonus
+        await connection.query('UPDATE users SET money = money + ? WHERE id = ?', [bonus, user.id]);
+    }
+};
+
 
 const directBonus = async (money, phone) => {
     // Select the user where phone column matches with phone parameter
@@ -978,7 +1011,7 @@ const directBonus = async (money, phone) => {
     let invite = user.invite;
 
     // Select the sponsor where code matches the invite code
-    const [sponsorResult] = await connection.query('SELECT `id` FROM users WHERE code = ?', [invite]);
+    const [sponsorResult] = await connection.query('SELECT `id`, `money` FROM users WHERE code = ?', [invite]);
     let sponsor = sponsorResult[0];
 
     if (!sponsor) {
@@ -991,6 +1024,10 @@ const directBonus = async (money, phone) => {
     // Insert data into incomes table
     const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES (?, ?, ?, ?, ?)`;
     await connection.execute(sql, [sponsor.id, money, bonus, 'Direct Bonus', phone]);
+
+    // Update the sponsor's money
+    const updateSql = 'UPDATE users SET money = money + ? WHERE id = ?';
+    await connection.execute(updateSql, [bonus, sponsor.id]);
 };
 
 
@@ -2058,7 +2095,7 @@ const callback_bank = async(req, res) => {
             message: 'Failed',
             status: false,
             timeStamp: timeNow,
-        })
+        })  
     }
     if (status == 2) {
         await connection.query(`UPDATE recharge SET status = 1 WHERE id_order = ?`, [client_transaction_id]);
@@ -2159,6 +2196,133 @@ const getAIBalance = async (req, res) => {
     }
 }; 
 
+const attendanceBonus = async (req, res) => {
+    let auth = req.cookies.auth;
+    const [user] = await connection.query('SELECT `id`, `phone`, `code`, `invite` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().split('T')[0];
+
+    const [attendanceResult] = await connection.query('SELECT attendance FROM users WHERE phone = ?', [userInfo.phone]);
+    let attendance = attendanceResult[0].attendance;
+
+    if (attendance >= 7) {
+        return res.status(200).json({
+            message: 'Failed as you have already claimed all attendance bonus',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    if (attendance === 0) {
+        const [sumResult] = await connection.query('SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND today = ?', [userInfo.phone, currentDateString]);
+        let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
+
+        return checkAttendanceBonusRules(userInfo.phone, attendance + 1, sumOfRecharge, res);
+    } else {
+        const [lastBonusResult] = await connection.query('SELECT DATE(created_at) as lastBonusDate FROM incomes WHERE remarks = "Attendance Bonus" AND user_id = ? ORDER BY created_at DESC LIMIT 1', [userInfo.id]);
+        if (lastBonusResult.length > 0) {
+            let lastBonusDate = new Date(lastBonusResult[0].lastBonusDate);
+            let dateDifference = Math.floor((currentDate - lastBonusDate) / (1000 * 60 * 60 * 24));
+
+            if (dateDifference === 1) {
+                const [sumResult] = await connection.query('SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND today = ?', [userInfo.phone, currentDateString]);
+                let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
+
+                return checkAttendanceBonusRules(userInfo.phone, attendance + 1, sumOfRecharge, res);
+            } else {
+                return res.status(200).json({
+                    message: 'Failed as not claimed daily',
+                    status: false,
+                    timeStamp: new Date().toISOString(),
+                });
+            }
+        } else {
+            return res.status(200).json({
+                message: 'No previous attendance bonus record found',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+    }
+};
+
+const checkAttendanceBonusRules = async (phone, attendance, sumOfRecharge, res) => {
+    let bonus = 0;
+
+    // Define the bonus based on attendance and sum of recharge
+    if (attendance == 1 && sumOfRecharge >= 300) {
+        bonus = 7;
+    } else if (attendance == 2 && sumOfRecharge >= 1000) {
+        bonus = 20;
+    } else if (attendance == 3 && sumOfRecharge >= 3000) {
+        bonus = 100;
+    } else if (attendance == 4 && sumOfRecharge >= 8000) {
+        bonus = 200;
+    } else if (attendance == 5 && sumOfRecharge >= 20000) {
+        bonus = 450;
+    } else if (attendance == 6 && sumOfRecharge >= 80000) {
+        bonus = 2400;
+    } else if (attendance == 7 && sumOfRecharge >= 200000) {
+        bonus = 6400;
+    }
+
+    if (bonus === 0) {
+        return res.status(200).json({
+            message: 'Failed as Attendance Rules not met',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    // Insert data into incomes table
+    const sql = `INSERT INTO incomes (user_id, amount, comm, remarks, rname) VALUES ((SELECT id FROM users WHERE phone = ?), ?, ?, ?, ?)`;
+    await connection.execute(sql, [phone, sumOfRecharge, bonus, 'Attendance Bonus', phone]);
+
+    // Update the user's balance and attendance in users table
+    const updateUserSql = `UPDATE users SET money = money + ?, attendance = ? WHERE phone = ?`;
+    await connection.execute(updateUserSql, [bonus, attendance, phone]);
+
+    return res.status(200).json({
+        message: 'Attendance bonus processed successfully',
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
+
+const getAttendanceInfo = async (req, res) => {
+    let auth = req.cookies.auth;
+    const [user] = await connection.query('SELECT `id`, `phone`, `code`, `invite`, `attendance` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [sumResult] = await connection.query('SELECT SUM(comm) as accumulatedBonus FROM incomes WHERE remarks = "Attendance Bonus" AND user_id = ?', [userInfo.id]);
+    let accumulatedBonus = sumResult[0].accumulatedBonus || 0;
+
+    return res.status(200).json({
+        message: 'Attendance info fetched successfully',
+        status: true,
+        attendanceDays: userInfo.attendance,
+        accumulatedBonus: accumulatedBonus,
+        timeStamp: new Date().toISOString(),
+    });
+};
+
+
 
 
 module.exports = {
@@ -2193,5 +2357,7 @@ module.exports = {
     listFundTransferReport,
     listGameTransferReport,
     getAIBonus,
-    getAIBalance
+    getAIBalance,
+    attendanceBonus,
+    getAttendanceInfo
 }

@@ -65,10 +65,13 @@ const initWebRouter = (app) => {
     router.get('/api/webapi/getAIBalance', middlewareController, userController.getAIBalance); // get info account
 
 // Game wallet Transfer
-router.get('/wallet/transferform', middlewareController, homeController.GameTransferPage);
+    router.get('/wallet/transferform', middlewareController, homeController.GameTransferPage);
     router.post('/api/webapi/fundTransferGame', middlewareController, userController.fundTransferGame); // register
     router.get('/api/webapi/listGameTransferReport', middlewareController, userController.listGameTransferReport); // register
+    router.post('/api/webapi/attendanceBonus', middlewareController, userController.attendanceBonus); // attendance
+    router.get('/api/webapi/getAttendanceInfo', middlewareController, userController.getAttendanceInfo);
 
+  
 
     router.get('/keFuMenu', middlewareController, homeController.keFuMenu);
 
