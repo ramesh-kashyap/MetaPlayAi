@@ -24,7 +24,7 @@
 }
 
 .game-head .total-box[data-v-42f27458] {
-    background-color: #fff;
+    background-color: #3a3a3a;
     border-radius: .53333rem;
     padding: .4rem
 }
@@ -331,7 +331,9 @@
 }
 
 [data-v-42f27458] {
-    touch-action: pan-y
+    touch-action: pan-y;
+    background-color: #3a3a3a;
+    color:#fff;
 }
 
 [data-v-42f27458] .van-popup {
@@ -916,7 +918,9 @@
 }
 
 .game-betting[data-v-42f27458] {
-    margin-top: -1.46667rem
+    margin-top: -1.46667rem;
+    background-color: #3a3a3a;
+    
 }
 
 .game-betting .content[data-v-42f27458] {
@@ -926,7 +930,7 @@
 
 .game-betting .content .page-box[data-v-42f27458] {
     width: 100%;
-    background: #fff;
+    background: #3b3b3b;
     border-radius: 1.06667rem 1.06667rem 0 0;
     position: relative
 }
@@ -934,7 +938,7 @@
 .game-betting .content .page-box .last-round[data-v-42f27458] {
     text-align: center;
     padding: 0 0 .8rem;
-    border-bottom: .02667rem solid #f1f3fb;
+    border-bottom: .02667rem solid #3a3a3a;
     margin-bottom: .34667rem;
     height: 1.86667rem;
     display: flex;
@@ -954,9 +958,9 @@
     height: 1.06667rem;
     line-height: 1.01333rem;
     border-radius: 50%;
-    border: .02667rem solid #000;
-    color: #000;
-    background: #f4f4f4;
+    /* border: .02667rem solid #fff; */
+    /* color: #fff; */
+    /* background: #f4f4f4; */
     position: relative
 }
 
@@ -1020,8 +1024,9 @@
 }
 
 .game-list[data-v-42f27458] {
-    margin-top: .4rem;
-    width: 100%
+    margin-top: .02rem;
+    width: 100%;
+
 }
 
 .game-list .tab[data-v-42f27458] {
@@ -1040,18 +1045,19 @@
     line-height: 1.06667rem;
     text-align: center;
     width: 100%;
-    background-color: #eaeefc;
+    background-color: #3a3a3a;
     border: .02667rem solid #3c5ef6;
-    box-shadow: .02667rem .02667rem .13333rem .13333rem #eaeefc;
+    /* box-shadow: .02667rem .02667rem .13333rem .13333rem #eaeefc; */
     border-radius: .26667rem;
-    color: #050505;
+    color: #fff;
     overflow: hidden
 }
 
 .game-list .tab .li .txt.action[data-v-42f27458] {
-    background-color: #fbedf3;
+    background-color: #3a3a3a;
     border: .02667rem solid #fb4e4e;
-    box-shadow: .02667rem .02667rem .13333rem .13333rem #fbedf3
+    box-shadow: .02667rem .02667rem 333rem .13333rem #fbedf3;
+    color:#fff;
 }
 
 .game-list .con-box[data-v-42f27458] {
@@ -1086,7 +1092,7 @@
 
 .game-list .list .wrap[data-v-42f27458] {
     padding: .4rem;
-    background-color: #fbedf3;
+    background-color: #3b3b3b;
     border-top-right-radius: .26667rem;
     border-top-left-radius: .26667rem;
     font-weight: 600;
@@ -1115,8 +1121,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 16px!important;
-    height: 16px;
+    width: 19px!important;
+    height: 19px;
     border: 1px solid #bbb;
     border-radius: 16px;
     margin-right: 4px;
@@ -1124,7 +1130,7 @@
 }
 
 .game-list .list .hb .li.action[data-v-42f27458] {
-    font-size: .32rem;
+    font-size: .42rem;
     border: none;
     color: #fff;
     background-color: #fb4e4e;
@@ -1133,9 +1139,9 @@
 }
 
 .game-list .list .hb .li.circle-black[data-v-42f27458] {
-    border: .02667rem solid #000;
+    /* border: .02667rem solid #000; */
     color: #000;
-    background: #f4f4f4
+    /* background: #f4f4f4 */
 }
 
 .game-list .list .hb .li.actionH[data-v-42f27458] {
@@ -1267,7 +1273,7 @@
 
 .game-list .list-fooder[data-v-42f27458] {
     height: .53333rem;
-    background-color: #fbedf3;
+    background-color: #3a3a3a;
     border-bottom-right-radius: .53333rem;
     border-bottom-left-radius: .53333rem
 }

@@ -19,7 +19,8 @@
 }
 
 .p-l-5 {
-    padding-left: .13333rem!important
+    padding-left: .13333rem!important;
+    color:#fff;
 }
 
 .m-r-5 {
@@ -27,7 +28,8 @@
 }
 
 .p-r-5 {
-    padding-right: .13333rem!important
+    padding-right: .13333rem!important;
+    color: #fff;
 }
 
 .m-t-10 {
@@ -1018,13 +1020,13 @@ img[data-v-7b9b9922] {
     padding: .66667rem .8rem;
     border-radius: .53333rem .53333rem 0 0;
     margin-top: -.53333rem;
-    background-color: #fff
+    background-color: #3a3a3a;
 }
 
 .mian .login-box .tit[data-v-a0753f48] {
     text-align: center;
     font-size: .8rem;
-    color: #670001
+    color: #ffffff
 }
 
 .mian .forgot-box[data-v-a0753f48] {
@@ -1153,7 +1155,7 @@ img[data-v-7b9b9922] {
     height: .53333rem;
     line-height: .53333rem;
     font-size: .4rem;
-    color: #f4453f
+    color: #fff
 }
 
 .mian .AreaCode-box[data-v-a0753f48] {

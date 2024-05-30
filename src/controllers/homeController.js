@@ -31,11 +31,13 @@ const checkattendance = async(req, res) => {
     return res.render("checkIn/attendance.ejs"); 
 }
 
+const winingstreakbonus = async(req, res) => {
+    return res.render("manage/winningbonus.ejs"); 
+}
+
 const investHistory = async(req, res) => {
     return res.render("daily/investHistory.ejs"); 
 }
-
-
 const InvitationRecord = async(req, res) => {
     return res.render("checkIn/InvitationRecord.ejs"); 
 }
@@ -224,4 +226,5 @@ module.exports = {
     GameTransferPage,
     checkattendance,
     investHistory,
+    winingstreakbonus,
 }
