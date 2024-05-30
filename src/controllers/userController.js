@@ -2662,6 +2662,122 @@ const listIncomeReport = async (req, res) => {
     });
 };
 
+const insertStreakBonus = async (req, res) => {
+    const auth = req.cookies.auth;
+    const { userId, number, periods } = req.body;
+    const timeNow = new Date().toISOString();
+
+    if (!auth || !userId || !number || !periods) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    try {
+        const [user] = await connection.query('SELECT phone, id FROM users WHERE id_user = ?', [userId]);
+
+        if (user.length === 0) {
+            return res.status(200).json({
+                message: 'Invalid user ID',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        const phone = user[0].phone;
+        const userIdInUsers = user[0].id;
+
+        if (number < 5) {
+            return res.status(200).json({
+                message: 'Streak must be at least 5',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        let amount = 0;
+        let bonus = 0;
+
+        if (number >= 5 && number < 10) {
+            amount = 50;
+            bonus = 50;
+        } else if (number >= 10 && number < 15) {
+            amount = 1000;
+            bonus = 1000;
+        } else if (number >= 15 && number < 20) {
+            amount = 5000;
+            bonus = 5000;
+        } else if (number >= 20 && number < 25) {
+            amount = 10000;
+            bonus = 10000;
+        } else if (number >= 25) {
+            amount = 20000;
+            bonus = 20000;
+        }
+
+        const sql = `INSERT INTO streak_bonus SET 
+            phone = ?, 
+            user_id = ?, 
+            streak_number = ?, 
+            streak_period_number = ?, 
+            amount = ?, 
+            bonus = ?, 
+            status = 0, 
+            created_at = ?, 
+            updated_at = ?`;
+
+        await connection.execute(sql, [phone, userId, number, periods, amount, bonus, timeNow, timeNow]);
+
+        return res.status(200).json({
+            message: 'Streak bonus inserted successfully',
+            status: true,
+            timeStamp: timeNow,
+        });
+    } catch (error) {
+        console.error('Error inserting streak bonus:', error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+}
+
+const listStreakBonusReport = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `phone` FROM users WHERE `token` = ?', [auth]);
+    if (!user.length) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    let userPhone = user[0].phone;
+
+    const [streakBonuses] = await connection.query(
+        'SELECT `updated_at`, `amount`, `status` FROM streak_bonus WHERE `phone` = ? ORDER BY `updated_at` DESC', 
+        [userPhone]
+    );
+
+    return res.status(200).json({
+        message: 'Receive success',
+        streakBonuses: streakBonuses,
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
 
 
 module.exports = {
@@ -2695,6 +2811,7 @@ module.exports = {
     fundTransferGame,
     listFundTransferReport,
     listGameTransferReport,
+    listStreakBonusReport,
     getAIBonus,
     getAIBalance,
     attendanceBonus,
@@ -2703,5 +2820,6 @@ module.exports = {
     calculateDailyEarnings,
     listIncomeReport,
     createPayment1,
-    handlePlisioCallback
+    handlePlisioCallback,
+    insertStreakBonus
 }
