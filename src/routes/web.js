@@ -40,6 +40,7 @@ const initWebRouter = (app) => {
     router.get('/checkRecord', middlewareController, homeController.checkRecord);
     router.get('/checkattendance', middlewareController, homeController.checkattendance);
     router.get('/investHistory', middlewareController, homeController.investHistory);
+    router.get('/winingstreakbonus', middlewareController, homeController.winingstreakbonus);
 
     router.get('/promotion', middlewareController, homeController.promotionPage);
     router.get('/promotion/myTeam', middlewareController, homeController.promotionmyTeamPage);
