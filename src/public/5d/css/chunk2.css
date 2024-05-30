@@ -1024,8 +1024,9 @@
 }
 
 .game-list[data-v-42f27458] {
-    margin-top: .4rem;
-    width: 100%
+    margin-top: .02rem;
+    width: 100%;
+
 }
 
 .game-list .tab[data-v-42f27458] {
@@ -1044,18 +1045,19 @@
     line-height: 1.06667rem;
     text-align: center;
     width: 100%;
-    background-color: #eaeefc;
+    background-color: #3a3a3a;
     border: .02667rem solid #3c5ef6;
-    box-shadow: .02667rem .02667rem .13333rem .13333rem #eaeefc;
+    /* box-shadow: .02667rem .02667rem .13333rem .13333rem #eaeefc; */
     border-radius: .26667rem;
-    color: #050505;
+    color: #fff;
     overflow: hidden
 }
 
 .game-list .tab .li .txt.action[data-v-42f27458] {
-    background-color: #fbedf3;
+    background-color: #3a3a3a;
     border: .02667rem solid #fb4e4e;
-    box-shadow: .02667rem .02667rem .13333rem .13333rem #fbedf3
+    box-shadow: .02667rem .02667rem 333rem .13333rem #fbedf3;
+    color:#fff;
 }
 
 .game-list .con-box[data-v-42f27458] {
