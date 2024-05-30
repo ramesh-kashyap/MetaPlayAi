@@ -252,6 +252,12 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/admin/k3/listOrders', adminController.middlewareAdminController, adminController.listOrderOldK3); // get info account
     router.post('/api/webapi/admin/5d/editResult', adminController.middlewareAdminController, adminController.editResult); // get info account
     router.post('/api/webapi/admin/k3/editResult', adminController.middlewareAdminController, adminController.editResult2); // get info account
+
+    router.get('/admin/manager/aiBonus', adminController.middlewareAdminController, adminController.aiBonus); // get info account
+    router.get('/admin/manager/incomeBonus', adminController.middlewareAdminController, adminController.incomeBonus); // get info account
+    router.get('/admin/manager/dailyBonus', adminController.middlewareAdminController, adminController.dailyBonus); // get info account
+    router.post('/api/webapi/admin/updateIncomeStatus', adminController.middlewareAdminController, adminController.updateIncomeStatus); // get info account
+
     
     return app.use('/', router); 
 }
