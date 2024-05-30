@@ -1812,6 +1812,198 @@ const editResult2 = async(req, res) => {
 
 }
 
+const aiBonus = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    try {
+        const [aiBonuses] = await connection.query(
+            'SELECT id, user_id, amount, comm, created_at FROM incomes WHERE remarks = "AI bonus"'
+        );
+
+        if (aiBonuses.length === 0) {
+            return res.status(200).json({
+                message: 'No AI bonuses found',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        // Fetch phone numbers for the corresponding user_ids
+        const userIds = aiBonuses.map(bonus => bonus.user_id);
+        const [users] = await connection.query(
+            'SELECT id, phone FROM users WHERE id IN (?)',
+            [userIds]
+        );
+
+        // Create a map of user_id to phone
+        const userIdToPhoneMap = {};
+        users.forEach(user => {
+            userIdToPhoneMap[user.id] = user.phone;
+        });
+
+        // Attach phone numbers to the aiBonuses data
+        const aiBonusesWithPhone = aiBonuses.map(bonus => ({
+            ...bonus,
+            phone: userIdToPhoneMap[bonus.user_id]
+        }));
+
+        return res.status(200).json({
+            message: 'Success',
+            status: true,
+            data: aiBonusesWithPhone,
+            timeStamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+const dailyBonus = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    try {
+        const [dailyBonuses] = await connection.query(
+            'SELECT * FROM incomes WHERE remarks = "Daily Salary Bonus"'
+        );
+
+        if (dailyBonuses.length === 0) {
+            return res.status(200).json({
+                message: 'No Daily Salary Bonuses found',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Success',
+            status: true,
+            data: dailyBonuses,
+            timeStamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+const updateIncomeStatus = async (req, res) => {
+    let auth = req.cookies.auth;
+    let id = req.body.id;
+    let type = req.body.type;
+    let timeNow = new Date().toISOString();
+
+    if (!auth || !id || !type) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    try {
+        if (type === 'confirm') {
+            await connection.query('UPDATE incomes SET rname = 1 WHERE id = ?', [id]);
+            const [incomeInfo] = await connection.query('SELECT comm, user_id FROM incomes WHERE id = ?', [id]);
+            const { comm, user_id } = incomeInfo[0];
+            await connection.query('UPDATE users SET money = money + ? WHERE id = ?', [comm, user_id]);
+
+            return res.status(200).json({
+                message: 'Income confirmed successfully',
+                status: true,
+                data: { id, comm },
+                timeStamp: timeNow,
+            });
+        }
+
+        if (type === 'delete') {
+            await connection.query('UPDATE incomes SET rname = 2 WHERE id = ?', [id]);
+
+            return res.status(200).json({
+                message: 'Income deleted successfully',
+                status: true,
+                data: { id },
+                timeStamp: timeNow,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+};
+
+const incomeBonus = async (req, res) => {
+    let auth = req.cookies.auth;
+    let timeNow = new Date().toISOString();
+
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    try {
+        const [incomes] = await connection.query(`
+            SELECT id, user_id, updated_at, amount, comm, remarks 
+            FROM incomes 
+            WHERE remarks != 'Ai bonus' 
+            AND (remarks != 'Daily Salary Bonus' OR (remarks = 'Daily Salary Bonus' AND rname != '0'))
+            ORDER BY updated_at DESC
+        `);
+
+        const userPromises = incomes.map(async (income) => {
+            const [user] = await connection.query('SELECT phone FROM users WHERE id = ?', [income.user_id]);
+            return { ...income, phone: user[0]?.phone || null };
+        });
+
+        const incomeResults = await Promise.all(userPromises);
+
+        return res.status(200).json({
+            message: 'Success',
+            status: true,
+            incomeResults: incomeResults,
+            timeStamp: timeNow,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+};
+
+
+
 module.exports = {
     adminPage,
     adminPage3,
@@ -1860,5 +2052,9 @@ module.exports = {
     editResult,
     adminPageK3,
     withdrawCrytp,
-    rechargemanual
+    rechargemanual,
+    aiBonus,
+    dailyBonus,
+    updateIncomeStatus,
+    incomeBonus
 }
