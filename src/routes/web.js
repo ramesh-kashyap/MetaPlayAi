@@ -74,7 +74,9 @@ const initWebRouter = (app) => {
     router.get('/api/webapi/getAttendanceInfo', middlewareController, userController.getAttendanceInfo);
     router.get('/api/webapi/listIncomeReport', middlewareController, userController.listIncomeReport); // register
 
-  
+    router.post('/api/webapi/insertStreakBonus', middlewareController, userController.insertStreakBonus); // register
+    router.get('/api/webapi/listStreakBonusReport', middlewareController, userController.listStreakBonusReport); // register
+
 
     router.get('/keFuMenu', middlewareController, homeController.keFuMenu);
 
