@@ -858,7 +858,177 @@ const createPayment = async (req, res) => {
       throw error;
     }
   };
-  
+
+  const createPayment1 = async (req, res) => {
+    let auth = req.cookies.auth;
+    let money = req.body.money;
+    let type = req.body.type;
+    let typeid = req.body.typeid;
+
+    console.log(typeid);
+
+    if (!auth || !money || money < 1) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `phone`, `name_user`, `invite` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+
+    // Determine the currency based on the typeid
+    let currency;
+    if (typeid === 'USDT.BEP20') {
+        currency = 'USDT_BSC';
+    } else {
+        currency = 'USDT_TRX';
+    }
+
+    const paymentOptions = {
+        source_currency: 'USD', // The currency you want to receive
+        source_amount: money.toString(), // The amount you want to receive
+        order_number: `${Date.now()}`, // Unique order number
+        currency: currency, // The currency type
+        email: userInfo.phone + '@example.com', // Customer's email
+        order_name: userInfo.name_user, // Description of the product or service
+        callback_url: 'http://localhost:3000/api/webapi/handlePlisioCallback', // Your callback URL 
+        api_key: 'WyrmxIT3Foj0uygOqx6CNdh1AMyV5pPzjOIHUhHphSB7WVgNLjkA_7KFIcxhqQ3_', // Your Plisio API key
+    };
+
+    try {
+        const apiURL = 'https://plisio.net/api/v1/invoices/new';
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+
+        const response = await axios.post(apiURL, paymentOptions, { headers });
+        const payment = response.data;
+
+        if (payment.status === 'success') {
+            const clientTransactionId = payment.data.txn_id;
+            const invoice = payment.data.invoice_number;
+            const currentDateString = new Date().toISOString().split('T')[0];
+
+            const sql = `INSERT INTO recharge SET 
+                id_order = ?, 
+                transaction_id = ?, 
+                phone = ?, 
+                money = ?, 
+                amount_in_usdt = ?, 
+                type = ?, 
+                status = ?, 
+                today = ?, 
+                url = ?, 
+                time = ?`;
+
+            await connection.execute(sql, [
+                invoice, clientTransactionId, userInfo.phone, money, money, type, 0, currentDateString, payment.data.invoice_url, Date.now()
+            ]);
+
+            return res.status(200).json({
+                message: 'Order created successfully',
+                datas: payment.data,
+                status: true,
+                timeStamp: new Date().toISOString(),
+            });
+        } else {
+            return res.status(200).json({
+                message: 'Failed to create order',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+
+
+
+const handlePlisioCallback = async (req, res) => {
+    try {
+        const response = req.body;
+
+        if (!response) {
+            return res.status(400).send('Invalid request');
+        }
+
+        const {
+            order_number,
+            status,
+            source_amount,
+            txn_id,
+            order_name,
+            invoice_total_sum
+        } = response;
+
+        if (status === "completed" || (status === "mismatch" && source_amount >= invoice_total_sum)) {
+            const updateInvestment = await connection.query(
+                'UPDATE recharge SET status = 1 WHERE id_order = ? AND status = 0',
+                [order_number]
+            );
+
+            if (updateInvestment[0].affectedRows > 0) {
+                const [userDetail] = await connection.query('SELECT id, phone, status, money FROM users WHERE name_user = ?', [order_name]);
+                const user = userDetail[0];
+
+                if (user.status === 0) {
+                    const updatedUser = {
+                        status: 1,
+                        updated_at: new Date(),
+                    };
+                    await connection.query('UPDATE users SET ? WHERE id = ?', [updatedUser, user.id]);
+
+                } else {
+                    const newPackage = user.money + source_amount;
+                    await connection.query('UPDATE users SET money = ?, status = ? WHERE id = ?', [newPackage, 1, user.id]);
+                }
+
+                const checkTime = new Date().toISOString().split('T')[0];
+                const [sumResult] = await connection.query(
+                    'SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND status = 1 AND today = ?',
+                    [user.phone, checkTime]
+                );
+
+                const [rowCount] = await connection.query('SELECT COUNT(*) as count FROM recharge WHERE phone = ?', [user.phone]);
+                if (rowCount[0].count === 0) {
+                    await directBonus(source_amount, user.phone);
+                }
+
+                let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
+
+                if (sumOfRecharge >= 500) {
+                    await rechargeBonus(user.phone, sumOfRecharge);
+                }
+
+                const [recharge] = await connection.query('SELECT * FROM recharge WHERE id_order = ? AND status = ?', [order_number, 1]);
+
+                return res.status(200).json({
+                    message: 'Order Submitted successfully',
+                    datas: recharge[0],
+                    status: true,
+                    timeStamp: new Date().toISOString(),
+                });
+            }
+        }
+
+        res.status(200).send('Callback handled successfully');
+    } catch (error) {
+        console.error('Callback error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+
 
   const rechargeCoin = async(req, res) => {
     let auth = req.cookies.auth;
@@ -870,7 +1040,7 @@ const createPayment = async (req, res) => {
     let currency = req.body.currency;
 
     if (type != 'cancel') {
-        if (!auth || !money || money < 9) {
+        if (!auth || !money || money < 1.11) {
             return res.status(200).json({
                 message: 'Failed',
                 status: false,
@@ -2531,5 +2701,7 @@ module.exports = {
     getAttendanceInfo,
     calculateTeamRecharge,
     calculateDailyEarnings,
-    listIncomeReport
+    listIncomeReport,
+    createPayment1,
+    handlePlisioCallback
 }
