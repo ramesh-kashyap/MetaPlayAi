@@ -1119,8 +1119,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 16px!important;
-    height: 16px;
+    width: 19px!important;
+    height: 19px;
     border: 1px solid #bbb;
     border-radius: 16px;
     margin-right: 4px;
@@ -1128,7 +1128,7 @@
 }
 
 .game-list .list .hb .li.action[data-v-42f27458] {
-    font-size: .32rem;
+    font-size: .42rem;
     border: none;
     color: #fff;
     background-color: #fb4e4e;
