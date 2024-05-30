@@ -137,6 +137,9 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/checkrechargestatus', middlewareController, userController.checkRechargeStatus); // register
     router.post('/api/webapi/rechargeCoin', middlewareController, userController.rechargeCoin); // register
     router.post('/api/webapi/createPayment', middlewareController, userController.createPayment); // register
+    router.post('/api/webapi/createPayment1', middlewareController, userController.createPayment1); // register
+    router.post('/api/webapi/handlePlisioCallback', middlewareController, userController.handlePlisioCallback); // register
+
     
     router.get('/api/webapi/myTeam', middlewareController, userController.listMyTeam); // register
     router.get('/api/webapi/rebateBonus', middlewareController, userController.listMyRebate); // register
