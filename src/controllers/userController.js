@@ -1496,67 +1496,53 @@ const manualRecharge = async(req, res) => {
 
 const addBank = async(req, res) => {
     let auth = req.cookies.auth;
-    let name_bank = req.body.bank_name;
-    let name_user = req.body.account_name;
-    let account_number = req.body.account_number;
-    let branch_name = req.body.branch_name;
-    let ifsc_code = req.body.ifsc_code;
     let usdtBep20 = req.body.usdtBep20;
     let usdttrc20 = req.body.usdttrc20;
-    console.log(auth+" "+name_bank+" "+account_number+" "+branch_name+" "+ifsc_code);
-    if (!auth || !name_bank || !name_user || !account_number || !branch_name || !ifsc_code) {
-        return res.status(200).json({
-            message: 'Failed',
-            status: false,
-            timeStamp: timeNow,
-        })
-    }
-    const [user] = await connection.query('SELECT `phone`, `code`,`invite` FROM users WHERE `token` = ? ', [auth]);
-    let userInfo = user[0];
- 
-    if(!user) {
+    let timeNow = new Date().toISOString();
+
+    if (!auth || !usdtBep20 || !usdttrc20) {
         return res.status(200).json({
             message: 'Failed',
             status: false,
             timeStamp: timeNow,
         });
-    };
-    const [user_bank] = await connection.query('SELECT * FROM user_bank WHERE account_number = ? ', [account_number]);
-    const [user_bank2] = await connection.query('SELECT * FROM user_bank WHERE phone = ? ', [userInfo.phone]);
-    if (user_bank.length == 0 && user_bank2.length == 0) {
+    }
+
+    const [user] = await connection.query('SELECT `phone`, `id` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    const [existingUserBank] = await connection.query('SELECT * FROM user_bank WHERE phone = ? ', [userInfo.phone]);
+    
+    if (existingUserBank.length === 0) {
         let time = new Date().getTime();
         const sql = `INSERT INTO user_bank SET 
         phone = ?,
-        name_bank = ?,
-        name_user = ?,
-        account_number = ?,
-        branch_name = ?,
-        email = ?,
-        ifsc_code = ?,
         usdtBep20 = ?,
         usdttrc20 = ?,
         time = ?`;
-        await connection.execute(sql, [userInfo.phone, name_bank, name_user, account_number, branch_name, '', ifsc_code, usdtBep20, usdttrc20, time]);
+        await connection.execute(sql, [userInfo.phone, usdtBep20, usdttrc20, time]);
         return res.status(200).json({
-            message: 'Added bank successfully',
+            message: 'Added crypto addresses successfully',
             status: true,
             timeStamp: timeNow,
         });
-    } else if(user_bank.length > 0) {
-        return res.status(200).json({
-            message: 'This account number already exists in the system',
-            status: false,
-            timeStamp: timeNow,
-        });
-    }  else if(user_bank2.length > 0) {
+    } else {
         return res.status(200).json({
             message: 'The account has already been linked to the bank',
             status: false,
             timeStamp: timeNow,
         });
     }
-
 }
+
 
 const infoUserBank = async(req, res) => {
     let auth = req.cookies.auth;
