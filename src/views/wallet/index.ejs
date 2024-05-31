@@ -207,7 +207,7 @@
             success: function (response) {
                 let user = response.data;
                 $('.wallet-user .name').text(user.name_user);
-                $('.money').text("₹" + user.money_user + ".00");
+                $('.money').text("₹" + user.money_user + "");
                 $('.balance .item:eq(0) div:eq(1)').text("₹" + response.totalRecharge + ".00");
                 $('.balance .item:eq(1) div:eq(1)').text("₹" + response.totalWithdraw + ".00");
             }

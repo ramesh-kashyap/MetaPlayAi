@@ -1,5 +1,5 @@
 .game .logo[data-v-03b808c2] {
-    height: 1.01333rem;
+    /* height: 1.01333rem; */
     width: 2.66667rem
 }
 
@@ -272,7 +272,7 @@
     width: 2.66667rem;
     height: 1.06667rem;
     line-height: 1.06667rem;
-    background-color: #f6f7f8
+    background-color: #3a3a3a
 }
 
 .game .page-nav .arr[data-v-03b808c2] {
@@ -333,7 +333,8 @@
 }
 
 [data-v-03b808c2] {
-    touch-action: pan-y
+    touch-action: pan-y;
+    color:#fff
 }
 
 [data-v-03b808c2] .van-popup {
@@ -937,7 +938,7 @@
 
 .game .bet-box .bet-con.num .title[data-v-03b808c2] {
     font-size: .37333rem;
-    color: #5c616d
+    color: #fff
 }
 
 .game .bet-box .bet-con.num .des[data-v-03b808c2] {
@@ -1035,18 +1036,18 @@
     line-height: 1.06667rem;
     text-align: center;
     width: 100%;
-    background-color: #eaeefc;
+    background-color: #3a3a3a;
     border: .02667rem solid #3c5ef6;
-    box-shadow: .02667rem .02667rem .13333rem .13333rem #eaeefc;
+    box-shadow: .02667rem .02667rem .13333rem .13333rem #3b3b3b;
     border-radius: .26667rem;
-    color: #050505;
+    color: #fff;
     overflow: hidden
 }
 
 .game-list .tab .li .txt.action[data-v-03b808c2] {
-    background-color: #fbedf3;
+    background-color: #3a3a3a;
     border: .02667rem solid #fb4e4e;
-    box-shadow: .02667rem .02667rem .13333rem .13333rem #fbedf3
+    box-shadow: .02667rem .02667rem .13333rem .13333rem #3a3a3a
 }
 
 .game-list .con-box .con-Missing[data-v-03b808c2] {
@@ -1101,6 +1102,7 @@
 .game-list .list .hb .item .goItem.lh[data-v-03b808c2] {
     line-height: .69333rem;
     color:#fff;
+    font-size: 15px;
 }
 
 .game-list .list .hb .item .goItem.lh13[data-v-03b808c2] {
@@ -1321,7 +1323,7 @@
 
 .game-list .list .hb .item .info .tiem[data-v-03b808c2] {
     font-size: .32rem;
-    color: #5f5f5f;
+    color: #ffffff;
     margin-top: .13333rem
 }
 
