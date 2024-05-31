@@ -665,20 +665,18 @@ img {
     
                                 <div data-v-ed94a06c="" data-v-4f5bf25e="" class="vip-content-myWelfare" style="">
                                     <div data-v-ed94a06c="" class="slideMy">
-                                        <div data-v-ed94a06c="" class="vip-content-myWelfare-head"><img
-                                                data-v-ed94a06c=""
+                                        <div data-v-ed94a06c="" class="vip-content-myWelfare-head">
+                                            <img data-v-ed94a06c=""
                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMQSURBVHgB7Zi9ThtBEMdn1oiA0rhPCpMiH1XIG8AL4EOEGucJSJ6A8AQ4TwDU2PL5CXC6dFg0gC0FF0kdNxHC4XayYxvJeD9uz/LZLu4nWXfe3bvd2Z2Z/d8CZGRkZMwThJS4rQX5ewklvn8m4GRtO+xCCixBSvQkHCNRwPf/IiiqyyakQCorcFULCiKi29EymcO1d9thB6aMgBTISTrQOnqQJUiBVAwggA2tEHEfUmDqBrTPgg1lQcFQlb/iuikjbIO4qQQBTAAJ2rPV5QTswQTweNoW47UgbleDA0n0dVjbkQI3fYPPFLxjdJdVMPum1OH7aup2nf8T4Ze3u2F5tI22AjRMfYM/wC+4uD4LPoMHOWnw/afk7x8Ge0McrVqwz33DcPAMImlxZNgHsNsPw5FO1YNHrWrxfSTw0LkaFO8iAon3hLKtnjfAnqRjikhzYURsaO8bL4gIDsE0NoKSkHRuC0RebgIy1j15j8pQ3NZUx36uBn+hGgWWMdTHyzQDVpagqS5dS+8FNYPn7eqWludNud+GaU9oVbeOpHq3JYP14/HNxzDUiw1cV4IyArnz9kiAK39dJ6mCzda5TlftzB/42fFAtXaHePJ6J/ykD8MAuwnPNPjRUb8CTEbH91lJarJ2w8Z4uVUL3VSKf9QlD4sAu89Ofc1UZd+JCb/BgqBSe91WZzVAAjRgQaCcsKZdqwHsbwh63p0DTdfe4xRzKu9+hzkj0e3KTgOWl+w75swQbld2GsCia55upFJkI05Ixn4PSIQ6zIkI8TSuTexHPZ8o9CJgmeDcE379/A13f+/Ah9Xnq/Dy1YvYdisCwrg2sQawG7UqQdMl1Hjwlz8uISkuI1g6+Hw3eH1S2hRqmpiUpwmvcyFWqMqNeDaMbvQ4k1Nzob50CGPdh/EygJdSKdRTl0L18WlfkmQ+71MJtaReMzINIgmx2eeRRCdzM1GoDuVpItm50AwUqkt5mkhkwCwUqkt5mkhkwAwUajPpAXDio8U0FWqc8jSR2ICBQkXvLOELr6yPdMjIyMjIyBjlP5Z/NwElpi0AAAAAAElFTkSuQmCC">
                                             <h1 data-v-ed94a06c="" class="ar-1px-b">My benefits</h1>
                                         </div>
-                                <div data-v-ed94a06c="" data-v-4f5bf25e="" class="vip-content-myWelfare-con" style="">
-                                    <div data-v-ed94a06c="" class="slideMy" id="levelUpBonusesContainer">
-                                        <!-- Cards will be dynamically inserted here -->
+                                        <div data-v-ed94a06c="" data-v-4f5bf25e="" class="vip-content-myWelfare-con" style="">
+                                            <div data-v-ed94a06c="" class="slideMy" id="levelUpBonusesContainer">
+                                                <!-- Cards will be dynamically inserted here -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-    
-    
                             </div>
                         </div>
                         <div data-v-7692a079="" data-v-3966082f="" class="Loading c-row c-row-middle-center" style="display: none;">
@@ -713,30 +711,29 @@ img {
                 }
     
                 function renderLevelUpBonuses(levelUpBonuses) {
-    const container = $('#levelUpBonusesContainer');
-    container.empty();
-    levelUpBonuses.forEach(bonus => {
-        const buttonClass = bonus.rname === 0 ? '' : 'noActive';
-        const card = `
-            <div data-v-ed94a06c="" class="cards">
-                <div data-v-ed94a06c="" class="card">
-                    <div data-v-ed94a06c="" class="card-head">
-                        <img data-v-ed94a06c="" src="https://bdgwin.com/assets/png/welfare1-eee87ee1.png">
-                        <div data-v-ed94a06c="" class="card-head-mon">
-                            <p data-v-ed94a06c=""> ₹ ${bonus.amount}</p>
-                        </div>
-                    </div>
-                    <div data-v-ed94a06c="" class="card-bottom">
-                        <h1 data-v-ed94a06c="">Level up reward</h1>
-                        <span data-v-ed94a06c="">Each account can only receive 1 time</span>
-                    </div>
-                </div>
-                <button data-v-ed94a06c="" class="${buttonClass}">Claim</button>
-            </div>`;
-        container.append(card);
-    });
-}
-
+                    const container = $('#levelUpBonusesContainer');
+                    container.empty();
+                    levelUpBonuses.forEach(bonus => {
+                        const buttonClass = bonus.rname === 0 ? '' : 'noActive';
+                        const card = `
+                            <div data-v-ed94a06c="" class="cards">
+                                <div data-v-ed94a06c="" class="card">
+                                    <div data-v-ed94a06c="" class="card-head">
+                                        <img data-v-ed94a06c="" src="https://bdgwin.com/assets/png/welfare1-eee87ee1.png">
+                                        <div data-v-ed94a06c="" class="card-head-mon">
+                                            <p data-v-ed94a06c=""> ₹ ${bonus.amount}</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-ed94a06c="" class="card-bottom">
+                                        <h1 data-v-ed94a06c="">Level up reward</h1>
+                                        <span data-v-ed94a06c="">Each account can only receive 1 time</span>
+                                    </div>
+                                </div>
+                                <button data-v-ed94a06c="" class="claim-button ${buttonClass}" data-id="${bonus.id}">Claim</button>
+                            </div>`;
+                        container.append(card);
+                    });
+                }
     
                 function updateVipDetails() {
                     $.ajax({
@@ -760,9 +757,29 @@ img {
                 $(document).ready(function() {
                     updateVipDetails();
                 });
+    
+                $(document).on('click', '.claim-button', function(e) {
+                    e.preventDefault();
+                    const bonusId = $(this).data('id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/webapi/claimLevelUpBonus',
+                        data: { id: bonusId },
+                        success: function(response) {
+                            alertMess(response.message, $('body'));
+                            if (response.status) {
+                                updateVipDetails();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alertMess('Failed to claim bonus', $('body'));
+                        }
+                    });
+                });
             </script>
         </div>
     </body>
+    
     
     
     

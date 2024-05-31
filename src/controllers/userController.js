@@ -2813,6 +2813,147 @@ const getVipDetails = async (req, res) => {
 };
 
 
+const claimLevelUpBonus = async (req, res) => {
+    let auth = req.cookies.auth;
+    let id = req.body.id;
+
+    if (!auth || !id) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    try {
+        const [user] = await connection.query('SELECT id FROM users WHERE token = ?', [auth]);
+        if (user.length === 0) {
+            return res.status(200).json({
+                message: 'Failed',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+        const userId = user[0].id;
+
+        const [income] = await connection.query('SELECT amount, rname, user_id FROM incomes WHERE id = ?', [id]);
+        if (income.length === 0) {
+            return res.status(200).json({
+                message: 'Invalid bonus ID',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        const { amount, rname, user_id } = income[0];
+
+        if (userId !== user_id) {
+            return res.status(200).json({
+                message: 'Unauthorized',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        if (rname === 1) {
+            return res.status(200).json({
+                message: 'Bonus Already claimed',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        await connection.query('UPDATE incomes SET rname = 1 WHERE id = ?', [id]);
+        await connection.query('UPDATE users SET money = money + ? WHERE id = ?', [amount, user_id]);
+
+        return res.status(200).json({
+            message: 'Bonus claimed successfully',
+            status: true,
+            timeStamp: new Date().toISOString(),
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+const vipHistory = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `id`, `phone`, `code`, `invite` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [history] = await connection.query(
+        'SELECT updated_at, amount FROM incomes WHERE remarks IN ("Level Up Bonus", "Monthly VIP Bonus") AND user_id = ? ORDER BY updated_at DESC',
+        [userInfo.id]
+    );
+
+    return res.status(200).json({
+        message: 'Get success',
+        datas: history,
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
+
+
+const monthlyVipBonus = async () => {
+    try {
+        // Select all users
+        const [users] = await connection.query('SELECT id, phone, vip_level FROM users');
+
+        for (const user of users) {
+            if (user.vip_level !== 0) {
+                // Select monthly_reward from vip_rules where vip_level matches user's vip_level
+                const [vipRule] = await connection.query(
+                    'SELECT monthly_reward FROM vip_rules WHERE vip_level = ?',
+                    [user.vip_level]
+                );
+
+                if (vipRule.length > 0) {
+                    const monthlyReward = vipRule[0].monthly_reward;
+
+                    // Update money in users table
+                    await connection.query(
+                        'UPDATE users SET money = money + ? WHERE id = ?',
+                        [monthlyReward, user.id]
+                    );
+
+                    // Insert into incomes
+                    const sql = `
+                        INSERT INTO incomes (user_id, amount, comm, remarks, rname, created_at, updated_at)
+                        VALUES (?, ?, ?, "Monthly VIP Bonus", ?, NOW(), NOW())
+                    `;
+                    await connection.query(sql, [user.id, monthlyReward, monthlyReward, user.phone]);
+                }
+            }
+        }
+
+        console.log('Monthly VIP bonuses distributed successfully');
+    } catch (error) {
+        console.error('Error distributing monthly VIP bonuses:', error);
+    }
+};
+
 
 module.exports = {
     userInfo,
@@ -2856,5 +2997,8 @@ module.exports = {
     createPayment1,
     handlePlisioCallback,
     insertStreakBonus,
-    getVipDetails
+    getVipDetails,
+    claimLevelUpBonus,
+    vipHistory,
+    monthlyVipBonus
 }
