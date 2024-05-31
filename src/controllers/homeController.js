@@ -38,6 +38,11 @@ const winingstreakbonus = async(req, res) => {
 const investHistory = async(req, res) => {
     return res.render("daily/investHistory.ejs"); 
 }
+
+const vipdashboard = async(req, res) => {
+    return res.render("checkIn/vip.ejs"); 
+}
+
 const InvitationRecord = async(req, res) => {
     return res.render("checkIn/InvitationRecord.ejs"); 
 }
@@ -227,4 +232,5 @@ module.exports = {
     checkattendance,
     investHistory,
     winingstreakbonus,
+    vipdashboard,
 }
