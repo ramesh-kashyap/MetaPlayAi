@@ -256,6 +256,8 @@ const initWebRouter = (app) => {
     router.get('/admin/manager/incomeBonus', adminController.middlewareAdminController, adminController.incomeBonus); // get info account
     router.get('/admin/manager/dailyBonus', adminController.middlewareAdminController, adminController.dailyBonus); // get info account
     router.post('/api/webapi/admin/updateIncomeStatus', adminController.middlewareAdminController, adminController.updateIncomeStatus); // get info account
+    router.get('/admin/manager/listStreakBonuses', adminController.middlewareAdminController, adminController.listStreakBonuses); // get info account
+    router.post('/api/webapi/admin/updateStreakStatus', adminController.middlewareAdminController, adminController.updateStreakStatus); // get info account
 
     
     return app.use('/', router); 
