@@ -41,6 +41,9 @@ const initWebRouter = (app) => {
     router.get('/checkattendance', middlewareController, homeController.checkattendance);
     router.get('/investHistory', middlewareController, homeController.investHistory);
     router.get('/winingstreakbonus', middlewareController, homeController.winingstreakbonus);
+    router.get('/VipDashboard', middlewareController, homeController.vipdashboard);
+
+
 
     router.get('/promotion', middlewareController, homeController.promotionPage);
     router.get('/promotion/myTeam', middlewareController, homeController.promotionmyTeamPage);
