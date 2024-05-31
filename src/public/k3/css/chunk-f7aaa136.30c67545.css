@@ -756,7 +756,8 @@
 }
 
 .game-betting[data-v-03b808c2] {
-    margin-top: -1.46667rem
+    margin-top: -1.46667rem;
+    background-color: #3a3a3a;
 }
 
 .game .content[data-v-03b808c2] {
@@ -766,7 +767,7 @@
 
 .game .content .page-box[data-v-03b808c2] {
     width: 100%;
-    background: #fff;
+    background: #3a3a3a;
     border-radius: 1.06667rem 1.06667rem 0 0;
     position: relative
 }
@@ -1000,7 +1001,7 @@
 
 .game .bet-box .bet-tab .item[data-v-03b808c2] {
     text-align: center;
-    background-color: #eee;
+    background-color: #3a3a3a;
     height: 1.06667rem;
     line-height: 1.06667rem;
     flex: 0 0 25%;
@@ -1013,8 +1014,9 @@
 }
 
 .game-list[data-v-03b808c2] {
-    margin-top: .4rem;
-    width: 100%
+    padding-top: .4rem;
+    width: 100%;
+    background-color: #3a3a3a;
 }
 
 .game-list .tab[data-v-03b808c2] {
@@ -1067,12 +1069,12 @@
 
 .game-list .list .wrap[data-v-03b808c2] {
     padding: .4rem .13333rem;
-    background-color: #fbedf3;
+    background-color: #2a2a2a;
     border-top-right-radius: .26667rem;
     border-top-left-radius: .26667rem;
     font-weight: 600;
     font-size: .34667rem;
-    color: #000
+    color: #fff
 }
 
 .game-list .list .wrap .li[data-v-03b808c2] {
@@ -1080,8 +1082,8 @@
 }
 
 .game-list .list .hb[data-v-03b808c2] {
-    background-color: #fff;
-    color: #414141;
+    background-color: #3a3a3a;
+    color: #fff;
     font-size: .37333rem
 }
 
@@ -1097,7 +1099,8 @@
 }
 
 .game-list .list .hb .item .goItem.lh[data-v-03b808c2] {
-    line-height: .69333rem
+    line-height: .69333rem;
+    color:#fff;
 }
 
 .game-list .list .hb .item .goItem.lh13[data-v-03b808c2] {
@@ -1403,7 +1406,7 @@
 
 .game-list .list-fooder[data-v-03b808c2] {
     height: .53333rem;
-    background-color: #fbedf3;
+    background-color: #3b3b3b;
     border-bottom-right-radius: .53333rem;
     border-bottom-left-radius: .53333rem
 }

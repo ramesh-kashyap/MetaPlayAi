@@ -61,6 +61,10 @@ const checkRecord = async(req, res) => {
     return res.render("checkIn/checkRecord.ejs"); 
 }
 
+const viprule = async(req, res) => {
+    return res.render("checkIn/viprule.ejs"); 
+}
+
 const addBank = async(req, res) => {
     return res.render("wallet/addbank.ejs"); 
 }
@@ -102,6 +106,10 @@ const rechargeCryptoPage = async(req, res) => {
 
 const rechargerecordPage = async(req, res) => {
     return res.render("wallet/rechargerecord.ejs"); 
+}
+
+const vipHistory = async(req, res) => {
+    return res.render("checkIn/vipHistory.ejs"); 
 }
 
 const withdrawalPage = async(req, res) => {
@@ -233,4 +241,6 @@ module.exports = {
     investHistory,
     winingstreakbonus,
     vipdashboard,
+    viprule,
+    vipHistory,
 }
