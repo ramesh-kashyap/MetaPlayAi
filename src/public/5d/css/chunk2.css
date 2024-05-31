@@ -1,5 +1,5 @@
 .game .logo[data-v-42f27458] {
-    height: 1.01333rem;
+    /* height: 1.01333rem; */
     width: 2.66667rem
 }
 
@@ -184,7 +184,8 @@
 }
 
 .game-betting .tab .box[data-v-42f27458] {
-    position: relative
+    position: relative;
+    background-color: #3a3a3a;
 }
 
 .game-betting .tab .box[data-v-42f27458]:after {
@@ -270,7 +271,7 @@
     width: 2.66667rem;
     height: 1.06667rem;
     line-height: 1.06667rem;
-    background-color: #f6f7f8
+    background-color: #3a3a3a
 }
 
 .game .page-nav .arr[data-v-42f27458] {
@@ -332,7 +333,7 @@
 
 [data-v-42f27458] {
     touch-action: pan-y;
-    background-color: #3a3a3a;
+    /* background-color: #3a3a3a; */
     color:#fff;
 }
 
@@ -770,7 +771,7 @@
     width: 1.06667rem;
     height: 1.06667rem;
     line-height: 1.06667rem;
-    background: #ceced8;
+    background: #2a2a2a;
     font-size: .42667rem;
     font-weight: 700;
     color: #fff;
@@ -1026,7 +1027,7 @@
 .game-list[data-v-42f27458] {
     margin-top: .02rem;
     width: 100%;
-
+    background-color: #3a3a3a;
 }
 
 .game-list .tab[data-v-42f27458] {
@@ -1102,7 +1103,8 @@
 .game-list .list .hb[data-v-42f27458] {
     background-color: #fff;
     color: #414141;
-    font-size: .37333rem
+    font-size: .37333rem;
+    background-color: #3a3a3a;
 }
 
 .game-list .list .hb .item[data-v-42f27458] {
