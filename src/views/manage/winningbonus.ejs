@@ -7650,77 +7650,53 @@ th {
                 <div data-v-25d9c352="" class="colorBox"></div>
                 <div data-v-25d9c352="" class="txtBox">
                     <div data-v-25d9c352="" class="c-row">
-                        <div data-v-25d9c352="" class="txt">Wining Streak Bonus</div>
-                        <!-- <div data-v-25d9c352="" class="c-row c-row-middle">
-                            <div data-v-25d9c352="" class="money">
-                                <div data-v-25d9c352="">Loading.<span data-v-25d9c352="" class="p-l-10">$</span></div>
-                            </div>
-                            <div data-v-25d9c352="" class="van-image img m-l-15" style="width: 26px; height: 26px;">
-                                <img src="/images/refresh.png" class="van-image__img">
-                            </div>
-                        </div> -->
+                        <div data-v-25d9c352="" class="txt">Winning Streak Bonus</div>
                     </div>
                     <div data-v-25d9c352="" class="icon"></div>
                 </div>
-                
-                <!-- <div data-v-25d9c352="" class="number-box c-row">
-                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">$</div>
-                    <div data-v-25d9c352="" class="input c-row c-row-middle van-cell van-field">
-                        <div class="van-cell__value van-cell__value--alone van-field__value">
-                            <div class="van-field__body">
-                                <input type="tel" inputmode="numeric" placeholder="Please enter transfer amount" class="van-field__control">
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <div data-v-25d9c352="" class="conBox m-t-5"></div>
+
                 <div data-v-25d9c352="" class="requiredBox m-t-20">
                     <span>User ID</span><br><br>
                     <div data-v-25d9c352="" class="box c-row c-row-between c-row-middle p-l-10">
-                        <!-- <img data-v-25d9c352="" height="13px" width="25px" src="/images/download3.png"> -->                        
-                        <input data-v-d8986e5e="" data-v-25d9c352="" placeholder="User Id" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" class="pw-input input">
+                        <input id="userId" data-v-d8986e5e="" data-v-25d9c352="" placeholder="User Id" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" class="pw-input input">
                     </div>
                 </div>
 
                 <div data-v-25d9c352="" class="requiredBox m-t-20">
-                    <span style="margin-bottom: 5px">Wining Streak Number</span><br><br>
+                    <span style="margin-bottom: 5px">Winning Streak Number</span><br><br>
                     <div data-v-25d9c352="" class="box c-row c-row-between c-row-middle p-l-10">
-                        <!-- <img data-v-25d9c352="" height="13px" width="25px" src="/images/download3.png"> -->
-                        <input data-v-d8986e5e="" data-v-25d9c352="" placeholder="Wining Streak Number" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" class="pw-input input">
+                        <input id="streakNumber" data-v-d8986e5e="" data-v-25d9c352="" placeholder="Winning Streak Number" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" class="pw-input input">
                     </div>
                 </div>
                 <div data-v-25d9c352="" class="requiredBox m-t-20">
-                    <span>Wining Streak Period Number</span><br><br>
+                    <span>Winning Streak Period Number</span><br><br>
                     <div data-v-25d9c352="" class="box c-row c-row-between c-row-middle p-l-10">
-                        <!-- <img data-v-25d9c352="" height="13px" width="25px" src="/images/download3.png"> -->
-                        <input data-v-d8986e5e="" data-v-25d9c352="" placeholder="Period Number" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" class="pw-input input">
+                        <input id="periodNumber" data-v-d8986e5e="" data-v-25d9c352="" placeholder="Period Number" onkeyup="value=value" class="pw-input input">
                     </div>
                 </div>
                 <div data-v-25d9c352="" class="c-row c-row-center m-t-30 p-b-30 withdrawal-btn">
                     <button data-v-25d9c352=""
                         class="btn van-button van-button--default van-button--normal van-button--block van-button--round"
-                        style="color: rgb(255, 255, 255); background: rgb(222 148 38); border-color: rgb(215 130 7);">
+                        style="color: rgb(255, 255, 255); background: rgb(222 148 38); border-color: rgb(215 130 7);"
+                        id="submitBtn">
                         <div data-v-25d9c352="" class="van-button__content">
-                            <span data-v-25d9c352="" class="van-button__text">Transfer Money</span>
+                            <span data-v-25d9c352="" class="van-button__text">Submit Streak Bonus</span>
                         </div>
                     </button>
                 </div>
             </div>
-            
+
             <!-- History Table Section --> 
             <div data-v-25d9c352="" class="selectBox p-b-20" style="height:100vh;">
                 <div data-v-2605efec="" class="laundry-page_container">
                     <div data-v-2605efec="" class="laundry-page_list">
                         <div data-v-2605efec="" class="title" style="margin: 2px; font-size: large;font-weight: bolder;">History</div>
                         <div data-v-14912091="" class="box">
-                            <div data-v-14912091="" class="table" style="border-collapse: collapse;
-                            width: 100%;">
-                                <div data-v-14912091="" class="hd van-row" style="text-align: left;
-                                padding: 8px;background-color: #de9426;
-  color: white;">
+                            <div data-v-14912091="" class="table" style="border-collapse: collapse; width: 100%;">
+                                <div data-v-14912091="" class="hd van-row" style="text-align: left; padding: 8px; background-color: #de9426; color: white;">
                                     <div data-v-14912091="" class="c-tc van-ellipsis van-col van-col--8">Time</div>
-                                    <div data-v-14912091="" class="c-tc van-ellipsis van-col van-col--8">Receive Amount</div>
-                                    <div data-v-14912091="" class="c-tc van-ellipsis van-col van-col--8">Remarks</div>
+                                    <div data-v-14912091="" class="c-tc van-ellipsis van-col van-col--8">Bonus</div>
+                                    <div data-v-14912091="" class="c-tc van-ellipsis van-col van-col--8">Status</div>
                                 </div>
                                 <div data-v-14912091="" class="list">
                                     <div data-v-14912091="" role="feed" class="van-list">
@@ -7785,34 +7761,30 @@ th {
                 }
             });
 
-            $('button').click(function (e) { 
+            $('#submitBtn').click(function (e) { 
                 e.preventDefault();
-                let amount = $('input:eq(0)').val().trim();
-                let password = $('input:eq(1)').val().trim();
+                let userId = $('#userId').val().trim();
+                let streakNumber = $('#streakNumber').val().trim();
+                let periodNumber = $('#periodNumber').val().trim();
 
-                if (amount && password ) {
+                if (userId && streakNumber && periodNumber) {
                     $.ajax({
                         type: "POST",
-                        url: "/api/webapi/fundtransfer",
+                        url: "/api/webapi/insertStreakBonus",
                         data: {
-                            amount: amount,
-                            password: password,
+                            userId: userId,
+                            number: streakNumber,
+                            periods: periodNumber
                         },
                         dataType: "json",
                         success: function (response) {
                             $(this).addClass('block-click');
-                            if (response.status == true) {
-                                $('.amount').text(response.money + '.00 $');
-                            }
                             alertMess(response.message, $(this));
                         }
                     });
-                } else if (!amount || !password) {
-                    $(this).addClass('block-click');
-                    alertMess('Please enter complete information', $(this));
                 } else {
                     $(this).addClass('block-click');
-                    alertMess('Withdrawal amount range 1000-Unlimited', $(this));
+                    alertMess('Please enter complete information', $(this));
                 }
             });
 
@@ -7846,24 +7818,34 @@ th {
             }
 
             function MemRender(datas) {
-                let html = '';
-                datas.map((data) => {
-                    html += `
-                        <div data-v-14912091="" class="bd van-row">
-                            <div data-v-14912091="" class="c-tc van-col van-col--8 " style=" text-align: center; padding: 8px;">${timerJoin(data.created_at)}</div>
-                            <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${data.amount}</div>
-                            <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${data.status}</div>
-                        </div>`;
-                });
-                $('#van-list').html(html);
-            }
+    let html = '';
+    datas.map((data) => {
+        let statusText = '';
+        if (data.status === 0) {
+            statusText = 'Pending';
+        } else if (data.status === 1) {
+            statusText = 'Success';
+        } else if (data.status === 2) {
+            statusText = 'Failed';
+        }
+
+        html += `
+            <div data-v-14912091="" class="bd van-row">
+                <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${timerJoin(data.updated_at)}</div>
+                <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${data.amount}</div>
+                <div data-v-14912091="" class="c-tc van-col van-col--8" style=" text-align: center; padding: 8px;">${statusText}</div>
+            </div>`;
+    });
+    $('#van-list').html(html);
+}
+
 
             $.ajax({
                 type: "GET",
-                url: "/api/webapi/fundTransferReport", 
+                url: "/api/webapi/listStreakBonusReport", 
                 dataType: "json",
                 success: function (response) {
-                    MemRender(response.fundTransfers);
+                    MemRender(response.streakBonuses);
                 }
             });
         });
@@ -7873,6 +7855,7 @@ th {
         });
     </script>
 </body>
+
 
 
 

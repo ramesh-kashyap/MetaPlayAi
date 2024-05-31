@@ -858,7 +858,177 @@ const createPayment = async (req, res) => {
       throw error;
     }
   };
-  
+
+  const createPayment1 = async (req, res) => {
+    let auth = req.cookies.auth;
+    let money = req.body.money;
+    let type = req.body.type;
+    let typeid = req.body.typeid;
+
+    console.log(typeid);
+
+    if (!auth || !money || money < 1) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `phone`, `name_user`, `invite` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+
+    // Determine the currency based on the typeid
+    let currency;
+    if (typeid === 'USDT.BEP20') {
+        currency = 'USDT_BSC';
+    } else {
+        currency = 'USDT_TRX';
+    }
+
+    const paymentOptions = {
+        source_currency: 'USD', // The currency you want to receive
+        source_amount: money.toString(), // The amount you want to receive
+        order_number: `${Date.now()}`, // Unique order number
+        currency: currency, // The currency type
+        email: userInfo.phone + '@example.com', // Customer's email
+        order_name: userInfo.name_user, // Description of the product or service
+        callback_url: 'http://localhost:3000/api/webapi/handlePlisioCallback', // Your callback URL 
+        api_key: 'WyrmxIT3Foj0uygOqx6CNdh1AMyV5pPzjOIHUhHphSB7WVgNLjkA_7KFIcxhqQ3_', // Your Plisio API key
+    };
+
+    try {
+        const apiURL = 'https://plisio.net/api/v1/invoices/new';
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+
+        const response = await axios.post(apiURL, paymentOptions, { headers });
+        const payment = response.data;
+
+        if (payment.status === 'success') {
+            const clientTransactionId = payment.data.txn_id;
+            const invoice = payment.data.invoice_number;
+            const currentDateString = new Date().toISOString().split('T')[0];
+
+            const sql = `INSERT INTO recharge SET 
+                id_order = ?, 
+                transaction_id = ?, 
+                phone = ?, 
+                money = ?, 
+                amount_in_usdt = ?, 
+                type = ?, 
+                status = ?, 
+                today = ?, 
+                url = ?, 
+                time = ?`;
+
+            await connection.execute(sql, [
+                invoice, clientTransactionId, userInfo.phone, money, money, type, 0, currentDateString, payment.data.invoice_url, Date.now()
+            ]);
+
+            return res.status(200).json({
+                message: 'Order created successfully',
+                datas: payment.data,
+                status: true,
+                timeStamp: new Date().toISOString(),
+            });
+        } else {
+            return res.status(200).json({
+                message: 'Failed to create order',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+
+
+
+const handlePlisioCallback = async (req, res) => {
+    try {
+        const response = req.body;
+
+        if (!response) {
+            return res.status(400).send('Invalid request');
+        }
+
+        const {
+            order_number,
+            status,
+            source_amount,
+            txn_id,
+            order_name,
+            invoice_total_sum
+        } = response;
+
+        if (status === "completed" || (status === "mismatch" && source_amount >= invoice_total_sum)) {
+            const updateInvestment = await connection.query(
+                'UPDATE recharge SET status = 1 WHERE id_order = ? AND status = 0',
+                [order_number]
+            );
+
+            if (updateInvestment[0].affectedRows > 0) {
+                const [userDetail] = await connection.query('SELECT id, phone, status, money FROM users WHERE name_user = ?', [order_name]);
+                const user = userDetail[0];
+
+                if (user.status === 0) {
+                    const updatedUser = {
+                        status: 1,
+                        updated_at: new Date(),
+                    };
+                    await connection.query('UPDATE users SET ? WHERE id = ?', [updatedUser, user.id]);
+
+                } else {
+                    const newPackage = user.money + source_amount;
+                    await connection.query('UPDATE users SET money = ?, status = ? WHERE id = ?', [newPackage, 1, user.id]);
+                }
+
+                const checkTime = new Date().toISOString().split('T')[0];
+                const [sumResult] = await connection.query(
+                    'SELECT SUM(money) as sumOfRecharge FROM recharge WHERE phone = ? AND status = 1 AND today = ?',
+                    [user.phone, checkTime]
+                );
+
+                const [rowCount] = await connection.query('SELECT COUNT(*) as count FROM recharge WHERE phone = ?', [user.phone]);
+                if (rowCount[0].count === 0) {
+                    await directBonus(source_amount, user.phone);
+                }
+
+                let sumOfRecharge = sumResult[0].sumOfRecharge || 0;
+
+                if (sumOfRecharge >= 500) {
+                    await rechargeBonus(user.phone, sumOfRecharge);
+                }
+
+                const [recharge] = await connection.query('SELECT * FROM recharge WHERE id_order = ? AND status = ?', [order_number, 1]);
+
+                return res.status(200).json({
+                    message: 'Order Submitted successfully',
+                    datas: recharge[0],
+                    status: true,
+                    timeStamp: new Date().toISOString(),
+                });
+            }
+        }
+
+        res.status(200).send('Callback handled successfully');
+    } catch (error) {
+        console.error('Callback error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+
 
   const rechargeCoin = async(req, res) => {
     let auth = req.cookies.auth;
@@ -870,7 +1040,7 @@ const createPayment = async (req, res) => {
     let currency = req.body.currency;
 
     if (type != 'cancel') {
-        if (!auth || !money || money < 9) {
+        if (!auth || !money || money < 1.11) {
             return res.status(200).json({
                 message: 'Failed',
                 status: false,
@@ -1326,67 +1496,53 @@ const manualRecharge = async(req, res) => {
 
 const addBank = async(req, res) => {
     let auth = req.cookies.auth;
-    let name_bank = req.body.bank_name;
-    let name_user = req.body.account_name;
-    let account_number = req.body.account_number;
-    let branch_name = req.body.branch_name;
-    let ifsc_code = req.body.ifsc_code;
     let usdtBep20 = req.body.usdtBep20;
     let usdttrc20 = req.body.usdttrc20;
-    console.log(auth+" "+name_bank+" "+account_number+" "+branch_name+" "+ifsc_code);
-    if (!auth || !name_bank || !name_user || !account_number || !branch_name || !ifsc_code) {
-        return res.status(200).json({
-            message: 'Failed',
-            status: false,
-            timeStamp: timeNow,
-        })
-    }
-    const [user] = await connection.query('SELECT `phone`, `code`,`invite` FROM users WHERE `token` = ? ', [auth]);
-    let userInfo = user[0];
- 
-    if(!user) {
+    let timeNow = new Date().toISOString();
+
+    if (!auth || !usdtBep20 || !usdttrc20) {
         return res.status(200).json({
             message: 'Failed',
             status: false,
             timeStamp: timeNow,
         });
-    };
-    const [user_bank] = await connection.query('SELECT * FROM user_bank WHERE account_number = ? ', [account_number]);
-    const [user_bank2] = await connection.query('SELECT * FROM user_bank WHERE phone = ? ', [userInfo.phone]);
-    if (user_bank.length == 0 && user_bank2.length == 0) {
+    }
+
+    const [user] = await connection.query('SELECT `phone`, `id` FROM users WHERE `token` = ?', [auth]);
+    let userInfo = user[0];
+
+    if (!userInfo) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    const [existingUserBank] = await connection.query('SELECT * FROM user_bank WHERE phone = ? ', [userInfo.phone]);
+    
+    if (existingUserBank.length === 0) {
         let time = new Date().getTime();
         const sql = `INSERT INTO user_bank SET 
         phone = ?,
-        name_bank = ?,
-        name_user = ?,
-        account_number = ?,
-        branch_name = ?,
-        email = ?,
-        ifsc_code = ?,
         usdtBep20 = ?,
         usdttrc20 = ?,
         time = ?`;
-        await connection.execute(sql, [userInfo.phone, name_bank, name_user, account_number, branch_name, '', ifsc_code, usdtBep20, usdttrc20, time]);
+        await connection.execute(sql, [userInfo.phone, usdtBep20, usdttrc20, time]);
         return res.status(200).json({
-            message: 'Added bank successfully',
+            message: 'Added crypto addresses successfully',
             status: true,
             timeStamp: timeNow,
         });
-    } else if(user_bank.length > 0) {
-        return res.status(200).json({
-            message: 'This account number already exists in the system',
-            status: false,
-            timeStamp: timeNow,
-        });
-    }  else if(user_bank2.length > 0) {
+    } else {
         return res.status(200).json({
             message: 'The account has already been linked to the bank',
             status: false,
             timeStamp: timeNow,
         });
     }
-
 }
+
 
 const infoUserBank = async(req, res) => {
     let auth = req.cookies.auth;
@@ -2492,6 +2648,122 @@ const listIncomeReport = async (req, res) => {
     });
 };
 
+const insertStreakBonus = async (req, res) => {
+    const auth = req.cookies.auth;
+    const { userId, number, periods } = req.body;
+    const timeNow = new Date().toISOString();
+
+    if (!auth || !userId || !number || !periods) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    try {
+        const [user] = await connection.query('SELECT phone, id FROM users WHERE id_user = ?', [userId]);
+
+        if (user.length === 0) {
+            return res.status(200).json({
+                message: 'Invalid user ID',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        const phone = user[0].phone;
+        const userIdInUsers = user[0].id;
+
+        if (number < 5) {
+            return res.status(200).json({
+                message: 'Streak must be at least 5',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        let amount = 0;
+        let bonus = 0;
+
+        if (number >= 5 && number < 10) {
+            amount = 50;
+            bonus = 50;
+        } else if (number >= 10 && number < 15) {
+            amount = 1000;
+            bonus = 1000;
+        } else if (number >= 15 && number < 20) {
+            amount = 5000;
+            bonus = 5000;
+        } else if (number >= 20 && number < 25) {
+            amount = 10000;
+            bonus = 10000;
+        } else if (number >= 25) {
+            amount = 20000;
+            bonus = 20000;
+        }
+
+        const sql = `INSERT INTO streak_bonus SET 
+            phone = ?, 
+            user_id = ?, 
+            streak_number = ?, 
+            streak_period_number = ?, 
+            amount = ?, 
+            bonus = ?, 
+            status = 0, 
+            created_at = ?, 
+            updated_at = ?`;
+
+        await connection.execute(sql, [phone, userId, number, periods, amount, bonus, timeNow, timeNow]);
+
+        return res.status(200).json({
+            message: 'Streak bonus inserted successfully',
+            status: true,
+            timeStamp: timeNow,
+        });
+    } catch (error) {
+        console.error('Error inserting streak bonus:', error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+}
+
+const listStreakBonusReport = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    const [user] = await connection.query('SELECT `phone` FROM users WHERE `token` = ?', [auth]);
+    if (!user.length) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    let userPhone = user[0].phone;
+
+    const [streakBonuses] = await connection.query(
+        'SELECT `updated_at`, `amount`, `status` FROM streak_bonus WHERE `phone` = ? ORDER BY `updated_at` DESC', 
+        [userPhone]
+    );
+
+    return res.status(200).json({
+        message: 'Receive success',
+        streakBonuses: streakBonuses,
+        status: true,
+        timeStamp: new Date().toISOString(),
+    });
+};
 
 
 module.exports = {
@@ -2525,11 +2797,15 @@ module.exports = {
     fundTransferGame,
     listFundTransferReport,
     listGameTransferReport,
+    listStreakBonusReport,
     getAIBonus,
     getAIBalance,
     attendanceBonus,
     getAttendanceInfo,
     calculateTeamRecharge,
     calculateDailyEarnings,
-    listIncomeReport
+    listIncomeReport,
+    createPayment1,
+    handlePlisioCallback,
+    insertStreakBonus
 }

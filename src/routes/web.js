@@ -77,7 +77,9 @@ const initWebRouter = (app) => {
     router.get('/api/webapi/getAttendanceInfo', middlewareController, userController.getAttendanceInfo);
     router.get('/api/webapi/listIncomeReport', middlewareController, userController.listIncomeReport); // register
 
-  
+    router.post('/api/webapi/insertStreakBonus', middlewareController, userController.insertStreakBonus); // register
+    router.get('/api/webapi/listStreakBonusReport', middlewareController, userController.listStreakBonusReport); // register
+
 
     router.get('/keFuMenu', middlewareController, homeController.keFuMenu);
 
@@ -141,6 +143,9 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/checkrechargestatus', middlewareController, userController.checkRechargeStatus); // register
     router.post('/api/webapi/rechargeCoin', middlewareController, userController.rechargeCoin); // register
     router.post('/api/webapi/createPayment', middlewareController, userController.createPayment); // register
+    router.post('/api/webapi/createPayment1', middlewareController, userController.createPayment1); // register
+    router.post('/api/webapi/handlePlisioCallback', middlewareController, userController.handlePlisioCallback); // register
+
     
     router.get('/api/webapi/myTeam', middlewareController, userController.listMyTeam); // register
     router.get('/api/webapi/rebateBonus', middlewareController, userController.listMyRebate); // register
@@ -249,6 +254,12 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/admin/k3/listOrders', adminController.middlewareAdminController, adminController.listOrderOldK3); // get info account
     router.post('/api/webapi/admin/5d/editResult', adminController.middlewareAdminController, adminController.editResult); // get info account
     router.post('/api/webapi/admin/k3/editResult', adminController.middlewareAdminController, adminController.editResult2); // get info account
+
+    router.get('/admin/manager/aiBonus', adminController.middlewareAdminController, adminController.aiBonus); // get info account
+    router.get('/admin/manager/incomeBonus', adminController.middlewareAdminController, adminController.incomeBonus); // get info account
+    router.get('/admin/manager/dailyBonus', adminController.middlewareAdminController, adminController.dailyBonus); // get info account
+    router.post('/api/webapi/admin/updateIncomeStatus', adminController.middlewareAdminController, adminController.updateIncomeStatus); // get info account
+
     
     return app.use('/', router); 
 }
