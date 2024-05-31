@@ -7157,21 +7157,19 @@
                     <div data-v-3966082f="" class="item c-row c-row-between m-b-10">
                         <div data-v-3966082f="">
                             <div data-v-3966082f="" class="number c-row">
-                                ${data.id_order}
-                                <div data-v-3966082f="" class="m-l-10 tag-read van-image" data-clipboard-text="${data.id_order}" style="width: 18px; height: 15px;"><img src="/images/copy.png" class="van-image__img" /></div>
+                                Vip Bonus -
                             </div>
                             <div data-v-3966082f="">
                                 <div data-v-3966082f="" class="money action m-b-10 m-t-10">
                                     <!---->
-                                    <span data-v-3966082f="">$ ${data.money}.00</span>
+                                    <span data-v-3966082f="">₹ ${data.amount}</span>
                                 </div>
                             </div>
-                            <div data-v-3966082f="" class="time">${timerJoin(data.time)}</div>
+                            <div data-v-3966082f="" class="time">${(data.updated_at)}</div>
                         </div>
                         <div data-v-3966082f="">
                             <div data-v-3966082f="" class="state m-b-5">
                                 <!---->
-                                <span data-v-3966082f="" style="color: ${(data.status == 1) ? 'rgb(106, 190, 87)' : 'rgb(242, 65, 59)'}">${(data.status == 0) ? 'Waiting' : (data.status == 1) ? 'Success' : 'Cancelled'}</span>
                                 <!---->
                             </div>
                         </div>
@@ -7207,7 +7205,7 @@
                     }
                     $.ajax({
                         type: "GET",
-                        url: "/api/webapi/recharge/list",
+                        url: "/api/webapi/vipHistory",
                         dataType: "json",
                         success: function(response) {
                             console.log(response.datas);

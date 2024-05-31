@@ -113,6 +113,13 @@ const cronJobGame1p = (io) => {
         scheduled: true,
         timezone: "Asia/Kolkata"
     });
+
+    cron.schedule('0 8 1 * *', async () => {
+        await monthlyVipBonus();
+    }, {
+        scheduled: true,
+        timezone: "Asia/Kolkata"
+    });
 }
 
 module.exports = {
