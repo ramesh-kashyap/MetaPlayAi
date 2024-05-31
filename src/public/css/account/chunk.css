@@ -59,7 +59,7 @@
 .mian .forgot-box[data-v-7ee4aaeb] {
     width: 100%;
     padding: .13333rem .8rem .8rem;
-    background-color: #fff;
+    background-color: #3a3a3a;
     border-top-left-radius: .66667rem;
     border-top-right-radius: .66667rem;
     position: relative
@@ -71,7 +71,7 @@
 
 .mian-from .lab[data-v-7ee4aaeb] {
     font-size: .37333rem;
-    color: #959595
+    color: #fff
 }
 
 .mian-from .tip[data-v-7ee4aaeb] {
@@ -135,7 +135,9 @@
     border: none;
     width: 100%;
     height: .96rem;
-    font-size: .4rem
+    font-size: .4rem;
+    /* background-color: #3a3a3a; */
+
 }
 
 .mian-from .item .otp[data-v-7ee4aaeb] {
@@ -151,13 +153,13 @@
     line-height: .96rem;
     background-color: #ffebeb;
     border-color: #ffebeb!important;
-    color: #000
+    color: #fff
 }
 
 .mian-from .agree[data-v-7ee4aaeb] {
     line-height: .53333rem;
     height: .53333rem;
-    color: #000;
+    color: #fff;
     font-size: .4rem
 }
 
