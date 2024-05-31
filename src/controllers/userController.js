@@ -2765,6 +2765,54 @@ const listStreakBonusReport = async (req, res) => {
     });
 };
 
+const getVipDetails = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    try {
+        const [user] = await connection.query('SELECT `id`, `experience`, `vip_level` FROM users WHERE `token` = ?', [auth]);
+        let userInfo = user[0];
+        if (!userInfo) {
+            return res.status(200).json({
+                message: 'Failed',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        const [levelUpBonuses] = await connection.query(
+            'SELECT amount, id, rname FROM incomes WHERE remarks = "Level Up Bonus" AND user_id = ?',
+            [userInfo.id]
+        );
+
+        const numberOfRows = levelUpBonuses.length;
+
+        return res.status(200).json({
+            message: 'VIP details fetched successfully',
+            status: true,
+            experience: userInfo.experience,
+            vip_level: userInfo.vip_level,
+            levelUpBonuses: levelUpBonuses,
+            numberOfRows: numberOfRows,
+            timeStamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+
 
 module.exports = {
     userInfo,
@@ -2807,5 +2855,6 @@ module.exports = {
     listIncomeReport,
     createPayment1,
     handlePlisioCallback,
-    insertStreakBonus
+    insertStreakBonus,
+    getVipDetails
 }
