@@ -148,7 +148,7 @@ socket.on("data-server", function (msg) {
         unsetCookie();
         return false;
       }
-      $(".num span").text(`${data.data.money_user}.00 $ `);
+      $(".num span").text(`${data.data.money_user}₹`);
     });
     $(".Loading").fadeOut(0);
   }, 1000);
@@ -197,7 +197,7 @@ fetch("/api/webapi/GetUserInfo")
       unsetCookie();
       return false;
     }
-    $(".num span").text(`${data.data.money_user}.00 $ `);
+    $(".num span").text(`${data.data.money_user} ₹`);
   });
 
 $(".reload_money").click(function (e) {
@@ -213,7 +213,7 @@ $(".reload_money").click(function (e) {
       unsetCookie();
       return false;
     }
-    $(".num span").text(`${data.data.money_user}.00 $ `);
+    $(".num span").text(`${data.data.money_user}₹`);
   });
 });
 $(".van-overlay, .foot .left").click(function (e) {
@@ -231,7 +231,7 @@ $(".van-overlay, .foot .left").click(function (e) {
   });
   $(".stepper-box .digit-box input").val(1);
   $(".amount-box").attr("data-money", "1000");
-  $(".foot .right span:eq(1)").text(1000 + ".00 $");
+  $(".foot .right span:eq(1)").text(1000 + "₹");
 });
 
 function xlad(x, color) {
@@ -354,7 +354,7 @@ function totalMoney() {
   let value = $(".stepper-box .digit-box input").val().trim();
   let money = $(".amount-box").attr("data-money");
   let total = value * money;
-  $(".foot .right span:eq(1)").text(total + ".00 $");
+  $(".foot .right span:eq(1)").text(total + "₹");
 }
 
 function alertBox(join, addText) {
@@ -633,7 +633,7 @@ $(".foot .right").click(function (e) {
       alertMessJoin(response.message);
       if (response.status === false) return;
       $("#history-order").prepend(response.data);
-      $(".total-box .num span").text(response.money + ".00 $ ");
+      $(".total-box .num span").text(response.money + "₹ ");
       socket.emit('data-server_2', { money: x * money, join, time: Date.now(), change: response.change });
     },
   });
@@ -651,7 +651,7 @@ $(".foot .right").click(function (e) {
     });
     $(".stepper-box .digit-box input").val(1);
     $(".amount-box").attr("data-money", "1000");
-    $(".foot .right span:eq(1)").text(1000 + ".00 $");
+    $(".foot .right span:eq(1)").text(1000 + "₹");
     $(".foot .right").removeClass("block-click");
   }, 500);
 });
@@ -1311,7 +1311,7 @@ window.onload = function() {
         });
         $(".stepper-box .digit-box input").val(1);
         $(".amount-box").attr("data-money", "1000");
-        $(".foot .right span:eq(1)").text(1000 + ".00 $");
+        $(".foot .right span:eq(1)").text(1000 + " ₹");
 
         $(".box .mark-box ").css("display", "flex");
         $(".box .mark-box .item:eq(0)").text(seconds1);

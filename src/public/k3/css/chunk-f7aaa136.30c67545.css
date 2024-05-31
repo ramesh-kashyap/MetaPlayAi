@@ -1102,6 +1102,7 @@
 .game-list .list .hb .item .goItem.lh[data-v-03b808c2] {
     line-height: .69333rem;
     color:#fff;
+    font-size: 15px;
 }
 
 .game-list .list .hb .item .goItem.lh13[data-v-03b808c2] {
@@ -1322,7 +1323,7 @@
 
 .game-list .list .hb .item .info .tiem[data-v-03b808c2] {
     font-size: .32rem;
-    color: #5f5f5f;
+    color: #ffffff;
     margin-top: .13333rem
 }
 
