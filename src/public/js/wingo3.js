@@ -148,7 +148,7 @@ function showListOrder3(list_orders, x) {
           unsetCookie();
           return false;
         }
-        $(".num span").text(`$ ${data.data.money_user}.00`);
+        $(".num span").text(`₹ ${data.data.money_user}`);
       });
       $(".Loading").fadeOut(0);
     }, 1000);
@@ -196,7 +196,7 @@ function showListOrder3(list_orders, x) {
         unsetCookie();
         return false;
       }
-      $(".num span").text(`$ ${data.data.money_user}.00`);
+      $(".num span").text(`₹ ${data.data.money_user}`);
     });
   $(".reload_money").click(function (e) {
     e.preventDefault();
@@ -211,7 +211,7 @@ function showListOrder3(list_orders, x) {
         unsetCookie();
         return false;
       }
-      $(".num span").text(`$ ${data.data.money_user}.00`);
+      $(".num span").text(`₹ ${data.data.money_user}`);
     });
   });
   $(".van-overlay, .foot .left").click(function (e) {
@@ -858,7 +858,7 @@ function showListOrder3(list_orders, x) {
                                           <div data-v-a9660e98="">Purchase Amount</div>
                                           <div data-v-a9660e98="">${
                                             list_orders.money + list_orders.fee
-                                          }.00</div>
+                                          }</div>
                                       </div>
                                       <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
                                           <div data-v-a9660e98="">Quantity Purchased</div>

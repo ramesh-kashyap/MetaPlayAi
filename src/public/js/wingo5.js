@@ -148,7 +148,7 @@ function showListOrder3(list_orders, x) {
           unsetCookie();
           return false;
         }
-        $(".num span").text(`${data.data.money_user}.00 ₫ `);
+        $(".num span").text(`${data.data.money_user}`);
       });
       $(".Loading").fadeOut(0);
     }, 1000);
@@ -196,7 +196,7 @@ function showListOrder3(list_orders, x) {
         unsetCookie();
         return false;
       }
-      $(".num span").text(`$ ${data.data.money_user}.00`);
+      $(".num span").text(`₹ ${data.data.money_user}`);
     });
   $(".reload_money").click(function (e) {
     e.preventDefault();
@@ -211,7 +211,7 @@ function showListOrder3(list_orders, x) {
         unsetCookie();
         return false;
       }
-      $(".num span").text(`$ ${data.data.money_user}.00`);
+      $(".num span").text(`₹ ${data.data.money_user}`);
     });
   });
   $(".van-overlay, .foot .left").click(function (e) {
@@ -631,7 +631,7 @@ function showListOrder3(list_orders, x) {
         alertMessJoin(response.message);
         if (response.status === false) return;
         $("#history-order").prepend(response.data);
-        $(".total-box .num span").text(response.money + ".00 ₫ ");
+        $(".total-box .num span").text(response.money + "");
         socket.emit('data-server_2', { money: x * money, join, time: Date.now(), change: response.change });
       },
     });
