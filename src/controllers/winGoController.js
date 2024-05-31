@@ -392,14 +392,10 @@ const addWinGo = async (game) => {
 
         const [winGoNow] = await connection.query(`SELECT period FROM wingo WHERE status = 0 AND game = "${join}" ORDER BY id DESC LIMIT 1 `);
         const [setting] = await connection.query('SELECT * FROM `admin` ');
-
-        if (winGoNow.length === 0) {
-            console.error('No wingo record found for the current period');
-            return;
-        }
-
         let period = winGoNow[0].period; // current demand
-        let amount = Math.floor(Math.random() * 10); // blue red purple
+        let amount = Math.floor(Math.random() * 10); //blue red purple
+        // let amount = 1;
+        // console.log("Winning Amt: "+amount);
         let timeNow = Date.now();
 
         let nextResult = '';
@@ -426,24 +422,25 @@ const addWinGo = async (game) => {
             }
             result = arr[0];
 
+            // console.log('new Number '+result);
             await connection.execute(`UPDATE wingo SET amount = ?,status = ? WHERE period = ? AND game = "${join}"`, [result, 1, period]);
         }
-
-        const currentDate = new Date();
+          const currentDate = new Date();
+        // Extract individual components
         const year = currentDate.getFullYear();
-        const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+        const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
         const day = currentDate.getDate().toString().padStart(2, "0");
-        const todaysDate = year + month + day;
-
-        const newPeriod = Number(period.slice(7)) + 1;
-        const finalPeriod = todaysDate + newPeriod;
-
-        const sql = `INSERT INTO wingo SET 
-            period = ?,
-            amount = ?,
-            game = ?,
-            status = ?,
-            time = ?`;
+        const todaysDate = year+""+month+""+day;
+    
+        const newPeriod = Number(Number(period.slice(7))+1);
+        const finalPeriod = todaysDate +""+ newPeriod;
+        
+       const sql = `INSERT INTO wingo SET 
+        period = ?,
+        amount = ?,
+        game = ?,
+        status = ?,
+        time = ?`;
         await connection.execute(sql, [finalPeriod, 0, join, 0, timeNow]);
 
         if (game == 1) join = 'wingo1';
@@ -453,10 +450,11 @@ const addWinGo = async (game) => {
 
         await connection.execute(`UPDATE admin SET ${join} = ?`, [newArr]);
     } catch (error) {
-        console.error('Error in addWinGo:', error);
+        if (error) {
+            console.log(error);
+        }
     }
 }
-
 
 
 const handlingWinGo1P = async (typeid) => {
