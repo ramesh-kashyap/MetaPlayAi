@@ -219,6 +219,7 @@ const betK3 = async (req, res) => {
             let timeNow = Date.now();
             const sql = `INSERT INTO result_k3 SET id_product = ?,phone = ?,code = ?,invite = ?,stage = ?,level = ?,money = ?,price = ?,amount = ?,fee = ?,game = ?,join_bet = ?, typeGame = ?,bet = ?,status = ?,time = ?`;
             await connection.execute(sql, [id_product, userInfo.phone, userInfo.code, userInfo.invite, period.period, userInfo.level, total, price, xvalue, fee, game, gameJoin, typeGame, listJoin, 0, timeNow]);
+            checkVipBonus(userInfo.phone,(total)/10);
             await connection.execute('UPDATE `users` SET `money` = `money` - ? WHERE `token` = ? ', [total, auth]);
             const [users] = await connection.query('SELECT `money`, `level` FROM users WHERE token = ? AND veri = 1  LIMIT 1 ', [auth]);
             await rosesPlus(auth, total);
@@ -247,6 +248,61 @@ const betK3 = async (req, res) => {
     } catch (error) {
     }
 }
+
+
+const checkVipBonus = async (phone, exp) => {
+    try {
+        const [user] = await connection.query('SELECT id, experience, vip_level FROM users WHERE phone = ?', [phone]);
+        if (!user.length) {
+            console.log('User not found');
+            return;
+        }
+
+        let { id: userId, experience, vip_level } = user[0];
+        let newExp = experience + exp;
+        let newVipLevel = 0;
+
+        if (newExp > 3000 && newExp < 30000) newVipLevel = 1;
+        else if (newExp >= 30000 && newExp < 400000) newVipLevel = 2;
+        else if (newExp >= 400000 && newExp < 2000000) newVipLevel = 3;
+        else if (newExp >= 2000000 && newExp < 8000000) newVipLevel = 4;
+        else if (newExp >= 8000000 && newExp < 30000000) newVipLevel = 5;
+        else if (newExp >= 30000000 && newExp < 100000000) newVipLevel = 6;
+        else if (newExp >= 100000000 && newExp < 400000000) newVipLevel = 7;
+        else if (newExp >= 400000000 && newExp < 1000000000) newVipLevel = 8;
+        else if (newExp >= 1000000000 && newExp < 5000000000) newVipLevel = 9;
+        else if (newExp >= 5000000000) newVipLevel = 10;
+
+        if (newVipLevel !== vip_level) {
+            await connection.query('UPDATE users SET vip_level = ?, experience = ? WHERE phone = ?', [newVipLevel, newExp, phone]);
+
+            const [vipRule] = await connection.query('SELECT level_up_reward FROM vip_rules WHERE vip_level = ?', [newVipLevel]);
+            if (vipRule.length) {
+                const { level_up_reward } = vipRule[0];
+                // await connection.query('UPDATE users SET money = money + ? WHERE phone = ?', [level_up_reward, phone]);
+
+                const sql = `INSERT INTO incomes SET 
+                    user_id = ?, 
+                    amount = ?, 
+                    comm = ?, 
+                    remarks = ?, 
+                    rname = ?, 
+                    created_at = ?, 
+                    updated_at = ?`;
+                const timeNow = new Date().toISOString();
+                await connection.execute(sql, [userId, level_up_reward, level_up_reward, 'Level Up Bonus', 0, timeNow, timeNow]);
+
+                console.log(`VIP level updated to ${newVipLevel} and money rewarded: ${level_up_reward}`);
+            }
+        } else {
+            await connection.query('UPDATE users SET experience = ? WHERE phone = ?', [newExp, phone]);
+            console.log('Experience updated without VIP level change');
+        }
+    } catch (error) {
+        console.error('Error in checkVipBonus:', error);
+    }
+};
+
 
 function makeid(length) {
     var result = '';
