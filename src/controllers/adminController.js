@@ -2003,6 +2003,93 @@ const incomeBonus = async (req, res) => {
 };
 
 
+const listStreakBonuses = async (req, res) => {
+    let auth = req.cookies.auth;
+    if (!auth) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+
+    try {
+        const [streakBonuses] = await connection.query(
+            'SELECT * FROM streak_bonus'
+        );
+
+        if (streakBonuses.length === 0) {
+            return res.status(200).json({
+                message: 'No streak bonuses found',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Success',
+            status: true,
+            data: streakBonuses,
+            timeStamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
+const updateStreakStatus = async (req, res) => {
+    let auth = req.cookies.auth;
+    let id = req.body.id;
+    let type = req.body.type;
+    let timeNow = new Date().toISOString();
+
+    if (!auth || !id || !type) {
+        return res.status(200).json({
+            message: 'Failed',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+
+    try {
+        if (type === 'confirm') {
+            await connection.query('UPDATE streak_bonus SET status = 1 WHERE id = ?', [id]);
+            const [streakInfo] = await connection.query('SELECT amount, phone FROM streak_bonus WHERE id = ?', [id]);
+            const { amount, phone } = streakInfo[0];
+            await connection.query('UPDATE users SET money = money + ? WHERE phone = ?', [amount, phone]);
+
+            return res.status(200).json({
+                message: 'Streak confirmed successfully',
+                status: true,
+                data: { id, amount },
+                timeStamp: timeNow,
+            });
+        }
+
+        if (type === 'delete') {
+            await connection.query('UPDATE streak_bonus SET status = 2 WHERE id = ?', [id]);
+
+            return res.status(200).json({
+                message: 'Streak deleted successfully',
+                status: true,
+                data: { id },
+                timeStamp: timeNow,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: timeNow,
+        });
+    }
+};
 
 module.exports = {
     adminPage,
@@ -2056,5 +2143,7 @@ module.exports = {
     aiBonus,
     dailyBonus,
     updateIncomeStatus,
-    incomeBonus
+    incomeBonus,
+    listStreakBonuses,
+    updateStreakStatus
 }
