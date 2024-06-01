@@ -510,6 +510,53 @@ const addWinGo = async (game) => {
     }
 }
 
+const checkPeriodAndStage = async (req, res) => {
+    try {
+        // Query to select the period for the game "wingo" with status 1
+        const [gamePeriodResult] = await connection.query(
+            'SELECT period FROM wingo WHERE game = "wingo" AND status = 1 ORDER BY period DESC LIMIT 1'
+        );
+        
+        if (gamePeriodResult.length === 0) {
+            return res.status(200).json({
+                message: 'No period found for game wingo with status 1',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        const period = gamePeriodResult[0].period;
+
+        // Query to check if the period matches the stage in minutes_1 table
+        const [stageResult] = await connection.query(
+            'SELECT stage FROM minutes_1 WHERE stage = ?',
+            [period]
+        );
+
+        if (stageResult.length === 0) {
+            return res.status(200).json({
+                message: 'No matching stage found in minutes_1 table',
+                status: false,
+                timeStamp: new Date().toISOString(),
+            });
+        }
+
+        return res.status(200).json({
+            message: 'success',
+            status: true,
+            timeStamp: new Date().toISOString(),
+        });
+
+    } catch (error) {
+        console.error('Error checking period and stage:', error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            status: false,
+            timeStamp: new Date().toISOString(),
+        });
+    }
+};
+
 
 const handlingWinGo1P = async (typeid) => {
 
@@ -655,6 +702,8 @@ const handlingWinGo1P = async (typeid) => {
  await connection.execute(sql, [totals, phone]);
 
     }
+
+    
 }
 
 module.exports = {
@@ -666,5 +715,6 @@ module.exports = {
     addWinGo,
     winGoPage3,
     winGoPage5,
-    winGoPage10
+    winGoPage10,
+    checkPeriodAndStage
 }
