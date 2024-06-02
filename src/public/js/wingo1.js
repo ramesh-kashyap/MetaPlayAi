@@ -126,6 +126,7 @@ socket.on("data-server", function (msg) {
             dataType: "json",
             success: function (response) {
               let data = response.data.gameslist;
+              console.log("hi");
               $(".game-list .con-box:eq(1) .page-nav .number").text(
                 "1/" + `${(response.page) ? response.page : '1'}`
               );
@@ -969,6 +970,7 @@ function showListOrder2(list_orders, x) {
 
 function showListOrder35(list_orders, x) {
   if (list_orders.length == 0) {
+    console.log(list_orders);
     return $(`.game-list .con-box:eq(${x}) #history-order`).html(
       `
                     <div data-v-a9660e98="" class="van-empty">
@@ -980,6 +982,17 @@ function showListOrder35(list_orders, x) {
                     `
     );
   }
+
+// Get the first element of list_orders
+const firstOrder = list_orders[0];
+const orderResult = firstOrder.status == 1 ? 'win' : 'lose';
+const join = firstOrder.bet;
+
+// Call showResultPopup with the parameters from the first object
+showResultPopup(orderResult, firstOrder.stage, firstOrder.get, join);
+
+
+
   let htmls = "";
   let i = -1;
   let result = list_orders.map((list_orders) => {
@@ -1023,7 +1036,7 @@ function showListOrder35(list_orders, x) {
 
     let orderResult = list_orders.status == 1 ? 'win' : 'lose';
     console.log(list_orders.status);
-    showResultPopup(orderResult, list_orders.stage, list_orders.money, join);
+    // showResultPopup(orderResult, list_orders.stage, list_orders.get, join);
 
     return (htmls += `
                     <div data-v-a9660e98="" issuenumber="${
@@ -1241,6 +1254,7 @@ function timerJoin(params = "") {
 }
 
 function showResultPopup(result, stage, money, join) {
+  console.log(money);
   let popupOutcome = result === 'win' ? 'Win' : 'Lose';
   let colorText = '';
   let sizeText = join === 'n' ? 'Small' : 'Big';
@@ -1316,6 +1330,7 @@ $.ajax({
   dataType: "json",
   success: function (response) {
     let data = response.data.gameslist;
+    console.log("hi");
     $(".game-list .con-box:eq(1) .page-nav .number").text("1/" + `${(response.page) ? response.page : '1'}`);
     showListOrder2(data, 1);
   },
