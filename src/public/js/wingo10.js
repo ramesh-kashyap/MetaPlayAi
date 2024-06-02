@@ -1,3 +1,64 @@
+function showResultPopup(result, stage, money, join) {
+  let popupOutcome = result === 'win' ? 'Win' : 'Lose';
+  let colorText = '';
+  let sizeText = join === 'n' ? 'Small' : 'Big';
+  
+  if (join === 'l' || join === 'n') {
+    colorText = join === 'n' ? 'Small' : 'Big';
+  } else {
+    colorText = join % 2 === 0 ? 'Red' : 'Green';
+  }
+  
+  document.getElementById('popupColor').innerText = colorText;
+  document.getElementById('popupNumber').innerText = join;
+  document.getElementById('popupSize').innerText = sizeText;
+  // document.getElementById('popupOutcome').innerText = popupOutcome;
+  // document.getElementById('popupDetails').innerText = `Period: ${stage}`;
+  
+  // Set the background color based on colorText
+  let colorBackground = '';
+  switch(colorText) {
+    case 'Red':
+      colorBackground = '#ff0000'; // Red
+      break;
+    case 'Green':
+      colorBackground = '#00ff00'; // Green
+      break;
+    case 'Small':
+    case 'Big':
+      colorBackground = '#0000ff'; // Blue for Big and Small
+      break;
+    default:
+      colorBackground = '#ffffff'; // Default white
+  }
+  document.getElementById('popupColor').style.backgroundColor = colorBackground;
+  document.getElementById('popupNumber').style.backgroundColor = colorBackground;
+  document.getElementById('popupSize').style.backgroundColor = colorBackground;
+
+    let popupBody = document.querySelector('#popup-bg');
+  if (result == 'lose') {
+    popupBody.style.backgroundImage = "url('/images/lose.png')";
+  } else {
+    popupBody.style.backgroundImage = "url('/images/winner.png')";
+  }
+  
+  // Show the money amount if the result is a win
+  if (result === 'win') {
+    document.getElementById('popupMoney').innerText = ` ${money}`;
+    document.getElementById('popupMoney').style.display = 'block';
+  } else {
+    document.getElementById('popupMoney').style.display = 'none';
+  }
+  
+  // Show the popup
+  document.getElementById('resultPopup').style.display = 'block';
+
+  // Hide the popup after 3 seconds
+  setTimeout(() => {
+    document.getElementById('resultPopup').style.display = 'none';
+  }, 5000);
+}
+
 function showListOrder3(list_orders, x) {
     if (list_orders.length == 0) {
       return $(`.game-list .con-box:eq(${x}) .hb`).html(
@@ -104,6 +165,46 @@ function showListOrder3(list_orders, x) {
         "color",
         "#fff"
       );
+
+  // New AJAX call to checkPeriodAndStage
+  $.ajax({
+    type: "POST",
+    url: "/api/webapi/checkPeriodAndStage",
+    data: { period: data1.period }, // Send the period as data
+    dataType: "json",
+    success: function (response) {
+      if (response.message === 'success') {
+        // If success, make the GetMyEmerdList API call and showListOrder35
+        $.ajax({
+          type: "POST",
+          url: "/api/webapi/GetMyEmerdList",
+          data: {
+            typeid: "10",
+            pageno: "0",
+            pageto: "10",
+            language: "vi",
+          },
+          dataType: "json",
+          success: function (response) {
+            let data = response.data.gameslist;
+            console.log("hi");
+            $(".game-list .con-box:eq(1) .page-nav .number").text(
+              "1/" + `${(response.page) ? response.page : '1'}`
+            );
+            showListOrder35(data, 10);
+          },
+          error: function (error) {
+            console.error("Error in GetMyEmerdList API call:", error);
+          }
+        });
+      }
+    },
+    error: function (error) {
+      console.error("Error in checkPeriodAndStage API call:", error);
+    }
+  });
+
+
       $.ajax({
         type: "POST",
         url: "/api/webapi/GetMyEmerdList",
