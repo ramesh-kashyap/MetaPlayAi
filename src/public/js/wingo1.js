@@ -1254,7 +1254,6 @@ function timerJoin(params = "") {
 }
 
 function showResultPopup(result, stage, money, join) {
-  console.log(money);
   let popupOutcome = result === 'win' ? 'Win' : 'Lose';
   let colorText = '';
   let sizeText = join === 'n' ? 'Small' : 'Big';
@@ -1291,7 +1290,6 @@ function showResultPopup(result, stage, money, join) {
   document.getElementById('popupNumber').style.backgroundColor = colorBackground;
   document.getElementById('popupSize').style.backgroundColor = colorBackground;
 
-  console.log(result);
     let popupBody = document.querySelector('#popup-bg');
   if (result == 'lose') {
     popupBody.style.backgroundImage = "url('/images/lose.png')";

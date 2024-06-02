@@ -65,6 +65,150 @@
     background-size: 0.48rem;
     background-position: center;
 }
+
+#popup-bg{
+    /* background-image: url(/images/winner.png); */
+}
+.WinningTip__C-body {
+    position: absolute;
+    width: 10.93333rem;
+    height: 10.93333rem;
+    /* background-image: url(/images/winner.png); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    left: 50%;
+    top: 20%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translate(-50%) translateY(-50%);
+    padding-top: 3.33333rem;
+    display: flex;
+    z-index: 100;
+}
+
+.WinningTip__C-body.isL .WinningTip__C-body-l1, .WinningTip__C-body.isL .WinningTip__C-body-l2, .WinningTip__C-body.isL .WinningTip__C-body-l4 {
+    color: #686c94;
+}
+
+.WinningTip__C-body-l1 {
+    font-weight: 700;
+    font-size: .64rem;
+    text-align: center;
+    color: #8f5206;
+    height: .77333rem;
+    line-height: .77333rem;
+    margin-bottom: .90667rem;
+}
+
+.WinningTip__C-body-l2.type2>div, .WinningTip__C-body-l2.type4>div, .WinningTip__C-body-l2.type6>div, .WinningTip__C-body-l2.type8>div {
+    background-color: #fb4e4e;
+    display: flex;
+}
+
+.WinningTip__C-body-l2>div:first-child {
+    margin-left: .32rem;
+}
+.WinningTip__C-body-l2 .colorW {
+    color: #fff;
+}
+.WinningTip__C-body-l2>div {
+    height: .58667rem;
+    background: #40ad72;
+    border-radius: .13333rem;
+    padding: 0 .32rem;
+}
+
+.WinningTip__C-body-l3 {
+    height: 1.73333rem;
+}
+
+.WinningTip__C-body-l3 .isLose {
+    font-weight: 700;
+    font-size: .64rem;
+    line-height: 1rem;
+    color: #587ba4;
+    text-align: center;
+    margin-bottom: .34667rem;
+    padding-top: .26667rem;
+}
+
+.WinningTip__C-body.isL .gameDetail {
+    color: #6b6b6b;
+}
+.WinningTip__C-body-l3 .gameDetail {
+    height: .37333rem;
+    line-height: .37333rem;
+    font-size: .29333rem;
+    text-align: center;
+    color: #bf5d2b;
+}
+
+.WinningTip__C-body.isL .WinningTip__C-body-l1, .WinningTip__C-body.isL .WinningTip__C-body-l2, .WinningTip__C-body.isL .WinningTip__C-body-l4 {
+    color: #686c94;
+}
+
+.WinningTip__C-body-l4 {
+    height: .64rem;
+    line-height: .64rem;
+    font-size: .32rem;
+    color: #8f5206;
+    position: absolute;
+    left: .74667rem;
+    bottom: .74667rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.WinningTip__C-body-l4 .acitveBtn {
+    height: .56rem;
+    width: .56rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .26);
+    border: .01333rem solid #ffffff;
+    margin-right: .18667rem;
+    position: relative;
+}
+
+.WinningTip__C .closeBtn {
+    width: .8rem;
+    height: .8rem;
+    background-image: url(/assets/png/close-7b93ef94.png);
+    background-repeat: no-repeat;
+    background-size: .8rem;
+    background-position: center;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(100%);
+    transform: translate(-50%) translateY(100%);
+    bottom: -.26667rem;
+}
+
+
+#pop-result{
+  display: flex;margin-left: 188px;margin-top: 65px;
+}
+#popupSize{
+  margin: 2px;
+  color: #000000;
+
+}
+
+#popupNumber{
+  margin: 2px;
+    border-radius: 50%;
+    padding: 5px;
+    color: #000000;
+    font-weight: bold;
+    padding-top: 3px;}
+
+#popupColor{
+  margin: 2px;
+  color: #000000;
+}
   </style>
 </head>
 
@@ -153,6 +297,26 @@
                 <div class="van-tabs__line"></div>
               </div>
             </div>
+
+            <div id="resultPopup" class="popup" style="display:none;">
+              <div class="WinningTip__C-body isL" id="popup-bg">
+                <div class="WinningTip__C-body-l1 isL" id="popupResult"></div>
+                <div class="WinningTip__C-body-l2 type4" style="display: flex;" id="pop-result">
+                  <div class="colorW" id="popupColor" class="result-item"></div>
+                  <div class="WinningNum" id="popupNumber" class="result-item"></div>
+                  <div class="colorW" id="popupSize" class="result-item" ></div>
+                </div>
+                <div class="WinningTip__C-body-l3">
+                  <div class="isLose" id="popupOutcome"></div>
+                  <div class="gameDetail" id="popupDetails"></div>
+                  <div class="money" id="popupMoney" style="display: block;margin-top: 119px;color: #633905;margin-left: -111px;font-size: 24px;font-weight: bolder;"></div>          </div>
+                <!-- <div class="WinningTip__C-body-l4">
+                  <div class="acitveBtn"></div> 3 seconds auto close
+                </div>
+                <div class="closeBtn"></div> -->
+              </div>
+            </div>
+
             <div class="van-tabs__content">
               <div data-v-a9660e98="" role="tabpanel" class="van-tab__pane" style="">
                 <div data-v-a9660e98="" class="longlist"></div>
