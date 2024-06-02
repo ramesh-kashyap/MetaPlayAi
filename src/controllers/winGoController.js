@@ -425,6 +425,8 @@ const GetMyEmerdList = async (req, res) => {
         return others;
     });
 
+    console.log(datas);
+
     return res.status(200).json({
         code: 0,
         msg: "Get success",
