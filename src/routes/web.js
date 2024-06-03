@@ -242,6 +242,9 @@ const initWebRouter = (app) => {
     router.get('/admin/manager/withdrawRecord', adminController.middlewareAdminController, adminController.withdrawRecord); // get info account
     router.get('/admin/manager/statistical', adminController.middlewareAdminController, adminController.statistical); // get info account
     router.get('/admin/member/info/:id', adminController.middlewareAdminController, adminController.infoMember);
+    router.get('/admin/member/aibonusrecord', adminController.middlewareAdminController, adminController.aibonusrecord);
+
+
 
     router.post('/api/webapi/admin/listMember', adminController.middlewareAdminController, adminController.listMember); // get info account
     router.post('/api/webapi/admin/listctv', adminController.middlewareAdminController, adminController.listCTV); // get info account

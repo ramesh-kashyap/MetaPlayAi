@@ -47,10 +47,15 @@ const ctvPage = async(req, res) => {
     return res.render("manage/ctv.ejs"); 
 }
 
+const aibonusrecord = async(req, res) => {
+    return res.render("manage/dailyBonus.ejs"); 
+}
+
 const infoMember = async(req, res) => {
     let phone = req.params.id;
     return res.render("manage/profileMember.ejs", {phone}); 
 }
+
 
 const statistical = async(req, res) => {
     return res.render("manage/statistical.ejs"); 
@@ -2145,5 +2150,6 @@ module.exports = {
     updateIncomeStatus,
     incomeBonus,
     listStreakBonuses,
-    updateStreakStatus
+    updateStreakStatus,
+    aibonusrecord
 }
