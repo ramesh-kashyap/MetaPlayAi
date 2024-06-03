@@ -51,9 +51,9 @@
                 <tr>
                   <th class="text-center">#</th>
                   <th class="text-center">Account</th>
-                  <th class="text-center">Type</th>
+                  <th class="text-center">Bonus</th>
                   <th class="text-center">Amount</th>
-                  <th class="text-center">Code</th>
+                  <th class="text-center">Bonus Money</th>
                 
                   <th class="text-center">Time</th>
                   <th class="text-center">Accept/Reject</th>
@@ -94,16 +94,16 @@
                     <b>${data.phone}</b>
                   </td>
                   <td>
-                    ${(data.type == 'bank') ? '<b style="color: #3498db">BANKING</b>' : '<b style="color: #a50064">'+data.type+'</b>'}
+                    <b>${(data.remarks)}</b>
                   </td>
                   <td>
-                    <b>${formatMoney(data.money)}</b>
+                    <b>${(data.amount)}</b>
                   </td>
                   <td style="min-width: 190px;">
-                    <b>${data.id_order}</b>
+                    <b>${data.comm}</b>
                   </td>
                   <td class="project-state">
-                    <span class="badge badge-warning">Waiting...</span>
+                    <span class="badge badge-warning">${data.updated_at}</span>
                   </td>
                   <td class="project-actions text-center" style="min-width: 160px;">
                     <!-- xác nhận -->

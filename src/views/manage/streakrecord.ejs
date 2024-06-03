@@ -51,9 +51,9 @@
                 <tr>
                   <th class="text-center">#</th>
                   <th class="text-center">Account</th>
-                  <th class="text-center">Type</th>
-                  <th class="text-center">Amount</th>
-                  <th class="text-center">Code</th>
+                  <th class="text-center">Period Numbers</th>
+                  <th class="text-center">Bonus</th>
+                  <th class="text-center">Streak Number</th>
                 
                   <th class="text-center">Time</th>
                   <th class="text-center">Accept/Reject</th>
@@ -94,13 +94,13 @@
                     <b>${data.phone}</b>
                   </td>
                   <td>
-                    ${(data.type == 'bank') ? '<b style="color: #3498db">BANKING</b>' : '<b style="color: #a50064">'+data.type+'</b>'}
+                    <b>${data.streak_period_number}</b>
                   </td>
                   <td>
-                    <b>${formatMoney(data.money)}</b>
+                    <b>${(data.amount)}</b>
                   </td>
                   <td style="min-width: 190px;">
-                    <b>${data.id_order}</b>
+                    <b>${data.streak_number}</b>
                   </td>
                   <td class="project-state">
                     <span class="badge badge-warning">Waiting...</span>
@@ -171,7 +171,7 @@
       },
       dataType: "json",
       success: function (response) {
-        show(response.datas)
+        show(response.data)
       }
     });
   </script>
