@@ -7726,9 +7726,9 @@
             dataType: "json",
             success: function (response) {
                 let user = response.userInfo[0];
-                $('.money').text(user.win_wallet + ".00 $");
+                $('.money').text("₹ " + user.win_wallet );
                 console.log(user);
-                $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 $`);
+                $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount ₹ ${response.result}`);
                 if(!response.datas[0]) return;
                 let data = response.datas[0];
                 $('.conBox .list').append(
@@ -7790,7 +7790,7 @@
                     success: function (response) {
                         $(this).addClass('block-click');
                         if (response.status == true) {
-                            $('.money').text(response.money + '.00 $');
+                            $('.money').text(response.money + '');
                         }
                         alertMess(response.message, $(this));
                     }
