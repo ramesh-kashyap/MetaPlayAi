@@ -1895,9 +1895,12 @@ const dailyBonus = async (req, res) => {
     }
 
     try {
-        const [dailyBonuses] = await connection.query(
-            'SELECT * FROM incomes WHERE remarks = "Daily Salary Bonus"'
-        );
+        const [dailyBonuses] = await connection.query(`
+            SELECT incomes.*, users.phone 
+            FROM incomes 
+            JOIN users ON incomes.user_id = users.id 
+            WHERE incomes.remarks = "Daily Salary Bonus"
+        `);
 
         if (dailyBonuses.length === 0) {
             return res.status(200).json({
@@ -1922,6 +1925,7 @@ const dailyBonus = async (req, res) => {
         });
     }
 };
+
 
 const updateIncomeStatus = async (req, res) => {
     let auth = req.cookies.auth;
@@ -2003,7 +2007,7 @@ const incomeBonus = async (req, res) => {
         return res.status(200).json({
             message: 'Success',
             status: true,
-            incomeResults: incomeResults,
+            datas: incomeResults,
             timeStamp: timeNow,
         });
     } catch (error) {
@@ -2029,7 +2033,7 @@ const listStreakBonuses = async (req, res) => {
 
     try {
         const [streakBonuses] = await connection.query(
-            'SELECT * FROM streak_bonus'
+            'SELECT * FROM streak_bonus where status=0'
         );
 
         if (streakBonuses.length === 0) {
