@@ -7865,7 +7865,7 @@
                                 </div>
                             </div>
                             <div data-v-25d9c352="" class="number-box c-row">
-                                <div data-v-25d9c352="" class="symbol c-row c-row-middle">$</div>
+                                <div data-v-25d9c352="" class="symbol c-row c-row-middle">₹</div>
                                 <div data-v-25d9c352="" class="input c-row c-row-middle van-cell van-field">
                                     <div class="van-cell__value van-cell__value--alone van-field__value">
                                         <div class="van-field__body">
@@ -7992,7 +7992,7 @@
                 success: function (response) {
                     let user = response.data;
                     $('.wallet-user .name').text(user.name_user);
-                    $('.money').text(user.money_user + ".00 $");
+                    $('.money').text("₹" + user.money_user );
                 }
             });
         });
@@ -8004,7 +8004,7 @@
             success: function (response) {
                 let user = response.data;
                 $('.wallet-user .name').text(user.name_user);
-                $('.money').text(user.money_user + ".00 $");
+                $('.money').text("₹" + user.money_user);
             }
         });
 
@@ -8109,7 +8109,7 @@
                         $('.Loading').fadeIn(0);
                         $('.create-payment').hide();
                         $('.confirmation').show();
-                        $('.info .box .text:eq(0)').html("$ " + response.datas.amount + " (₹" + (response.datas.amount * exchangeRate).toFixed(2) + ")");
+                        $('.info .box .text:eq(0)').html("₹" + response.datas.amount + " (₹" + (response.datas.amount * exchangeRate).toFixed(2) + ")");
                         $('.info .box .text:eq(1)').text(response.datas.txn_id);
                         $('.info .box .text:eq(2)').text(response.datas.address);
                         $("#qrcode").attr("src", response.datas.qrcode_url);
