@@ -1,4 +1,6 @@
 function showResultPopup(result, stage, money, join) {
+  console.log("hello");
+
   let popupOutcome = result === 'win' ? 'Win' : 'Lose';
   let colorText = '';
   let sizeText = join === 'n' ? 'Small' : 'Big';
@@ -187,7 +189,7 @@ function showListOrder3(list_orders, x) {
        // New AJAX call to checkPeriodAndStage
     $.ajax({
       type: "POST",
-      url: "/api/webapi/checkPeriodAndStage",
+      url: "/api/webapi/checkPeriodAndStage3",
       data: { period: data1.period }, // Send the period as data
       dataType: "json",
       success: function (response) {
