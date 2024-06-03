@@ -7653,7 +7653,7 @@ th {
                         <div data-v-25d9c352="" class="txt">Balance</div>
                         <div data-v-25d9c352="" class="c-row c-row-middle">
                             <div data-v-25d9c352="" class="money">
-                                <div data-v-25d9c352="">Loading.<span data-v-25d9c352="" class="p-l-10">$</span></div>
+                                <div data-v-25d9c352="">Loading.<span data-v-25d9c352="" class="p-l-10">₹</span></div>
                             </div>
                             <div data-v-25d9c352="" class="van-image img m-l-15" style="width: 26px; height: 26px;">
                                 <img src="/images/refresh.png" class="van-image__img">
@@ -7752,7 +7752,7 @@ th {
                     let user = response.userInfo[0];
                     $('.money').text(user.win_wallet + " ₹");
                     console.log(user);
-                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}₹`);
+                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount ₹ ${response.result}`);
                     if(!response.datas[0]) return;
                     let data = response.datas[0];
                     $('.conBox .list').append(

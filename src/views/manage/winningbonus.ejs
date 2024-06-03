@@ -7742,9 +7742,9 @@ th {
                 success: function (response) {
                     console.log(response);
                     let user = response.userInfo[0];
-                    $('.money').text(user.money + ".00 $");
+                    $('.money').text(user.money + "");
                     console.log(user);
-                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 $`);
+                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount ₹ ${response.result}`);
                     if(!response.datas[0]) return;
                     let data = response.datas[0];
                     $('.conBox .list').append(
