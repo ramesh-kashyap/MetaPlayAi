@@ -10,6 +10,11 @@ function showResultPopup(result, stage, money, join) {
   } else {
     colorText = join % 2 === 0 ? 'Red' : 'Green';
   }
+
+  console.log(colorText);
+  console.log(join);
+  console.log(sizeText);
+
   
   document.getElementById('popupColor').innerText = colorText;
   document.getElementById('popupNumber').innerText = join;
