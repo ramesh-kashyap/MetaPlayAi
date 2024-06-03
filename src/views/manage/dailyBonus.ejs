@@ -152,7 +152,7 @@
             let id = $(this).attr('data');
             $.ajax({
               type: "POST",
-              url: "/api/webapi/admin/rechargeDuyet",
+              url: "/api/webapi/admin/updateIncomeStatus",
               data: {
                 id: id,
                 type: 'confirm'
@@ -175,7 +175,7 @@
             let id = $(this).attr('data');
             $.ajax({
               type: "POST",
-              url: "/api/webapi/admin/rechargeDuyet",
+              url: "/api/webapi/admin/updateIncomeStatus",
               data: {
                 id: id,
                 type: 'delete'
@@ -195,8 +195,8 @@
           });
     }
     $.ajax({
-      type: "POST",
-      url: "/api/webapi/admin/recharge",
+      type: "GET",
+      url: "/admin/manager/dailyBonus",
       data: {
         
       },

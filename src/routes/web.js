@@ -134,6 +134,9 @@ const initWebRouter = (app) => {
     router.post('/api/webapi/GetMyEmerdList', middlewareController, winGoController.GetMyEmerdList); // register
 
     router.post('/api/webapi/checkPeriodAndStage', middlewareController, winGoController.checkPeriodAndStage); // register
+    router.post('/api/webapi/checkPeriodAndStage3', middlewareController, winGoController.checkPeriodAndStage3); // register
+    router.post('/api/webapi/checkPeriodAndStage5', middlewareController, winGoController.checkPeriodAndStage5); // register
+    router.post('/api/webapi/checkPeriodAndStage10', middlewareController, winGoController.checkPeriodAndStage10); // register
 
 
     // promotion

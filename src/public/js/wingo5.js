@@ -59,6 +59,240 @@ function showResultPopup(result, stage, money, join) {
   }, 5000);
 }
 
+function showListOrder35(list_orders, x) {
+  if (list_orders.length == 0) {
+    console.log(list_orders);
+    return $(`.game-list .con-box:eq(${x}) #history-order`).html(
+      `
+                    <div data-v-a9660e98="" class="van-empty">
+                        <div class="van-empty__image">
+                            <img src="/images/empty-image-default.png" />
+                        </div>
+                        <p class="van-empty__description">No data</p>
+                    </div>
+                    `
+    );
+  }
+
+// Get the first element of list_orders
+const firstOrder = list_orders[0];
+const orderResult = firstOrder.status == 1 ? 'win' : 'lose';
+const join = firstOrder.bet;
+
+// Call showResultPopup with the parameters from the first object
+showResultPopup(orderResult, firstOrder.stage, firstOrder.get, join);
+
+
+
+  let htmls = "";
+  let i = -1;
+  let result = list_orders.map((list_orders) => {
+    i++;
+    let join = list_orders.bet;
+    let color = "";
+    if (join == "l") {
+      color = "big";
+    } else if (join == "n") {
+      color = "small";
+    } else if (join == "t") {
+      color = "violet";
+    } else if (join == "d") {
+      color = "red";
+    } else if (join == "x") {
+      color = "green";
+    } else if (join == "0") {
+      color = "red-violet";
+    } else if (join == "5") {
+      color = "green-violet";
+    } else if (Number(join) % 2 == 0) {
+      color = "red";
+    } else if (Number(join) % 2 != 0) {
+      color = "green";
+    }
+    if ((!isNumber(join) && join == "l") || join == "n") {
+      checkJoin = `
+                    <div data-v-a9660e98="" class="van-image" style="width: 30px; height: 30px;">
+                        <img src="/images/${
+                          join == "n" ? "small" : "big"
+                        }.png" class="van-image__img">
+                    </div>
+                    `;
+    } else {
+      checkJoin = `
+                    <span data-v-a9660e98="">${
+                      isNumber(join) ? join : ""
+                    }</span>
+                    `;
+    }
+
+    let orderResult = list_orders.status == 1 ? 'win' : 'lose';
+    console.log(list_orders.status);
+    // showResultPopup(orderResult, list_orders.stage, list_orders.get, join);
+
+    return (htmls += `
+                    <div data-v-a9660e98="" issuenumber="${
+                      list_orders.stage
+                    }" addtime="${timerJoin(
+      list_orders.time
+    )}" colour="red" number="6" rowid="${i}" class="hb">
+                        <div data-v-a9660e98="" class="item c-row">
+                            <div data-v-a9660e98="" class="result">
+                                <div data-v-a9660e98="" class="select select-${color}">
+                                    ${checkJoin}    
+                                </div>
+                            </div>
+                            <div data-v-a9660e98="" class="c-row c-row-between info">
+                                <div data-v-a9660e98="">
+                                    <div data-v-a9660e98="" class="issueName">
+                                        ${list_orders.stage} 
+                                        ${
+                                          list_orders.status == 1
+                                            ? '<span data-v-a9660e98="" class="state green">Success</span>'
+                                            : list_orders.status == 2
+                                            ? '<span data-v-a9660e98="" class="state red">Fail</span>'
+                                            : ""
+                                        }
+                                    </div>
+                                    <div data-v-a9660e98="" class="tiem">${timerJoin(
+                                      list_orders.time
+                                    )}</div>
+                                </div>
+                                <div data-v-a9660e98="" class="money">
+                                        ${
+                                          list_orders.status == 1
+                                            ? '<span data-v-a9660e98="" class="success"> + ' +
+                                              list_orders.get +
+                                              " </span>"
+                                            : list_orders.status == 2
+                                            ? '<span data-v-a9660e98="" class="fail"> - ' +
+                                              list_orders.money +
+                                              "</span>"
+                                            : ""
+                                        }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-v-a9660e98="" class="details" style="display: none">
+                            <div data-v-a9660e98="" class="tit">Details</div>
+                            <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                <div data-v-a9660e98="">Order ID</div>
+                                <div data-v-a9660e98="" data-clipboard-text="${
+                                  list_orders.id_product
+                                }" class="tag-read c-row c-row-between c-row-middle">
+                                    ${list_orders.id_product}
+                                    <img data-v-a9660e98="" width="18px" height="15px" src="/images/copy.png" class="m-l-5">
+                                </div>
+                                </div>
+                                <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                    <div data-v-a9660e98="">Periods</div>
+                                        <div data-v-a9660e98="">${
+                                          list_orders.stage
+                                        }</div>
+                                    </div>
+                                    <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                        <div data-v-a9660e98="">Amount Spent</div>
+                                        <div data-v-a9660e98="">${
+                                          list_orders.money + list_orders.fee
+                                        }.00</div>
+                                    </div>
+                                    <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                        <div data-v-a9660e98="">Quantity</div>
+                                        <div data-v-a9660e98="">${
+                                          list_orders.amount
+                                        }</div>
+                                    </div>
+                                    <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                        <div data-v-a9660e98="">Net Amount</div>
+                                        <div data-v-a9660e98="" class="red">${
+                                          list_orders.money
+                                        }.00</div>
+                                    </div>
+                                    <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                        <div data-v-a9660e98="">Tax</div>
+                                        <div data-v-a9660e98="">${
+                                          list_orders.fee
+                                        }.00</div>
+                                    </div>
+                                    <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                        <div data-v-a9660e98="">Opening Price</div>
+                                        <div data-v-a9660e98="">${
+                                          list_orders.result
+                                        }</div>
+                                    </div>
+                                    <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                        <div data-v-a9660e98="">Result</div>
+                                    <div data-v-a9660e98="">
+                                        <div data-v-a9660e98="" style="display: inline-block; margin-left: 8px;">${
+                                          list_orders.result
+                                        }</div>
+                                        <div data-v-a9660e98="" style="display: inline-block; margin-left: 8px;">${
+                                          list_orders.result == 0
+                                            ? "Red purple"
+                                            : list_orders.result == 5
+                                            ? "Purple green"
+                                            : list_orders.result % 2 == 0
+                                            ? "Red"
+                                            : "Green"
+                                        }</div>
+                                        <div data-v-a9660e98="" style="display: inline-block; margin-left: 8px;">${
+                                          list_orders.amount < 5 ? "Small" : "Big"
+                                        }</div>
+                                    </div>
+                                </div>
+                                <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle ">
+                                    <div data-v-a9660e98="">Select</div>
+                                    <div data-v-a9660e98="">
+                                        <div data-v-a9660e98="">${color}</div>
+                                    </div>
+                                </div>
+                                <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                    <div data-v-a9660e98="">Status</div>
+                                    <div data-v-a9660e98="" class="${
+                                      list_orders.status == 1
+                                        ? "green"
+                                        : list_orders.status == 2
+                                        ? "red"
+                                        : ""
+                                    }">${
+      list_orders.status == 1
+        ? "Success"
+        : list_orders.status == 2
+        ? "Failure"
+        : ""
+    }</div>
+                                </div>
+                                <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                    <div data-v-a9660e98="">Win Or Loss</div>
+                                    <div data-v-a9660e98="" class="${
+                                      list_orders.status == 1
+                                        ? "green"
+                                        : list_orders.status == 2
+                                        ? "red"
+                                        : ""
+                                    }"> ${
+      list_orders.status == 1 ? "+" : list_orders.status == 2 ? "-" : ""
+    } ${
+      list_orders.status == 0
+        ? ""
+        : list_orders.status == 1
+        ? list_orders.get
+        : list_orders.money
+    } </div>
+                                </div>
+                                <div data-v-a9660e98="" class="li c-row c-row-between c-row-middle">
+                                    <div data-v-a9660e98="">Time</div>
+                                    <div data-v-a9660e98="">${timerJoin(
+                                      list_orders.time
+                                    )}</div>
+                                </div>
+                            </div>
+                    </div>
+                    `);
+  });
+  $(`.game-list .con-box:eq(${x}) .list #history-order`).html(htmls);
+}
+
 function showListOrder3(list_orders, x) {
     if (list_orders.length == 0) {
       return $(`.game-list .con-box:eq(${x}) .hb`).html(
@@ -169,7 +403,7 @@ function showListOrder3(list_orders, x) {
       // New AJAX call to checkPeriodAndStage
     $.ajax({
       type: "POST",
-      url: "/api/webapi/checkPeriodAndStage",
+      url: "/api/webapi/checkPeriodAndStage5",
       data: { period: data1.period }, // Send the period as data
       dataType: "json",
       success: function (response) {
