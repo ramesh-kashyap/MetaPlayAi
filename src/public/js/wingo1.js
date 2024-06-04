@@ -987,9 +987,10 @@ function showListOrder35(list_orders, x) {
 const firstOrder = list_orders[0];
 const orderResult = firstOrder.status == 1 ? 'win' : 'lose';
 const join = firstOrder.bet;
+const resultwingo=firstOrder.result;
 
 // Call showResultPopup with the parameters from the first object
-showResultPopup(orderResult, firstOrder.stage, firstOrder.get, join);
+showResultPopup(orderResult, firstOrder.stage, firstOrder.get, join,resultwingo);
 
 
 
@@ -1253,31 +1254,30 @@ function timerJoin(params = "") {
   );
 }
 
-function showResultPopup(result, stage, money, join) {
+function showResultPopup(result, stage, money, join,resultwingo) {
   let popupOutcome = result === 'win' ? 'Win' : 'Lose';
   let colorText = '';
   let sizeText = join === 'n' ? 'Small' : 'Big';
 
-  if (join === 'l' || join === 'n') {
-    colorText = join === 'n' ? 'Small' : 'Big';
+   // Set colorText based on resultwingo
+   if ([2, 4, 6, 8].includes(resultwingo)) {
+    colorText = 'Red';
+  } else if ([1, 3, 7, 9].includes(resultwingo)) {
+    colorText = 'Green';
+  } else if ([0, 5].includes(resultwingo)) {
+    colorText = 'Violet';
   } else {
     colorText = join % 2 === 0 ? 'Red' : 'Green';
   }
 
   // Generate a random number for specific join values
   let randomNumber;
-  if (join === 'x' || join === 'n') {
-    randomNumber = [1, 3, 7, 9][Math.floor(Math.random() * 4)];
-  } else if (join === 'd' || join === 'l') {
-    randomNumber = [2, 4, 6, 8][Math.floor(Math.random() * 4)];
-  } else {
-    randomNumber = join;
-  }
+  
+  randomNumber=resultwingo;
 
   // Set sizeText based on randomNumber if join is not 'l' or 'n'
-  if (join !== 'l' && join !== 'n') {
     sizeText = (randomNumber >= 0 && randomNumber <= 4) ? 'Small' : 'Big';
-  }
+  
 
   document.getElementById('popupColor').innerText = colorText;
   document.getElementById('popupNumber').innerText = randomNumber;
@@ -1286,22 +1286,22 @@ function showResultPopup(result, stage, money, join) {
   // Set the background color or image based on randomNumber
   let backgroundStyle = '';
   switch (randomNumber) {
-    case "0":
+    case 0:
       backgroundStyle = 'background-image: linear-gradient(to bottom right, #fb4e4e 50%, #eb43dd 0) !important;';
       break;
-    case "1":
-    case "3":
-    case "7":
-    case "9":
+    case 1:
+    case 3:
+    case 7:
+    case 9:
       backgroundStyle = 'background-color: #00ff00;'; // Green
       break;
-    case "2":
-    case "4":
-    case "6":
-    case "8":
+    case 2:
+    case 4:
+    case 6:
+    case 8:
       backgroundStyle = 'background-color: #ff0000;'; // Red
       break;
-    case "5":
+    case 5:
       backgroundStyle = 'background-image: linear-gradient(to bottom right, #5cba47 50%, #eb43dd 0) !important;';
       break;
     default:
@@ -1327,6 +1327,9 @@ function showResultPopup(result, stage, money, join) {
     document.getElementById('popupMoney').style.display = 'none';
   }
 
+  document.body.style.backgroundColor = 'rgba(87, 62, 62, 0.7)';
+
+
   // Show the popup
   document.getElementById('resultPopup').style.display = 'block';
 
@@ -1334,6 +1337,8 @@ function showResultPopup(result, stage, money, join) {
   const popup = document.getElementById('resultPopup');
   popup.addEventListener('click', () => {
     popup.style.display = 'none';
+    document.body.style.backgroundColor = ''; // Reset the background color when the popup is closed
+
   });
 }
 
