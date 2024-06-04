@@ -657,7 +657,7 @@ $(".foot .right").click(function (e) {
       alertMessJoin(response.message);
       if (response.status === false) return;
       $("#history-order").prepend(response.data);
-      $(".total-box .num span").text(response.money + "₹ ");
+      $(".total-box .num span").text("₹"+response.money);
       socket.emit('data-server_2', { money: x * money, join, time: Date.now(), change: response.change });
     },
   });
