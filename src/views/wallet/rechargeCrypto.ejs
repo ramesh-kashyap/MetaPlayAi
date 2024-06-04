@@ -8157,7 +8157,7 @@
                         $('.create-payment').hide();
                         $('.confirmation').show();
 
-                        $('.info .box .text:eq(0)').text("$ "+response.datas.amount);
+                        $('.info .box .text:eq(0)').text("₹"+response.datas.amount);
                         $('.info .box .text:eq(1)').text(response.datas.txn_id);
                         $('.info .box .text:eq(2)').text(response.datas.address);
                         $("#qrcode").attr("src", response.datas.qrcode_url)
