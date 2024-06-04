@@ -894,7 +894,7 @@ img[data-v-7b9b9922] {
     top: 0;
     height: 1.33333rem;
     line-height: 1.33333rem;
-    background-image: radial-gradient(ellipse at top left, #EEBD54 0%,rgb(215 130 7) 57%);
+    background-image: radial-gradient(ellipse at top left, #fae59f 0%,#c4933f 57%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -988,7 +988,8 @@ img[data-v-7b9b9922] {
 
 .mian .login-banner[data-v-a0753f48] {
     position: relative;
-    background: url(/images/login-bg.png) no-repeat top;
+    /* background: url(/images/login-bg.png) no-repeat top; */
+
     background-size: 100% 100%;
     min-height: 6.4rem;
     max-height: 6.66667rem
