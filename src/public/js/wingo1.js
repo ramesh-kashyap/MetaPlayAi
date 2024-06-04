@@ -378,7 +378,7 @@ function totalMoney() {
   let value = $(".stepper-box .digit-box input").val().trim();
   let money = $(".amount-box").attr("data-money");
   let total = value * money;
-  $(".foot .right span:eq(1)").text(total + "₹");
+  $(".foot .right span:eq(1)").text("₹"+total);
 }
 
 function alertBox(join, addText) {
