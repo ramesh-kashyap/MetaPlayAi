@@ -1051,46 +1051,46 @@
 }
 
 .game-betting .content .box .number-box .item .number .txt[data-v-a9660e98] {
-    display: block;
-    width: 1.46667rem;
+    display: contents;
+    /* width: 1.46667rem;
     height: 1.46667rem;
     border-radius: 1.46667rem;
-    line-height: 1.46667rem;
+    line-height: 1.46667rem; */
     color: #fff;
-    font-size: .61333rem
+    font-size: 0
 }
 
 .game-betting .content .box .number-box .item.action .number .txt[data-v-a9660e98] {
     transform: scale(1.05)
 }
 
-.game-betting .content .box .number-box .item:first-child .number[data-v-a9660e98] {
+/* .game-betting .content .box .number-box .item:first-child .number[data-v-a9660e98] {
     border: .02667rem solid #5cba47
-}
+} */
 
 .game-betting .content .box .number-box .item:first-child .number .txt[data-v-a9660e98] {
     background-image: linear-gradient(to bottom right,#fb4e4e 50%,#eb43dd 0)!important
 }
 
-.game-betting .content .box .number-box .item:nth-child(6) .number[data-v-a9660e98] {
+/* .game-betting .content .box .number-box .item:nth-child(6) .number[data-v-a9660e98] {
     border: .02667rem solid #fb4e4e
-}
+} */
 
 .game-betting .content .box .number-box .item:nth-child(6) .number .txt[data-v-a9660e98] {
     background-image: linear-gradient(to bottom right,#5cba47 50%,#eb43dd 0)!important
 }
 
-.game-betting .content .box .number-box .item:nth-child(2n) .number[data-v-a9660e98] {
+/* .game-betting .content .box .number-box .item:nth-child(2n) .number[data-v-a9660e98] {
     border: .02667rem solid #5cba47
-}
+} */
 
 .game-betting .content .box .number-box .item:nth-child(2n) .number .txt[data-v-a9660e98] {
     background-color: #5cba47
 }
 
-.game-betting .content .box .number-box .item:nth-child(odd) .number[data-v-a9660e98] {
+/* .game-betting .content .box .number-box .item:nth-child(odd) .number[data-v-a9660e98] {
     border: .02667rem solid #fb4e4e
-}
+} */
 
 .game-betting .content .box .number-box .item:nth-child(odd) .number .txt[data-v-a9660e98] {
     background-color: #fb4e4e
@@ -1146,7 +1146,7 @@
 }
 
 .game-betting .content .box .btn-box .yellow[data-v-a9660e98] {
-    background-color: #ffc511;
+    background-color: #fb4e4e;
     border-radius: 1.06667rem 0 0 1.06667rem;
     box-shadow: 0 0 .21333rem .02667rem rgba(255,197,17,.47)
 }
