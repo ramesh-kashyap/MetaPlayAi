@@ -7653,7 +7653,7 @@ th {
                         <div data-v-25d9c352="" class="txt">Balance</div>
                         <div data-v-25d9c352="" class="c-row c-row-middle">
                             <div data-v-25d9c352="" class="money">
-                                <div data-v-25d9c352="">Loading.<span data-v-25d9c352="" class="p-l-10">$</span></div>
+                                <div data-v-25d9c352="">Loading.<span data-v-25d9c352="" class="p-l-10">₹</span></div>
                             </div>
                             <div data-v-25d9c352="" class="van-image img m-l-15" style="width: 26px; height: 26px;">
                                 <img src="/images/refresh.png" class="van-image__img">
@@ -7664,7 +7664,7 @@ th {
                 </div>
                 
                 <div data-v-25d9c352="" class="number-box c-row">
-                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">$</div>
+                    <div data-v-25d9c352="" class="symbol c-row c-row-middle">₹</div>
                     <div data-v-25d9c352="" class="input c-row c-row-middle van-cell van-field">
                         <div class="van-cell__value van-cell__value--alone van-field__value">
                             <div class="van-field__body">
@@ -7750,9 +7750,9 @@ th {
                 success: function (response) {
                     console.log(response);
                     let user = response.userInfo[0];
-                    $('.money').text(user.money + ".00 $");
+                    $('.money').text("₹"+user.money);
                     console.log(user);
-                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount $ ${response.result}.00 $`);
+                    $('.bankBox .box .item:eq(1) div:eq(1)').text(`2.Total bet amount ₹ ${response.result}`);
                     if(!response.datas[0]) return;
                     let data = response.datas[0];
                     $('.conBox .list').append(
@@ -7786,7 +7786,7 @@ th {
                         success: function (response) {
                             $(this).addClass('block-click');
                             if (response.status == true) {
-                                $('.amount').text(response.money + '.00 $');
+                                $('.amount').text('₹'+response.money);
                             }
                             alertMess(response.message, $(this));
                         }

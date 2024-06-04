@@ -23,7 +23,7 @@ const isNumber = (params) => {
 }
 
 function formatMoney(money) {
-    return String(money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    return String(money).replace(/(\d)(?=(\d{3})+(?!\d))/g, '₹ 1.');
 }
 
 function cownDownTimer() {
