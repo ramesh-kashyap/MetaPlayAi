@@ -230,14 +230,20 @@ width: 460px;
 }
 
 .popup-close {
-  position: absolute;
-  top: 10px;
-  right: 41px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #fff;
-  z-index: 1000;
+  width: .8rem;
+    height: .8rem;
+    background-image: url(/images/cross.png);
+    background-repeat: no-repeat;
+    background-size: .8rem;
+    background-position: center;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(100%);
+    transform: translate(-50%) translateY(100%);
+    bottom: -.26667rem;
 }
+
+
 
   </style>
 </head>
@@ -353,7 +359,7 @@ width: 460px;
             <div class="money" id="popupMoney" style="display: block;margin-top: 111px;color: #633905;margin-left: -149px;font-size: 36px;font-weight: bolder;"></div> 
           </div>
           <!-- Add the cross icon here -->
-          <div class="popup-close" id="popupClose">&times;</div>
+          <div class="popup-close" id="popupClose"></div>
         </div>
       </div>
       
