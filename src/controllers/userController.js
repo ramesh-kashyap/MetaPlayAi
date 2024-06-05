@@ -16,42 +16,66 @@ const client = new Coinpayments({
 const randomNumber = (min, max) => {
     return String(Math.floor(Math.random() * (max - min + 1)) + min);
 }
-const verifyCode = async(req, res) => {
-    let auth = req.cookies.auth;
-    let now = new Date().getTime();
-    let timeEnd = (+new Date) + 1000 * (60 * 2 + 0) + 500; 
-    let otp = randomNumber(100000, 999999);
+const verifyCode = async (req, res) => {
+    try {
+        let auth = req.cookies.auth;
+        let now = new Date().getTime();
+        let timeEnd = now + 1000 * (60 * 2) + 500;
+        let otp = Math.floor(100000 + Math.random() * 900000);
 
-    const [rows] = await connection.query('SELECT * FROM users WHERE `token` = ? ', [auth]);
-    if (!rows) {
-        return res.status(200).json({
-            message: 'Account does not exist',
+        const [rows] = await connection.query('SELECT * FROM users WHERE `token` = ?', [auth]);
+        if (rows.length === 0) {
+            return res.status(200).json({
+                message: 'Account does not exist',
+                status: false,
+                timeStamp: now,
+            });
+        }
+
+        let user = rows[0];
+        if (user.time_otp - now <= 0) {
+            // request(`http://47.243.168.18:9090/sms/batch/v2?appkey=NFJKdK&appsecret=brwkTw&phone=84${user.phone}&msg=Your verification code is ${otp}&extend=${now}`, async (error, response, body) => {
+            //     if (error) {
+            //         return res.status(500).json({
+            //             message: 'Failed to send SMS',
+            //             status: false,
+            //             timeStamp: now,
+            //         });
+            //     }
+
+            //     let data = JSON.parse(body);
+            //     if (data.code == '00000') {
+            //         await connection.execute("UPDATE users SET otp = ?, time_otp = ? WHERE phone = ?", [otp, timeEnd, user.phone]);
+            //         return res.status(200).json({
+            //             message: 'Submitted successfully',
+            //             status: true,
+            //             timeStamp: now,
+            //             timeEnd: timeEnd,
+            //         });
+            //     } else {
+                    return res.status(500).json({
+                        message: 'Failed to send SMS',
+                        status: false,
+                        timeStamp: now,
+                    });
+                
+            // });
+        } else {
+            return res.status(200).json({
+                message: 'Send SMS regularly',
+                status: false,
+                timeStamp: now,
+            });
+        }
+    } catch (err) {
+        return res.status(500).json({
+            message: 'Internal server error',
             status: false,
-            timeStamp: timeNow,
+            timeStamp: new Date().getTime(),
         });
     }
-    let user = rows[0];
-    if (user.time_otp - now <= 0) {
-        request(`http://47.243.168.18:9090/sms/batch/v2?appkey=NFJKdK&appsecret=brwkTw&phone=84${user.phone}&msg=Your verification code is ${otp}&extend=${now}`,  async(error, response, body) => {
-            let data = JSON.parse(body);
-            if (data.code == '00000') {
-                await connection.execute("UPDATE users SET otp = ?, time_otp = ? WHERE phone = ? ", [otp, timeEnd, user.phone]);
-                return res.status(200).json({
-                    message: 'Submitted successfully',
-                    status: true,
-                    timeStamp: timeNow,
-                    timeEnd: timeEnd,
-                });
-            }
-        });
-    } else {
-        return res.status(200).json({
-            message: 'Send SMS regularly',
-            status: false,
-            timeStamp: timeNow,
-        });
-    }
-}
+};
+
 
 const userInfo = async(req, res) => {
     let auth = req.cookies.auth;
@@ -785,39 +809,70 @@ const claimInterest = async(req, res) => {
 }
 
 const listMyInvation = async(req, res) => {
-    let auth = req.cookies.auth;
-    if(!auth) {
+    try {
+        let auth = req.cookies.auth;
+        let timeNow = new Date().getTime();
+
+        if(!auth) {
+            return res.status(200).json({
+                message: 'Failed',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        const [user] = await connection.query('SELECT `phone`, `code`, `invite` FROM users WHERE `token` = ?', [auth]);
+        if(user.length === 0) {
+            return res.status(200).json({
+                message: 'Failed',
+                status: false,
+                timeStamp: timeNow,
+            });
+        }
+
+        let userInfo = user[0];
+        const [f1] = await connection.query('SELECT COUNT(*) AS count FROM users WHERE `invite` = ? ORDER BY id DESC', [userInfo.code]);
+        const recordCount = (f1.length) ? f1[0].count : 0;
+
+        const [f2] = await connection.query('SELECT phone FROM users WHERE `invite` = ? ORDER BY id DESC', [userInfo.code]);
+        const phoneNumbers = f2.map(item => item.phone);
+
+        if (phoneNumbers.length === 0) {
+            return res.status(200).json({
+                message: 'Receive success',
+                direct: recordCount,
+                recharge: 0,
+                status: true,
+                timeStamp: timeNow,
+            });
+        }
+
+        const placeholders = phoneNumbers.map(() => '?').join(', ');
+        const [recharge] = await connection.query(
+            `SELECT phone, COUNT(*) AS count FROM recharge WHERE phone IN (${placeholders}) AND money > 499 GROUP BY phone`,
+            phoneNumbers
+        );
+
+        const rechargeCount = recharge.length;
+
         return res.status(200).json({
-            message: 'Failed',
-            status: false,
-            timeStamp: timeNow,
-        })
-    }
-    const [user] = await connection.query('SELECT `phone`, `code`,`invite` FROM users WHERE `token` = ? ', [auth]);
-    if(!user) {
-        return res.status(200).json({
-            message: 'Failed',
-            status: false,
+            message: 'Receive success',
+            direct: recordCount,
+            recharge: rechargeCount,
+            status: true,
             timeStamp: timeNow,
         });
-    };
-    let userInfo = user[0];
-    const [f1] = await connection.query('SELECT COUNT(*) AS count FROM users WHERE `invite` = ? ORDER BY id DESC', [userInfo.code]);
-    const recordCount = (f1.length)?f1[0].count:0;
-    const [f2] = await connection.query('SELECT phone FROM users WHERE `invite` = ? ORDER BY id DESC', [userInfo.code]);
-    const phone = f2.map(item => item.phone)
-    const [recharge] = await connection.query('SELECT COUNT(*) AS count FROM recharge WHERE `phone` = ? AND money > ?  GROUP BY phone', [phone,499]);
-    const rechargeCount = (recharge.length)?recharge.length:0;
-//    console.log(recharge.length);
-    return res.status(200).json({
-        message: 'Receive success',
-        direct: recordCount,
-        recharge: rechargeCount,
-        status: true,
-        timeStamp: timeNow,
-    });
 
+    } catch (err) {
+        return res.status(500).json({
+            message: 'Internal server error',
+            status: false,
+            timeStamp: new Date().getTime(),
+        });
+    }
 }
+
+
 
 const createPayment = async (req, res) => {
 

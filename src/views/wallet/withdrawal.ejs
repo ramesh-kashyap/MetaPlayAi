@@ -7790,7 +7790,7 @@
                     success: function (response) {
                         $(this).addClass('block-click');
                         if (response.status == true) {
-                            $('.money').text(response.money + '');
+                            $('.money').text('₹'+response.money);
                         }
                         alertMess(response.message, $(this));
                     }

@@ -378,7 +378,7 @@ function totalMoney() {
   let value = $(".stepper-box .digit-box input").val().trim();
   let money = $(".amount-box").attr("data-money");
   let total = value * money;
-  $(".foot .right span:eq(1)").text(total + "₹");
+  $(".foot .right span:eq(1)").text("₹"+total);
 }
 
 function alertBox(join, addText) {
@@ -657,7 +657,7 @@ $(".foot .right").click(function (e) {
       alertMessJoin(response.message);
       if (response.status === false) return;
       $("#history-order").prepend(response.data);
-      $(".total-box .num span").text(response.money + "₹ ");
+      $(".total-box .num span").text("₹"+response.money);
       socket.emit('data-server_2', { money: x * money, join, time: Date.now(), change: response.change });
     },
   });
