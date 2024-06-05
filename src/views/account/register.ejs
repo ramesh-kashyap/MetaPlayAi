@@ -281,16 +281,6 @@
             font-size: .4rem;
         }
 
-        .passwordInput__container-input img[data-v-9ee19ada] {
-            position: absolute;
-            top: 50%;
-            right: .4rem;
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-            width: .53333rem;
-            height: auto;
-        }
-
         .register__container-invitation__label[data-v-be086d67] {
             margin-bottom: .32rem;
             color: #fff;
@@ -382,9 +372,7 @@
             -webkit-justify-content: center;
             justify-content: center;
         }
-        input::placeholder {
-    color: #fff;
-}
+        
 
         .register__container-button .login[data-v-be086d67] {
             border: .01333rem solid #ffb000;
@@ -413,8 +401,8 @@
         }
         .passwordInput__container-input img[data-v-9ee19ada] {
         position: absolute;
-        top: 50%;
-        right: .4rem;
+        top: 32%;
+        right: .9rem;
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
         width: .53333rem;
@@ -554,7 +542,8 @@
                                         <div data-v-6f85c91a="" class="dropdown__list-item"><span
                                                 data-v-6f85c91a="">+263</span> Zimbabwe</div>
                                     </div>
-                                </div><input data-v-93f53084="" type="text" id="username"   placeholder="Please enter the phone number" oninput="value=value.replace(/\D/g,'')">
+                                </div>
+                                <input data-v-93f53084="" type="text" id="username"   placeholder="Please enter phone number" oninput="value=value.replace(/\D/g,'')">
                             </div>
                         </div>
                         <div data-v-be086d67="" class="tip">
@@ -569,7 +558,8 @@
                                     data-v-9ee19ada="">Set password</span></div>
                             <div data-v-9ee19ada="" class="passwordInput__container-input">
                                 <input data-v-9ee19ada="" type="password" id="password"  placeholder="Password" οnkeyup="value=value.replace(/[^\w\.\/]/ig,'')" placeholder="Set password" maxlength="15" autocomplete="new-password">
-                                    <!-- <img data-v-9ee19ada=""src="images/eyeInvisible-2fa5c152.png" class="eye"> -->
+                                <img data-v-9ee19ada="" src="images/eyeInvisible-2fa5c152.png" class="eye" id="togglePassword" onclick="togglePasswordVisibility()">
+                                <img data-v-9ee19ada="" src="images/eyeVisible-7bc1c956.png" class="eye" id="togglePassword" onclick="togglePasswordVisibility()">
                                 </div>
                         </div>
                         <div data-v-be086d67="" class="register__container-tip" style="display: none;">
@@ -826,6 +816,49 @@
         if (c) {
             $('#invite').val(c);
         }
+    </script>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePassword.src = 'images/eyeVisible-7bc1c956.png'; // Change the image to visible icon
+            } else {
+                passwordInput.type = 'password';
+                togglePassword.src = 'images/eyeInvisible-2fa5c152.png'; // Change the image back to invisible icon
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdownValue = document.querySelector('.dropdown__value');
+            const dropdownList = document.querySelector('.dropdown__list');
+            const dropdownItems = document.querySelectorAll('.dropdown__list-item');
+
+            // Toggle the dropdown list visibility
+            dropdownValue.addEventListener('click', function (e) {
+                e.stopPropagation(); // Prevents the click event from propagating to document
+                dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Update the selected country code and hide the dropdown list
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const selectedCode = this.querySelector('span').innerText;
+                    dropdownValue.querySelector('span').innerText = selectedCode;
+                    dropdownList.style.display = 'none';
+                });
+            });
+
+            // Hide the dropdown list when clicking outside of it
+            document.addEventListener('click', function (e) {
+                if (!dropdownValue.contains(e.target) && !dropdownList.contains(e.target)) {
+                    dropdownList.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 

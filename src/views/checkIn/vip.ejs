@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html translate="no" data-dpr="1" style="font-size: 48.16px;">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="robots" content="noindex,nofollow">
+        <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+        <title>Meta AI</title>
+        <link href="/css/wallet/main.css" rel="stylesheet"/>
+        <link href="/css/wallet/chunk_2-1.css" rel="stylesheet"/>
+        <link href="/css/wallet/chunk_2-2.css" rel="stylesheet"/>
+        <link href="/css/wallet/chunk_2-3.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="/images/bitbug_favicon.png" type="image/x-icon">
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                background-color: #9195a3;
+                padding: 0;
+                margin: 0;
+            }
+
+            .mian[data-v-3966082f] {
+                background-color: #fbfcfd
+            }
+
+            .mian .box[data-v-3966082f] {
+                padding: .4rem;
+                background: #2a2a2a;
+                height:100vh;
+            }
+
+            .mian .box .list[data-v-3966082f] {
+                background: #2a2a2a;
+                border-radius: .4rem;
+                overflow: hidden
+            }
+
+            .mian .box .list .item[data-v-3966082f] {
+                padding: .26667rem .4rem;
+                background: #3b3b3b
+            }
+
+            .mian .box .list .item .money[data-v-3966082f] {
+                font-size: .4rem;
+                color: #fb4e4e
+            }
+
+            .mian .box .list .item .money.action[data-v-3966082f] {
+                color: #6abe57
+            }
+
+            .mian .box .list .item .number[data-v-3966082f],.mian .box .list .item .time[data-v-3966082f] {
+                font-size: .32rem;
+                color: #fff
+            }
+
+            .mian .box .list .item .number[data-v-3966082f] {
+                font-size: .4rem
+            }
+
+            .dailySignIn__container-content[data-v-c4f3162c] {
+    padding-inline: .32rem;
+}
+
+            .mian .box .list .item .number .btn[data-v-3966082f] {
+                padding: .13333rem .26667rem;
+                font-size: .32rem;
+                margin-left: .26667rem;
+                border-radius: .13333rem;
+                background-color: #ffce1f;
+                color: #fff
+            }
+
+            .mian .box .list .item .state[data-v-3966082f] {
+                text-align: center;
+                font-weight: 600
+            }
+
+            .mian .box .list .item .txt[data-v-3966082f] {
+                text-align: center
+            }
+
+            html {
+                -webkit-tap-highlight-color: transparent
+            }
+
+            body {
+                margin: 0;
+                font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,Hiragino Sans GB,Microsoft Yahei,sans-serif
+            }
+
+            a {
+                text-decoration: none
+            }
+
+            button,input,textarea {
+                color: inherit;
+                font: inherit
+            }
+
+            [class*=van-]:focus,a:focus,button:focus,input:focus,textarea:focus {
+                outline: 0
+            }
+
+            ol,ul {
+                margin: 0;
+                padding: 0;
+                list-style: none
+            }
+
+            .van-ellipsis {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis
+            }
+
+            .van-multi-ellipsis--l2 {
+                -webkit-line-clamp: 2
+            }
+
+            .van-multi-ellipsis--l2,.van-multi-ellipsis--l3 {
+                display: -webkit-box;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-box-orient: vertical
+            }   
+            .dailySignIn__container-content[data-v-c4f3162c] {
+            padding-inline: .32rem;
+            }
+            html, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym,
+            address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+            b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead,
+            tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+            output, ruby, section, summary, time, mark, audio, video {
+            padding: 0;
+            margin: 0;
+            font: inherit;
+            font-size: 100%;
+            vertical-align: baseline;
+            border: 0;
+            }
+            .dailySignIn__container-hero[data-v-c4f3162c] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: end;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+            height: 6.13333rem;
+            margin-bottom: .42667rem;
+            padding: 0 .4rem .26667rem;
+            background: url(/images/headerBg-ca048249.png) no-repeat center / cover;
+            background-color: #3f3f3f;
+            background-position: bottom;
+            }
+
+            .dailySignIn__container-hero[data-v-c4f3162c] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: end;
+            -webkit-justify-content: flex-end;
+            justify-content: flex-end;
+            height: 6.13333rem;
+            margin-bottom: .42667rem;
+            padding: 0 .4rem .26667rem;
+            background: url(/images/headerBg-ca048249.png) no-repeat center / cover;
+            background-color: #3f3f3f;
+            background-position: bottom;}
+
+            .dailySignIn__container-hero__header[data-v-c4f3162c] {
+            color: #fff;
+            }
+
+            .dailySignIn__container-hero__header h1[data-v-c4f3162c] {
+            font-size: .53333rem;
+            }
+            .dailySignIn__container-hero__header div[data-v-c4f3162c] {
+            display: inline-block;
+            width: 4rem;
+            margin-bottom: .21333rem;
+            padding: .21333rem .41333rem .21333rem .14667rem;
+            color: #8f5206;
+            font-size: .37333rem;
+            line-height: .32rem;
+            background: #D9AC4F;
+            -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            word-break: break-all;}
+            .dailySignIn__container-hero__header div[data-v-c4f3162c] {
+            display: inline-block;
+            width: 4rem;
+            margin-bottom: .21333rem;
+            padding: .21333rem .41333rem .21333rem .14667rem;
+            color: #8f5206;
+            font-size: .37333rem;
+            line-height: .32rem;
+            background: #D9AC4F;
+            -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            word-break: break-all;
+            }
+            .dailySignIn__container-hero__header[data-v-c4f3162c] {
+            color: #fff;
+            }
+            .dailySignIn__container-hero__header h1[data-v-c4f3162c] {
+            font-size: .53333rem;
+            }
+            .dailySignIn__container-hero__header h1[data-v-c4f3162c]:last-of-type {
+            margin-bottom: 0;
+            font-size: .50667rem;
+            font-weight: 700;
+
+            }
+
+            .dailySignIn__container-hero__header p[data-v-c4f3162c]:first-of-type {
+            width: 5.33333rem;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            }
+            .dailySignIn__container-hero__header div[data-v-c4f3162c] {
+            display: inline-block;
+            width: 4rem;
+            margin-bottom: .21333rem;
+            padding: .21333rem .41333rem .21333rem .14667rem;
+            color: #8f5206;
+            font-size: .37333rem;
+            line-height: .32rem;
+            background: #D9AC4F;
+            -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            word-break: break-all;}
+            .dailySignIn__container-hero__header p[data-v-c4f3162c]:last-of-type {
+            margin-bottom: .08rem;
+            }
+
+            .dailySignIn__container-hero__footer[data-v-c4f3162c] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            justify-content: space-between;
+            margin-top: .53333rem;}
+
+            .dailySignIn__container-content[data-v-c4f3162c] {
+            padding-inline: .00rem;
+            }
+
+            element.style {
+            }
+            .dailySignIn__container-content__wrapper[data-v-c4f3162c] {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
+            gap: .2rem;
+            }
+            .dailySignIn__container-content__wrapper-block[data-v-c4f3162c] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 2.98667rem;
+            height: 2.93333rem;
+            background: url(/images/Unsigned-63d76784.png) no-repeat;
+            background-position: center;
+            background-size: 96% 100%;}
+
+            .dailySignIn__container-content__wrapper-block[data-v-c4f3162c] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 2.98667rem;
+            height: 2.93333rem;
+            background: url(/images/Unsigned-63d76784.png) no-repeat;
+            background-position: center;
+            background-size: 96% 100%;
+            }
+            .dailySignIn__container-content__wrapper-block>span[data-v-c4f3162c] {
+            color: #fff;
+            font-size: .34667rem;
+            }
+
+            .dailySignIn__container-content__wrapper-block__header[data-v-c4f3162c] {
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            }
+            .dailySignIn__container-hero__header div[data-v-c4f3162c] {
+            display: inline-block;
+            width: 4rem;
+            margin-bottom: .21333rem;
+            padding: .21333rem .41333rem .21333rem .14667rem;
+            color: #8f5206;
+            font-size: .37333rem;
+            line-height: .32rem;
+            background: #D9AC4F;
+            -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+            word-break: break-all;
+            }
+            .dailySignIn__container-hero__footer button[data-v-c4f3162c] {
+            width: 3.53333rem;
+            height: .8rem;
+            padding: .18667rem 0;
+            color: #8f5206;
+            font-size: .34667rem;
+            line-height: .32rem;
+            border: none;
+            border-radius: 9rem;
+            background: -webkit-linear-gradient(top, #FAE59F 0%, #C4933F 100%);
+            background: linear-gradient(180deg, #FAE59F 0%, #C4933F 100%);
+            cursor: pointer;
+            }
+            .dailySignIn__container-content__wrapper-block[data-v-c4f3162c] {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            width: 2.98667rem;
+            height: 2.93333rem;
+            background: url(/images/Unsigned-63d76784.png) no-repeat;
+            background-position: center;
+            background-size: 96% 100%;
+            }
+            .dailySignIn__container-content__wrapper-block__header[data-v-c4f3162c] {
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            }
+            .dailySignIn__container-content__wrapper-block img[data-v-c4f3162c] {
+            max-width: 100%;
+            }
+            .dailySignIn__container-content__wrapper-block>img[data-v-c4f3162c] {
+            width: 1.06667rem;
+            height: 1.06667rem;
+            margin-block: .18667rem .27773rem;
+            }
+            .dailySignIn__container-content__wrapper-block img[data-v-c4f3162c] {
+            max-width: 100%;
+            }
+            .dailySignIn__container-content__wrapper-block__header[data-v-c4f3162c] {
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            }
+            .dailySignIn__container-content__wrapper-block__header img[data-v-c4f3162c] {
+            width: 2.98667rem;
+            height: .82667rem;
+            /* visibility: hidden; */
+            }
+            img {
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor;
+            }
+            /* .dailySignIn__container-content[data-v-c4f3162c] {
+            padding-inline: .01rem;
+            } */
+            .dailySignIn__container-content__wrapper-block>span[data-v-c4f3162c] {
+            color: #fff;
+            font-size: .34667rem;
+            }
+            .dailySignIn__container-content__wrapper-block__header span[data-v-c4f3162c] {
+            position: absolute;
+            top: calc(50% - .02667rem);
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: .42667rem;
+            line-height: 1;
+            }
+            .dailySignIn__container-content__wrapper-block[data-v-c4f3162c]:last-of-type {
+            position: relative;
+            width: 100%;
+            grid-column: 1 / -1;
+            background: url(/images/day7Bg-2dc29da0.png) no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            }
+            .dailySignIn__container-content__wrapper-block:last-of-type p[data-v-c4f3162c] {
+            color: #fff;
+            line-height: .66667rem;
+            font-size: .4rem;
+            }
+            .dailySignIn__container-content__footer button[data-v-c4f3162c] {
+            width: 100%;
+            height: 100%;
+            padding-block: .10667rem;
+            color: #8f5206;
+            font-size: .48rem;
+            border: none;
+            border-radius: 9rem;
+            background: -webkit-linear-gradient(top, #FAE59F 0%, #C4933F 100%);
+            background: linear-gradient(180deg, #FAE59F 0%, #C4933F 100%);
+            }
+
+            .dailySignIn__container-content__footer[data-v-c4f3162c] {
+            width: 100%;
+            height: 1.06667rem;
+            margin-top: 1.45333rem;
+            padding: 0 1.13333rem;
+            text-align: center;
+            }
+            .dailySignIn__container-content__wrapper-block:last-of-type>div>span[data-v-c4f3162c] {
+            color: #fff;
+            font-size: .4rem;
+            }
+            .dailySignIn__container-content__wrapper-block:last-of-type>div[data-v-c4f3162c] {
+            position: absolute;
+            top: 50%;
+            right: 1.8rem;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            gap: .36rem;
+            }
+
+            .vip-content>div[data-v-4f5bf25e] {
+    width: 9.36rem;
+}
+.vip-content-myWelfare[data-v-ed94a06c] {
+    margin-top: .4rem;
+    background: #3F3F3F;
+    border-radius: .13333rem;
+    padding: .4rem .13333rem .13333rem;
+    min-height: 7.33333rem;
+}
+html, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    border: 0;
+}
+style attribute {
+    --d986150e: 'Roboto', 'Inter', sans-serif;
+}
+.vip[data-v-4f5bf25e] {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: .32rem;
+    color: #666;
+    padding-bottom: .8rem;
+}
+.vip-content-myWelfare-head[data-v-ed94a06c] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.vip-content-myWelfare-head img[data-v-ed94a06c] {
+    width: .64rem;
+    height: .64rem;
+    margin-right: .13333rem;
+}
+img {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+.vip-content-myWelfare-head h1[data-v-ed94a06c] {
+    width: 87%;
+    color: #fff;
+    font-weight: 600;
+    font-size: .42667rem;
+    padding-bottom: .26667rem;
+}
+.ar-1px-t, .ar-1px-b, .ar-1px-tb, .ar-1px-rb, .ar-1px-l, .ar-1px-r {
+    position: relative;
+}
+.vip-content-myWelfare-con[data-v-ed94a06c] {
+    margin-top: .26667rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: .26667rem;
+}
+.vip-content-myWelfare-con .cards[data-v-ed94a06c] {
+    margin-bottom: .4rem;
+}
+.vip-content-myWelfare-con .cards .card[data-v-ed94a06c] {
+    border-radius: .13333rem;
+    width: 4.4rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.vip-content-myWelfare-con .cards .card>div[data-v-ed94a06c] {
+    width: 100%;
+}
+.vip-content-myWelfare-con .cards .card-head>img[data-v-ed94a06c] {
+    width: auto;
+    height: 2.4rem;
+}
+.vip-content-myWelfare-con .cards .card-head-mon[data-v-ed94a06c] {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: .53333rem;
+    background: #C4933F;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.vip-content-myWelfare-con .cards .card-head-mon>p[data-v-ed94a06c] {
+    padding: .06667rem .02667rem;
+    color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.vip-content-myWelfare-con .cards .card-head-mon>p>img[data-v-ed94a06c] {
+    width: .4rem;
+    height: .4rem;
+    margin-right: .06667rem;
+}
+.vip-content-myWelfare-con .cards .card>div[data-v-ed94a06c] {
+    width: 100%;
+}
+.vip-content-myWelfare-con .cards .card-head[data-v-ed94a06c] {
+    background: -webkit-linear-gradient(top, #C4933F 12.38%, #FAE59F 87.13%);
+    background: linear-gradient(180deg, #C4933F 12.38%, #FAE59F 87.13%);
+    height: 2.4rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    position: relative;
+}
+.vip-content-myWelfare-con .cards .card>div[data-v-ed94a06c] {
+    width: 100%;
+}
+.vip-content-myWelfare-con .cards .card[data-v-ed94a06c] {
+    border-radius: .13333rem;
+    width: 4.4rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.vip-content-myWelfare-con .cards button.noActive[data-v-ed94a06c] {
+    background: -webkit-linear-gradient(top, #A9AAB5 0%, #6F7381 100%);
+    background: linear-gradient(180deg, #A9AAB5 0%, #6F7381 100%);
+    cursor:not-allowed;
+}
+.vip-content-myWelfare-con .cards button[data-v-ed94a06c] {
+    border-radius: 1.06667rem;
+    width: 100%;
+    height: .8rem;
+    line-height: .8rem;
+    color: #fff;
+    letter-spacing: .04em;
+    font-weight: 700;
+    font-size: .4rem;
+    border: none;
+    margin-top: .2rem;
+    background: #dab566;
+    cursor: pointer;
+}
+.vip-content-myWelfare-con .cards .card-bottom[data-v-ed94a06c] {
+    background: #292929;
+    padding: .2rem .13333rem;
+    min-height: 1.86667rem;
+    color: #a6a9ae;
+}
+.vip-content-myWelfare-con .cards .card-bottom>h1[data-v-ed94a06c] {
+    color: #d9ac4f;
+    font-size: .34667rem;
+    margin-bottom: .13333rem;
+}
+        </style>
+    </head>
+    <body style="font-size: 12px;">
+        <div id="app">
+            <div data-v-3966082f="" class="mian">
+                <div data-v-106b99c8="" data-v-3966082f="" class="navbar">
+                    <div data-v-106b99c8="" class="navbar-left" onclick="location.href='/wallet'">
+                        <div data-v-106b99c8="" class="bank c-row c-row-middle-center">
+                            <img data-v-106b99c8="" src="/images/back.c3244ab0_1.png" class="navbar-back">
+                        </div>
+                    </div>
+                    <div data-v-106b99c8="" class="navbar-title">VIP Dashboard</div>
+                    <div data-v-106b99c8="" class="navbar-right"></div>
+                </div>
+    
+                <div data-v-3966082f="" class="box">
+                    <div data-v-3966082f="" class="list m-b-20">
+                        <div data-v-3966082f="" role="feed" class="van-list">
+                            <div class="lisys"></div>
+                            <div data-v-a9660e98="" class="p-t-5 p-b-5">
+                                <div data-v-c4f3162c="" class="dailySignIn__container-hero">
+                                    <div data-v-c4f3162c="" class="dailySignIn__container-hero__header">
+                                        <h1 data-v-c4f3162c="">VIP Points</h1>
+                                        <p data-v-c4f3162c="">Get rewards based on consecutive login days</p>
+                                        <div data-v-c4f3162c="">VIP Level: <span data-v-c4f3162c="" id="vipLevel">0</span></div>
+                                        <p data-v-c4f3162c="">Experience</p>
+                                        <h1 data-v-c4f3162c=""><span id="experience">₹ 0.00</span></h1>
+                                    </div>
+                                    <div data-v-c4f3162c="" class="dailySignIn__container-hero__footer">
+                                        <button data-v-c4f3162c="" onclick="location.href='/VipRule'">Rules</button>
+                                        <button data-v-c4f3162c="" onclick="location.href='/vipHistory'">History</button>
+                                    </div>
+                                </div>
+    
+                                <div data-v-ed94a06c="" data-v-4f5bf25e="" class="vip-content-myWelfare" style="">
+                                    <div data-v-ed94a06c="" class="slideMy">
+                                        <div data-v-ed94a06c="" class="vip-content-myWelfare-head">
+                                            <img data-v-ed94a06c=""
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMQSURBVHgB7Zi9ThtBEMdn1oiA0rhPCpMiH1XIG8AL4EOEGucJSJ6A8AQ4TwDU2PL5CXC6dFg0gC0FF0kdNxHC4XayYxvJeD9uz/LZLu4nWXfe3bvd2Z2Z/d8CZGRkZMwThJS4rQX5ewklvn8m4GRtO+xCCixBSvQkHCNRwPf/IiiqyyakQCorcFULCiKi29EymcO1d9thB6aMgBTISTrQOnqQJUiBVAwggA2tEHEfUmDqBrTPgg1lQcFQlb/iuikjbIO4qQQBTAAJ2rPV5QTswQTweNoW47UgbleDA0n0dVjbkQI3fYPPFLxjdJdVMPum1OH7aup2nf8T4Ze3u2F5tI22AjRMfYM/wC+4uD4LPoMHOWnw/afk7x8Ge0McrVqwz33DcPAMImlxZNgHsNsPw5FO1YNHrWrxfSTw0LkaFO8iAon3hLKtnjfAnqRjikhzYURsaO8bL4gIDsE0NoKSkHRuC0RebgIy1j15j8pQ3NZUx36uBn+hGgWWMdTHyzQDVpagqS5dS+8FNYPn7eqWludNud+GaU9oVbeOpHq3JYP14/HNxzDUiw1cV4IyArnz9kiAK39dJ6mCzda5TlftzB/42fFAtXaHePJ6J/ykD8MAuwnPNPjRUb8CTEbH91lJarJ2w8Z4uVUL3VSKf9QlD4sAu89Ofc1UZd+JCb/BgqBSe91WZzVAAjRgQaCcsKZdqwHsbwh63p0DTdfe4xRzKu9+hzkj0e3KTgOWl+w75swQbld2GsCia55upFJkI05Ixn4PSIQ6zIkI8TSuTexHPZ8o9CJgmeDcE379/A13f+/Ah9Xnq/Dy1YvYdisCwrg2sQawG7UqQdMl1Hjwlz8uISkuI1g6+Hw3eH1S2hRqmpiUpwmvcyFWqMqNeDaMbvQ4k1Nzob50CGPdh/EygJdSKdRTl0L18WlfkmQ+71MJtaReMzINIgmx2eeRRCdzM1GoDuVpItm50AwUqkt5mkhkwCwUqkt5mkhkwAwUajPpAXDio8U0FWqc8jSR2ICBQkXvLOELr6yPdMjIyMjIyBjlP5Z/NwElpi0AAAAAAElFTkSuQmCC">
+                                            <h1 data-v-ed94a06c="" class="ar-1px-b">My benefits</h1>
+                                        </div>
+                                        <div data-v-ed94a06c="" data-v-4f5bf25e="" class="vip-content-myWelfare-con" style="">
+                                            <div data-v-ed94a06c="" class="slideMy" id="levelUpBonusesContainer">
+                                                <!-- Cards will be dynamically inserted here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-v-7692a079="" data-v-3966082f="" class="Loading c-row c-row-middle-center" style="display: none;">
+                            <div data-v-7692a079="" class="van-loading van-loading--circular">
+                                <span data-v-7692a079="" class="van-loading__spinner van-loading__spinner--circular" style="color: rgb(242, 65, 59);">
+                                    <svg data-v-7692a079="" viewBox="25 25 50 50" class="van-loading__circular">
+                                        <circle data-v-7692a079="" cx="50" cy="50" r="20" fill="none"></circle>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="/js/client.js"></script>
+            <script>
+                function alertMess(text, sic) {
+                    $('body').append(
+                        `<div data-v-1dcba851="" class="msg">
+                            <div data-v-1dcba851="" class="msg-content v-enter-active v-enter-to" style="">${text}</div>
+                        </div>`
+                    );
+                    setTimeout(() => {
+                        $('.msg .msg-content').removeClass('v-enter-active v-enter-to');
+                        $('.msg .msg-content').addClass('v-leave-active v-leave-to');
+                        setTimeout(() => {
+                            $('.msg').remove();
+                        }, 100);
+                        sic.removeClass('block-click');
+                    }, 1000);
+                }
+    
+                function renderLevelUpBonuses(levelUpBonuses) {
+                    const container = $('#levelUpBonusesContainer');
+                    container.empty();
+                    levelUpBonuses.forEach(bonus => {
+                        const buttonClass = bonus.rname === 0 ? '' : 'noActive';
+                        const card = `
+                            <div data-v-ed94a06c="" class="cards">
+                                <div data-v-ed94a06c="" class="card">
+                                    <div data-v-ed94a06c="" class="card-head">
+                                        <img data-v-ed94a06c="" src="https://bdgwin.com/assets/png/welfare1-eee87ee1.png">
+                                        <div data-v-ed94a06c="" class="card-head-mon">
+                                            <p data-v-ed94a06c=""> ₹ ${bonus.amount}</p>
+                                        </div>
+                                    </div>
+                                    <div data-v-ed94a06c="" class="card-bottom">
+                                        <h1 data-v-ed94a06c="">Level up reward</h1>
+                                        <span data-v-ed94a06c="">Each account can only receive 1 time</span>
+                                    </div>
+                                </div>
+                                <button data-v-ed94a06c="" class="claim-button ${buttonClass}" data-id="${bonus.id}">Claim</button>
+                            </div>`;
+                        container.append(card);
+                    });
+                }
+    
+                function updateVipDetails() {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/webapi/getVipDetails',
+                        success: function(response) {
+                            if (response.status) {
+                                $('#vipLevel').text(response.vip_level);
+                                $('#experience').text(response.experience.toFixed(2));
+                                renderLevelUpBonuses(response.levelUpBonuses);
+                            } else {
+                                alertMess('Failed to fetch VIP details', $('body'));
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alertMess('Failed to fetch VIP details', $('body'));
+                        }
+                    });
+                }
+    
+                $(document).ready(function() {
+                    updateVipDetails();
+                });
+    
+                $(document).on('click', '.claim-button', function(e) {
+                    e.preventDefault();
+                    const bonusId = $(this).data('id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/webapi/claimLevelUpBonus',
+                        data: { id: bonusId },
+                        success: function(response) {
+                            alertMess(response.message, $('body'));
+                            if (response.status) {
+                                updateVipDetails();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alertMess('Failed to claim bonus', $('body'));
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </body>
+    
+    
+    
+    
+</html>
