@@ -1314,7 +1314,7 @@ function showResultPopup(result, stage, money, join,resultwingo) {
 
   let popupBody = document.querySelector('#popup-bg');
   if (result == 'lose') {
-    popupBody.style.backgroundImage = "url('/images/lose.png')";
+    popupBody.style.backgroundImage = "url('/images/loss.png')";
   } else {
     popupBody.style.backgroundImage = "url('/images/winner.png')";
   }
